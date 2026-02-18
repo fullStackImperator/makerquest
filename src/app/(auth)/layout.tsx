@@ -36,7 +36,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <span className="hover:text-primary hover:underline hover:cursor-pointer">
             AGB
           </span>{' '}
-          und die
+          und die {' '}
           <span className="hover:text-primary hover:underline hover:cursor-pointer ">
             Datenschutzerklärung
           </span>
