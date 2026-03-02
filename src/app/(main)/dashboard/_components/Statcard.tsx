@@ -4,12 +4,14 @@ export default function StatCard({
   label,
   value,
   subtitle,
+  secondline,
   color,
 }: {
   icon: React.ElementType
   label: string
   value: string
   subtitle: string
+  secondline?: string
   color: 'cyan' | 'blue' | 'yellow' | 'green'
 }) {
   const colorClasses = {
@@ -40,6 +42,7 @@ export default function StatCard({
       </div>
       <p className="text-white font-semibold mb-1 pixel-text">{label}</p>
       <p className="text-gray-300 text-sm pixel-text">{subtitle}</p>
+      <p className="text-gray-300 text-sm pixel-text">{secondline}</p>
     </div>
   )
 }
