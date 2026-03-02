@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -44,6 +44,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --animate-meteor-effect: meteor 5s linear infinite;
 }
 
 :root {
@@ -124,29 +125,23 @@
   }
 }
 
-
 /* Retro Blink Animation - Smooth */
 @keyframes retro-blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
-    text-shadow: 
-      0 0 10px currentColor,
-      0 0 20px currentColor,
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor,
       0 0 40px currentColor;
   }
   50% {
     opacity: 0.3;
-    text-shadow: 
-      0 0 5px currentColor,
-      0 0 10px currentColor;
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
   }
 }
 
 .retro-blink {
   animation: retro-blink 2s ease-in-out infinite;
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  text-shadow: 
-    0 0 10px currentColor,
-    0 0 20px currentColor,
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor,
     0 0 40px currentColor;
 }

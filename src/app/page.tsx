@@ -13,6 +13,8 @@ import { toast } from 'sonner'
 // import { headers } from 'next/headers'
 // import Image from 'next/image'
 
+
+
 export default function Home() {
   const router = useRouter()
   const {
@@ -46,7 +48,7 @@ export default function Home() {
       fetchOptions: {
         onSuccess: () => {
           router.push('/') // redirect to login page
-          toast.success("Erfolgreich abgemeldet")
+          toast.success('Erfolgreich abgemeldet')
         },
       },
     })

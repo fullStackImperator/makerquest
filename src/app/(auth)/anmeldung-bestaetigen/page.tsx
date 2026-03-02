@@ -18,6 +18,8 @@ import { Loader2 } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { toast } from 'sonner'
+import { getUserSlug } from './get-user-slug'
+
 
 export default function VerifyRequest() {
   const router = useRouter()
@@ -27,23 +29,58 @@ export default function VerifyRequest() {
   const params = useSearchParams()
   const email = params.get('email') as string
 
-  function verifyOtp() {
-    startTransition(async () => {
-      await authClient.signIn.emailOtp({
-        email: email,
-        otp: otp,
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success('Email bestätigt')
-            router.push('/')
-          },
-          onError: () => {
-            toast.error('Fehler. Email konnte nicht bestätigt werden')
-          },
+  // function verifyOtp() {
+  //   startTransition(async () => {
+  //     await authClient.signIn.emailOtp({
+  //       email: email,
+  //       otp: otp,
+  //       fetchOptions: {
+  //         onSuccess: () => {
+  //           toast.success('Email bestätigt')
+  //           router.push(`/dashboard/${user.slug}`)
+  //         },
+  //         onError: () => {
+  //           toast.error('Fehler. Email konnte nicht bestätigt werden')
+  //         },
+  //       },
+  //     })
+  //   })
+  // }
+
+
+
+function verifyOtp() {
+  startTransition(async () => {
+    await authClient.signIn.emailOtp({
+      email: email,
+      otp: otp,
+      fetchOptions: {
+        onSuccess: async () => {
+          toast.success('Email bestätigt')
+          
+          const session = await authClient.getSession()
+          
+          if (session?.data?.user) {
+            const slug = await getUserSlug(session.data.user.id)
+            
+            if (slug) {
+              router.push(`/dashboard/${slug}`)
+            } else {
+              router.push('/dashboard')
+            }
+          } else {
+            router.push('/dashboard')
+          }
         },
-      })
+        onError: () => {
+          toast.error('Fehler. Email konnte nicht bestätigt werden')
+        },
+      },
     })
-  }
+  })
+}
+
+
 
   return (
     <Card className="w-full mx-auto">
