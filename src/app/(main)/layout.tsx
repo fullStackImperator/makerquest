@@ -13,9 +13,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Meteors } from '@/components/ui/meteors'
 import StarfieldBackground from '@/components/ui/Starfieldbackground'
-
-
-
+import { ThemeToggle } from '@/components/ui/themeToggle'
 
 export default async function DashboardLayout({
   children,
@@ -54,14 +52,16 @@ export default async function DashboardLayout({
             />
           </div>
 
-          {/* User button in the right corner */}
-          <NavUser user={session.user} />
+          <div>
+            <ThemeToggle />
+            {/* User button in the right corner */}
+
+            <NavUser user={session.user} />
+          </div>
         </header>
 
         {/* Main content area - this is where page content will render */}
-        <div className=" flex flex-1 flex-col gap-4 p-4 ">
-          {children}
-        </div>
+        <div className=" flex flex-1 flex-col gap-4 p-4 ">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )
