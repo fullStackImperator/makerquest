@@ -12,6 +12,7 @@ datasource db {
 model User {
   id            String    @id @default(cuid())
   name          String
+  slug          String?   @unique   // 👈 used in URL
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
