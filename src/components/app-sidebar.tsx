@@ -191,7 +191,7 @@ export function AppSidebar({
     },
     {
       name: 'Lernpfade',
-      url: '#',
+      url: `/lernpfade/${userSlug}`,
       icon: Route,
     },
     {

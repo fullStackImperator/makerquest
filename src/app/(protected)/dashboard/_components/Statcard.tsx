@@ -1,3 +1,8 @@
+import Link from "next/link"
+
+
+
+
 // Stat Card Component
 export default function StatCard({
   icon: Icon,
@@ -30,7 +35,7 @@ export default function StatCard({
     green: 'text-green-400',
   }
 
-  return (
+  const cardContent = (
     <div
       className={`bg-linear-to-br ${colorClasses[color]} rounded-lg p-5 border-2 hover:shadow-lg transition-all duration-200 hover:scale-105 cursor-pointer`}
     >
@@ -45,4 +50,6 @@ export default function StatCard({
       <p className="text-gray-300 text-sm pixel-text">{secondline}</p>
     </div>
   )
+
+  return cardContent
 }

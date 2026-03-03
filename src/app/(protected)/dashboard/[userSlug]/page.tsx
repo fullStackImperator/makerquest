@@ -81,12 +81,12 @@ export default async function DashboardPage() {
           title="Lernpfade"
           icon="route"
           items={[
-            { title: 'Quest 1', subtitle: 'In Bearbeitung', status: 'progress' },
-            { title: 'Quest 2', subtitle: 'Abgeschlossen (Wird überprüft)', status: 'completed' },
-            { title: 'Quest 3', subtitle: 'Badge erhalten', status: 'badge' }, 
-            { title: 'Quest 4', subtitle: 'Badge erhalten', status: 'badge' }, 
-            { title: 'Quest 5', subtitle: 'Badge erhalten', status: 'badge' }, 
-            { title: 'Quest 6', subtitle: 'Badge erhalten', status: 'badge' }, 
+            { title: 'Lernpfad 1', subtitle: 'In Bearbeitung', status: 'progress' },
+            { title: 'Lernpfad 2', subtitle: 'Abgeschlossen (Wird überprüft)', status: 'completed' },
+            { title: 'Lernpfad 3', subtitle: 'Badge erhalten', status: 'badge' }, 
+            { title: 'Lernpfad 4', subtitle: 'Badge erhalten', status: 'badge' }, 
+            { title: 'Lernpfad 5', subtitle: 'Badge erhalten', status: 'badge' }, 
+            { title: 'Lernpfad 6', subtitle: 'Badge erhalten', status: 'badge' }, 
           ]}
         />
 
