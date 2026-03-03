@@ -11,8 +11,6 @@ import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Meteors } from '@/components/ui/meteors'
-import StarfieldBackground from '@/components/ui/Starfieldbackground'
 import { ThemeToggle } from '@/components/ui/themeToggle'
 
 export default async function DashboardLayout({
@@ -37,7 +35,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar userSlug={user.slug} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b justify-between px-4">
           <div className="flex items-center gap-2">
