@@ -28,9 +28,11 @@ export * from "./enums"
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
+ * // Fetch zero or more MathEditorDocuments
+ * const mathEditorDocuments = await prisma.mathEditorDocument.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +41,11 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model MathEditorDocument
+ * 
+ */
+export type MathEditorDocument = Prisma.MathEditorDocumentModel
 /**
  * Model User
  * 
@@ -59,3 +66,58 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
+/**
+ * Model Chapter
+ * 
+ */
+export type Chapter = Prisma.ChapterModel
+/**
+ * Model UserProgress
+ * 
+ */
+export type UserProgress = Prisma.UserProgressModel
+/**
+ * Model Fach
+ * 
+ */
+export type Fach = Prisma.FachModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model UserFachExperience
+ * 
+ */
+export type UserFachExperience = Prisma.UserFachExperienceModel
+/**
+ * Model AwardedPoints
+ * 
+ */
+export type AwardedPoints = Prisma.AwardedPointsModel
+/**
+ * Model Purchase
+ * 
+ */
+export type Purchase = Prisma.PurchaseModel
+/**
+ * Model Grading
+ * 
+ */
+export type Grading = Prisma.GradingModel
+/**
+ * Model Badge
+ * 
+ */
+export type Badge = Prisma.BadgeModel
+/**
+ * Model UserBadge
+ * 
+ */
+export type UserBadge = Prisma.UserBadgeModel

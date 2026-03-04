@@ -33,6 +33,10 @@ export type UserMinAggregateOutputType = {
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isTeacher: boolean | null
+  isAdmin: boolean | null
+  jahrgang: string | null
+  klasse: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -44,6 +48,10 @@ export type UserMaxAggregateOutputType = {
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isTeacher: boolean | null
+  isAdmin: boolean | null
+  jahrgang: string | null
+  klasse: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -55,6 +63,10 @@ export type UserCountAggregateOutputType = {
   image: number
   createdAt: number
   updatedAt: number
+  isTeacher: number
+  isAdmin: number
+  jahrgang: number
+  klasse: number
   _all: number
 }
 
@@ -68,6 +80,10 @@ export type UserMinAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isTeacher?: true
+  isAdmin?: true
+  jahrgang?: true
+  klasse?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -79,6 +95,10 @@ export type UserMaxAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isTeacher?: true
+  isAdmin?: true
+  jahrgang?: true
+  klasse?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -90,6 +110,10 @@ export type UserCountAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isTeacher?: true
+  isAdmin?: true
+  jahrgang?: true
+  klasse?: true
   _all?: true
 }
 
@@ -174,6 +198,10 @@ export type UserGroupByOutputType = {
   image: string | null
   createdAt: Date
   updatedAt: Date
+  isTeacher: boolean | null
+  isAdmin: boolean | null
+  jahrgang: string | null
+  klasse: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -206,8 +234,14 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  isTeacher?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  isAdmin?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
+  klasse?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
+  awardedPoints?: Prisma.AwardedPointsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -219,8 +253,14 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTeacher?: Prisma.SortOrderInput | Prisma.SortOrder
+  isAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
+  jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
+  klasse?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  userFachExperiences?: Prisma.UserFachExperienceOrderByRelationAggregateInput
+  awardedPoints?: Prisma.AwardedPointsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -235,8 +275,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  isTeacher?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  isAdmin?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
+  klasse?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
+  awardedPoints?: Prisma.AwardedPointsListRelationFilter
 }, "id" | "slug" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -248,6 +294,10 @@ export type UserOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTeacher?: Prisma.SortOrderInput | Prisma.SortOrder
+  isAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
+  jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
+  klasse?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -265,6 +315,10 @@ export type UserScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  isTeacher?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
+  isAdmin?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
+  jahrgang?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  klasse?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -276,8 +330,14 @@ export type UserCreateInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -289,8 +349,14 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -302,8 +368,14 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -315,8 +387,14 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -328,6 +406,10 @@ export type UserCreateManyInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -339,6 +421,10 @@ export type UserUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -350,6 +436,10 @@ export type UserUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -361,6 +451,10 @@ export type UserCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTeacher?: Prisma.SortOrder
+  isAdmin?: Prisma.SortOrder
+  jahrgang?: Prisma.SortOrder
+  klasse?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -372,6 +466,10 @@ export type UserMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTeacher?: Prisma.SortOrder
+  isAdmin?: Prisma.SortOrder
+  jahrgang?: Prisma.SortOrder
+  klasse?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -383,6 +481,10 @@ export type UserMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isTeacher?: Prisma.SortOrder
+  isAdmin?: Prisma.SortOrder
+  jahrgang?: Prisma.SortOrder
+  klasse?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -390,20 +492,12 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -434,6 +528,34 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutUserFachExperiencesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUserFachExperiencesInput, Prisma.UserUncheckedCreateWithoutUserFachExperiencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserFachExperiencesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUserFachExperiencesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUserFachExperiencesInput, Prisma.UserUncheckedCreateWithoutUserFachExperiencesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserFachExperiencesInput
+  upsert?: Prisma.UserUpsertWithoutUserFachExperiencesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserFachExperiencesInput, Prisma.UserUpdateWithoutUserFachExperiencesInput>, Prisma.UserUncheckedUpdateWithoutUserFachExperiencesInput>
+}
+
+export type UserCreateNestedOneWithoutAwardedPointsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAwardedPointsInput, Prisma.UserUncheckedCreateWithoutAwardedPointsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAwardedPointsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAwardedPointsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAwardedPointsInput, Prisma.UserUncheckedCreateWithoutAwardedPointsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAwardedPointsInput
+  upsert?: Prisma.UserUpsertWithoutAwardedPointsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAwardedPointsInput, Prisma.UserUpdateWithoutAwardedPointsInput>, Prisma.UserUncheckedUpdateWithoutAwardedPointsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -443,7 +565,13 @@ export type UserCreateWithoutSessionsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -455,7 +583,13 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -483,7 +617,13 @@ export type UserUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -495,7 +635,13 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -507,7 +653,13 @@ export type UserCreateWithoutAccountsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -519,7 +671,13 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -547,7 +705,13 @@ export type UserUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -559,7 +723,189 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutUserFachExperiencesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUserFachExperiencesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUserFachExperiencesInput, Prisma.UserUncheckedCreateWithoutUserFachExperiencesInput>
+}
+
+export type UserUpsertWithoutUserFachExperiencesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUserFachExperiencesInput, Prisma.UserUncheckedUpdateWithoutUserFachExperiencesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUserFachExperiencesInput, Prisma.UserUncheckedCreateWithoutUserFachExperiencesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUserFachExperiencesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUserFachExperiencesInput, Prisma.UserUncheckedUpdateWithoutUserFachExperiencesInput>
+}
+
+export type UserUpdateWithoutUserFachExperiencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAwardedPointsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAwardedPointsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAwardedPointsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAwardedPointsInput, Prisma.UserUncheckedCreateWithoutAwardedPointsInput>
+}
+
+export type UserUpsertWithoutAwardedPointsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAwardedPointsInput, Prisma.UserUncheckedUpdateWithoutAwardedPointsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAwardedPointsInput, Prisma.UserUncheckedCreateWithoutAwardedPointsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAwardedPointsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAwardedPointsInput, Prisma.UserUncheckedUpdateWithoutAwardedPointsInput>
+}
+
+export type UserUpdateWithoutAwardedPointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAwardedPointsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -570,11 +916,15 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCountOutputType = {
   accounts: number
   sessions: number
+  userFachExperiences: number
+  awardedPoints: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  userFachExperiences?: boolean | UserCountOutputTypeCountUserFachExperiencesArgs
+  awardedPoints?: boolean | UserCountOutputTypeCountAwardedPointsArgs
 }
 
 /**
@@ -601,6 +951,20 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SessionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUserFachExperiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserFachExperienceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAwardedPointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AwardedPointsWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -611,8 +975,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTeacher?: boolean
+  isAdmin?: boolean
+  jahrgang?: boolean
+  klasse?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
+  awardedPoints?: boolean | Prisma.User$awardedPointsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -625,6 +995,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTeacher?: boolean
+  isAdmin?: boolean
+  jahrgang?: boolean
+  klasse?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -636,6 +1010,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTeacher?: boolean
+  isAdmin?: boolean
+  jahrgang?: boolean
+  klasse?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -647,12 +1025,18 @@ export type UserSelectScalar = {
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isTeacher?: boolean
+  isAdmin?: boolean
+  jahrgang?: boolean
+  klasse?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "isTeacher" | "isAdmin" | "jahrgang" | "klasse", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
+  awardedPoints?: boolean | Prisma.User$awardedPointsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -663,6 +1047,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    userFachExperiences: Prisma.$UserFachExperiencePayload<ExtArgs>[]
+    awardedPoints: Prisma.$AwardedPointsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -673,6 +1059,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     createdAt: Date
     updatedAt: Date
+    isTeacher: boolean | null
+    isAdmin: boolean | null
+    jahrgang: string | null
+    klasse: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1069,6 +1459,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  userFachExperiences<T extends Prisma.User$userFachExperiencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userFachExperiencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFachExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  awardedPoints<T extends Prisma.User$awardedPointsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$awardedPointsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AwardedPointsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1106,6 +1498,10 @@ export interface UserFieldRefs {
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly isTeacher: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>
+  readonly jahrgang: Prisma.FieldRef<"User", 'String'>
+  readonly klasse: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -1539,6 +1935,54 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.userFachExperiences
+ */
+export type User$userFachExperiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserFachExperience
+   */
+  select?: Prisma.UserFachExperienceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserFachExperience
+   */
+  omit?: Prisma.UserFachExperienceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserFachExperienceInclude<ExtArgs> | null
+  where?: Prisma.UserFachExperienceWhereInput
+  orderBy?: Prisma.UserFachExperienceOrderByWithRelationInput | Prisma.UserFachExperienceOrderByWithRelationInput[]
+  cursor?: Prisma.UserFachExperienceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserFachExperienceScalarFieldEnum | Prisma.UserFachExperienceScalarFieldEnum[]
+}
+
+/**
+ * User.awardedPoints
+ */
+export type User$awardedPointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AwardedPoints
+   */
+  select?: Prisma.AwardedPointsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AwardedPoints
+   */
+  omit?: Prisma.AwardedPointsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AwardedPointsInclude<ExtArgs> | null
+  where?: Prisma.AwardedPointsWhereInput
+  orderBy?: Prisma.AwardedPointsOrderByWithRelationInput | Prisma.AwardedPointsOrderByWithRelationInput[]
+  cursor?: Prisma.AwardedPointsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AwardedPointsScalarFieldEnum | Prisma.AwardedPointsScalarFieldEnum[]
 }
 
 /**

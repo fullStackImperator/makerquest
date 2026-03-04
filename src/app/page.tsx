@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button'
 import StarfieldBackground from '@/components/ui/Starfieldbackground'
 import { ThemeToggle } from '@/components/ui/themeToggle'
+import { useSignOut } from '@/hooks/use-signout'
 import { authClient } from '@/lib/auth-client'
 import { Rocket } from 'lucide-react'
 import Image from 'next/image'
@@ -27,7 +28,7 @@ export default function Home() {
   // const session = await auth.api.getSession({
   //     headers: await headers(),
   //   })
-
+  const handleSignOut = useSignOut()
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -42,17 +43,6 @@ export default function Home() {
   }, [router])
 
 
-
-  async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push('/') // redirect to login page
-          toast.success('Erfolgreich abgemeldet')
-        },
-      },
-    })
-  }
 
   return (
     <main className="min-h-screen">
@@ -81,7 +71,7 @@ export default function Home() {
           </div>
           <div>
             <p>{session.user.email}</p>
-            <Button onClick={signOut} size="sm" variant="outline">
+            <Button onClick={handleSignOut} size="sm" variant="outline">
               Logout
             </Button>
           </div>

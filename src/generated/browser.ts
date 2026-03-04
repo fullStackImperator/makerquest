@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model MathEditorDocument
+ * 
+ */
+export type MathEditorDocument = Prisma.MathEditorDocumentModel
+/**
  * Model User
  * 
  */
@@ -37,3 +42,58 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Course
+ * 
+ */
+export type Course = Prisma.CourseModel
+/**
+ * Model Chapter
+ * 
+ */
+export type Chapter = Prisma.ChapterModel
+/**
+ * Model UserProgress
+ * 
+ */
+export type UserProgress = Prisma.UserProgressModel
+/**
+ * Model Fach
+ * 
+ */
+export type Fach = Prisma.FachModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model UserFachExperience
+ * 
+ */
+export type UserFachExperience = Prisma.UserFachExperienceModel
+/**
+ * Model AwardedPoints
+ * 
+ */
+export type AwardedPoints = Prisma.AwardedPointsModel
+/**
+ * Model Purchase
+ * 
+ */
+export type Purchase = Prisma.PurchaseModel
+/**
+ * Model Grading
+ * 
+ */
+export type Grading = Prisma.GradingModel
+/**
+ * Model Badge
+ * 
+ */
+export type Badge = Prisma.BadgeModel
+/**
+ * Model UserBadge
+ * 
+ */
+export type UserBadge = Prisma.UserBadgeModel

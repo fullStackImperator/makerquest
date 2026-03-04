@@ -8,8 +8,20 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/MathEditorDocument'
 export type * from './models/User'
 export type * from './models/Session'
 export type * from './models/Account'
 export type * from './models/Verification'
+export type * from './models/Course'
+export type * from './models/Chapter'
+export type * from './models/UserProgress'
+export type * from './models/Fach'
+export type * from './models/Category'
+export type * from './models/UserFachExperience'
+export type * from './models/AwardedPoints'
+export type * from './models/Purchase'
+export type * from './models/Grading'
+export type * from './models/Badge'
+export type * from './models/UserBadge'
 export type * from './commonInputTypes'

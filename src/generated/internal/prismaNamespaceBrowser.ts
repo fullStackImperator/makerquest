@@ -51,10 +51,22 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  MathEditorDocument: 'MathEditorDocument',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Course: 'Course',
+  Chapter: 'Chapter',
+  UserProgress: 'UserProgress',
+  Fach: 'Fach',
+  Category: 'Category',
+  UserFachExperience: 'UserFachExperience',
+  AwardedPoints: 'AwardedPoints',
+  Purchase: 'Purchase',
+  Grading: 'Grading',
+  Badge: 'Badge',
+  UserBadge: 'UserBadge'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,6 +85,18 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const MathEditorDocumentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  head: 'head',
+  data: 'data',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MathEditorDocumentScalarFieldEnum = (typeof MathEditorDocumentScalarFieldEnum)[keyof typeof MathEditorDocumentScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -81,7 +105,11 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isTeacher: 'isTeacher',
+  isAdmin: 'isAdmin',
+  jahrgang: 'jahrgang',
+  klasse: 'klasse'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -132,6 +160,146 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const CourseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  longDescription: 'longDescription',
+  slug: 'slug',
+  fileKey: 'fileKey',
+  prerequisites: 'prerequisites',
+  vorkenntnisse: 'vorkenntnisse',
+  kompetenzen: 'kompetenzen',
+  imageUrl: 'imageUrl',
+  schwierigkeit: 'schwierigkeit',
+  klassenstufe: 'klassenstufe',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum]
+
+
+export const ChapterScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  descriptionEditor: 'descriptionEditor',
+  mathEditor: 'mathEditor',
+  videoUrl: 'videoUrl',
+  position: 'position',
+  isPublished: 'isPublished',
+  isFree: 'isFree',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
+
+
+export const UserProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  chapterId: 'chapterId',
+  isCompleted: 'isCompleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserProgressScalarFieldEnum = (typeof UserProgressScalarFieldEnum)[keyof typeof UserProgressScalarFieldEnum]
+
+
+export const FachScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type FachScalarFieldEnum = (typeof FachScalarFieldEnum)[keyof typeof FachScalarFieldEnum]
+
+
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const UserFachExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  fachId: 'fachId',
+  experience: 'experience',
+  level: 'level',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserFachExperienceScalarFieldEnum = (typeof UserFachExperienceScalarFieldEnum)[keyof typeof UserFachExperienceScalarFieldEnum]
+
+
+export const AwardedPointsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  fachId: 'fachId',
+  courseId: 'courseId',
+  points: 'points',
+  awardedAt: 'awardedAt'
+} as const
+
+export type AwardedPointsScalarFieldEnum = (typeof AwardedPointsScalarFieldEnum)[keyof typeof AwardedPointsScalarFieldEnum]
+
+
+export const PurchaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PurchaseScalarFieldEnum = (typeof PurchaseScalarFieldEnum)[keyof typeof PurchaseScalarFieldEnum]
+
+
+export const GradingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  points_awarded: 'points_awarded',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GradingScalarFieldEnum = (typeof GradingScalarFieldEnum)[keyof typeof GradingScalarFieldEnum]
+
+
+export const BadgeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BadgeScalarFieldEnum = (typeof BadgeScalarFieldEnum)[keyof typeof BadgeScalarFieldEnum]
+
+
+export const UserBadgeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  badgeId: 'badgeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserBadgeScalarFieldEnum = (typeof UserBadgeScalarFieldEnum)[keyof typeof UserBadgeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -140,12 +308,36 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 export const NullsOrder = {

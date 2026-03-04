@@ -9,7 +9,12 @@
 * 🟢 You can import this file directly.
 */
 
+export const DifficultyLevel = {
+  VERY_EASY: 'VERY_EASY',
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  DIFFICULT: 'DIFFICULT',
+  VERY_DIFFICULT: 'VERY_DIFFICULT'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type DifficultyLevel = (typeof DifficultyLevel)[keyof typeof DifficultyLevel]
