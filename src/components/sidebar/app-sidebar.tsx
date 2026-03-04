@@ -200,8 +200,8 @@ export function AppSidebar({
       icon: BowArrow,
     },
     {
-      name: 'Erfolge',
-      url: '#',
+      name: 'Badges',
+      url: '/badges',
       icon: Award,
     },
     {
