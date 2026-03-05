@@ -206,7 +206,7 @@ export function AppSidebar({
     },
     {
       name: 'Leaderboard',
-      url: '#',
+      url: '/leaderboard',
       icon: Trophy,
     },
     {
