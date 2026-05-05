@@ -170,19 +170,16 @@ function FlowInner({
         return [...prev, newNode]
       })
       if (sourceId) {
+        const sId: string = sourceId
         setEdges((eds) => {
-          if (
-            eds.some(
-              (e) => e.source === sourceId && e.target === newId,
-            )
-          ) {
+          if (eds.some((e) => e.source === sId && e.target === newId)) {
             return eds
           }
           return [
             ...eds,
             {
-              id: `e-${sourceId}-${newId}`,
-              source: sourceId,
+              id: `e-${sId}-${newId}`,
+              source: sId,
               target: newId,
             },
           ]
