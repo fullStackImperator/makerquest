@@ -191,6 +191,7 @@ export type BadgeWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Badge"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Badge"> | Date | string
   userBadges?: Prisma.UserBadgeListRelationFilter
+  learningPaths?: Prisma.LearningPathListRelationFilter
 }
 
 export type BadgeOrderByWithRelationInput = {
@@ -201,6 +202,7 @@ export type BadgeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userBadges?: Prisma.UserBadgeOrderByRelationAggregateInput
+  learningPaths?: Prisma.LearningPathOrderByRelationAggregateInput
 }
 
 export type BadgeWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +216,7 @@ export type BadgeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Badge"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Badge"> | Date | string
   userBadges?: Prisma.UserBadgeListRelationFilter
+  learningPaths?: Prisma.LearningPathListRelationFilter
 }, "id" | "name">
 
 export type BadgeOrderByWithAggregationInput = {
@@ -248,6 +251,7 @@ export type BadgeCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   userBadges?: Prisma.UserBadgeCreateNestedManyWithoutBadgeInput
+  learningPaths?: Prisma.LearningPathCreateNestedManyWithoutBadgeInput
 }
 
 export type BadgeUncheckedCreateInput = {
@@ -258,6 +262,7 @@ export type BadgeUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   userBadges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutBadgeInput
+  learningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutBadgeInput
 }
 
 export type BadgeUpdateInput = {
@@ -268,6 +273,7 @@ export type BadgeUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userBadges?: Prisma.UserBadgeUpdateManyWithoutBadgeNestedInput
+  learningPaths?: Prisma.LearningPathUpdateManyWithoutBadgeNestedInput
 }
 
 export type BadgeUncheckedUpdateInput = {
@@ -278,6 +284,7 @@ export type BadgeUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userBadges?: Prisma.UserBadgeUncheckedUpdateManyWithoutBadgeNestedInput
+  learningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutBadgeNestedInput
 }
 
 export type BadgeCreateManyInput = {
@@ -339,6 +346,11 @@ export type BadgeScalarRelationFilter = {
   isNot?: Prisma.BadgeWhereInput
 }
 
+export type BadgeNullableScalarRelationFilter = {
+  is?: Prisma.BadgeWhereInput | null
+  isNot?: Prisma.BadgeWhereInput | null
+}
+
 export type BadgeCreateNestedOneWithoutUserBadgesInput = {
   create?: Prisma.XOR<Prisma.BadgeCreateWithoutUserBadgesInput, Prisma.BadgeUncheckedCreateWithoutUserBadgesInput>
   connectOrCreate?: Prisma.BadgeCreateOrConnectWithoutUserBadgesInput
@@ -353,6 +365,22 @@ export type BadgeUpdateOneRequiredWithoutUserBadgesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BadgeUpdateToOneWithWhereWithoutUserBadgesInput, Prisma.BadgeUpdateWithoutUserBadgesInput>, Prisma.BadgeUncheckedUpdateWithoutUserBadgesInput>
 }
 
+export type BadgeCreateNestedOneWithoutLearningPathsInput = {
+  create?: Prisma.XOR<Prisma.BadgeCreateWithoutLearningPathsInput, Prisma.BadgeUncheckedCreateWithoutLearningPathsInput>
+  connectOrCreate?: Prisma.BadgeCreateOrConnectWithoutLearningPathsInput
+  connect?: Prisma.BadgeWhereUniqueInput
+}
+
+export type BadgeUpdateOneWithoutLearningPathsNestedInput = {
+  create?: Prisma.XOR<Prisma.BadgeCreateWithoutLearningPathsInput, Prisma.BadgeUncheckedCreateWithoutLearningPathsInput>
+  connectOrCreate?: Prisma.BadgeCreateOrConnectWithoutLearningPathsInput
+  upsert?: Prisma.BadgeUpsertWithoutLearningPathsInput
+  disconnect?: Prisma.BadgeWhereInput | boolean
+  delete?: Prisma.BadgeWhereInput | boolean
+  connect?: Prisma.BadgeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BadgeUpdateToOneWithWhereWithoutLearningPathsInput, Prisma.BadgeUpdateWithoutLearningPathsInput>, Prisma.BadgeUncheckedUpdateWithoutLearningPathsInput>
+}
+
 export type BadgeCreateWithoutUserBadgesInput = {
   id?: string
   name: string
@@ -360,6 +388,7 @@ export type BadgeCreateWithoutUserBadgesInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  learningPaths?: Prisma.LearningPathCreateNestedManyWithoutBadgeInput
 }
 
 export type BadgeUncheckedCreateWithoutUserBadgesInput = {
@@ -369,6 +398,7 @@ export type BadgeUncheckedCreateWithoutUserBadgesInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  learningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutBadgeInput
 }
 
 export type BadgeCreateOrConnectWithoutUserBadgesInput = {
@@ -394,6 +424,7 @@ export type BadgeUpdateWithoutUserBadgesInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  learningPaths?: Prisma.LearningPathUpdateManyWithoutBadgeNestedInput
 }
 
 export type BadgeUncheckedUpdateWithoutUserBadgesInput = {
@@ -403,6 +434,63 @@ export type BadgeUncheckedUpdateWithoutUserBadgesInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  learningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutBadgeNestedInput
+}
+
+export type BadgeCreateWithoutLearningPathsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  imageUrl: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userBadges?: Prisma.UserBadgeCreateNestedManyWithoutBadgeInput
+}
+
+export type BadgeUncheckedCreateWithoutLearningPathsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  imageUrl: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userBadges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutBadgeInput
+}
+
+export type BadgeCreateOrConnectWithoutLearningPathsInput = {
+  where: Prisma.BadgeWhereUniqueInput
+  create: Prisma.XOR<Prisma.BadgeCreateWithoutLearningPathsInput, Prisma.BadgeUncheckedCreateWithoutLearningPathsInput>
+}
+
+export type BadgeUpsertWithoutLearningPathsInput = {
+  update: Prisma.XOR<Prisma.BadgeUpdateWithoutLearningPathsInput, Prisma.BadgeUncheckedUpdateWithoutLearningPathsInput>
+  create: Prisma.XOR<Prisma.BadgeCreateWithoutLearningPathsInput, Prisma.BadgeUncheckedCreateWithoutLearningPathsInput>
+  where?: Prisma.BadgeWhereInput
+}
+
+export type BadgeUpdateToOneWithWhereWithoutLearningPathsInput = {
+  where?: Prisma.BadgeWhereInput
+  data: Prisma.XOR<Prisma.BadgeUpdateWithoutLearningPathsInput, Prisma.BadgeUncheckedUpdateWithoutLearningPathsInput>
+}
+
+export type BadgeUpdateWithoutLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userBadges?: Prisma.UserBadgeUpdateManyWithoutBadgeNestedInput
+}
+
+export type BadgeUncheckedUpdateWithoutLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userBadges?: Prisma.UserBadgeUncheckedUpdateManyWithoutBadgeNestedInput
 }
 
 
@@ -412,10 +500,12 @@ export type BadgeUncheckedUpdateWithoutUserBadgesInput = {
 
 export type BadgeCountOutputType = {
   userBadges: number
+  learningPaths: number
 }
 
 export type BadgeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userBadges?: boolean | BadgeCountOutputTypeCountUserBadgesArgs
+  learningPaths?: boolean | BadgeCountOutputTypeCountLearningPathsArgs
 }
 
 /**
@@ -435,6 +525,13 @@ export type BadgeCountOutputTypeCountUserBadgesArgs<ExtArgs extends runtime.Type
   where?: Prisma.UserBadgeWhereInput
 }
 
+/**
+ * BadgeCountOutputType without action
+ */
+export type BadgeCountOutputTypeCountLearningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathWhereInput
+}
+
 
 export type BadgeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -444,6 +541,7 @@ export type BadgeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   createdAt?: boolean
   updatedAt?: boolean
   userBadges?: boolean | Prisma.Badge$userBadgesArgs<ExtArgs>
+  learningPaths?: boolean | Prisma.Badge$learningPathsArgs<ExtArgs>
   _count?: boolean | Prisma.BadgeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["badge"]>
 
@@ -477,6 +575,7 @@ export type BadgeSelectScalar = {
 export type BadgeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["badge"]>
 export type BadgeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userBadges?: boolean | Prisma.Badge$userBadgesArgs<ExtArgs>
+  learningPaths?: boolean | Prisma.Badge$learningPathsArgs<ExtArgs>
   _count?: boolean | Prisma.BadgeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BadgeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -486,6 +585,7 @@ export type $BadgePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Badge"
   objects: {
     userBadges: Prisma.$UserBadgePayload<ExtArgs>[]
+    learningPaths: Prisma.$LearningPathPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -889,6 +989,7 @@ readonly fields: BadgeFieldRefs;
 export interface Prisma__BadgeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   userBadges<T extends Prisma.Badge$userBadgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Badge$userBadgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  learningPaths<T extends Prisma.Badge$learningPathsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Badge$learningPathsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1333,6 +1434,30 @@ export type Badge$userBadgesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.UserBadgeScalarFieldEnum | Prisma.UserBadgeScalarFieldEnum[]
+}
+
+/**
+ * Badge.learningPaths
+ */
+export type Badge$learningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPath
+   */
+  select?: Prisma.LearningPathSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPath
+   */
+  omit?: Prisma.LearningPathOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathInclude<ExtArgs> | null
+  where?: Prisma.LearningPathWhereInput
+  orderBy?: Prisma.LearningPathOrderByWithRelationInput | Prisma.LearningPathOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathScalarFieldEnum | Prisma.LearningPathScalarFieldEnum[]
 }
 
 /**

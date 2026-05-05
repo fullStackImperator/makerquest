@@ -181,8 +181,12 @@ import Image from 'next/image'
 
 export function AppSidebar({
   userSlug,
+  isAdminOrTeacher = false,
   ...props
-}: React.ComponentProps<typeof Sidebar> & { userSlug: string }) {
+}: React.ComponentProps<typeof Sidebar> & {
+  userSlug: string
+  isAdminOrTeacher?: boolean
+}) {
   const projects = [
     {
       name: 'Dashboard',
@@ -214,11 +218,16 @@ export function AppSidebar({
       url: '#',
       icon: Wrench,
     },
-    {
-      name: 'Admin',
-      url: '/admin',
-      icon: Wrench,
-    },
+    ...(isAdminOrTeacher
+      ? [
+          { name: 'Admin', url: '/admin', icon: Wrench },
+          {
+            name: 'Lernpfade verwalten',
+            url: '/admin/lernpfade',
+            icon: Map,
+          },
+        ]
+      : []),
   ]
 
   const navSecondary = [

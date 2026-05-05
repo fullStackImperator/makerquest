@@ -18,3 +18,12 @@ export const DifficultyLevel = {
 } as const
 
 export type DifficultyLevel = (typeof DifficultyLevel)[keyof typeof DifficultyLevel]
+
+
+export const LernpfadDifficulty = {
+  ANFAENGER: 'ANFAENGER',
+  FORTGESCHRITTEN: 'FORTGESCHRITTEN',
+  PRO: 'PRO'
+} as const
+
+export type LernpfadDifficulty = (typeof LernpfadDifficulty)[keyof typeof LernpfadDifficulty]

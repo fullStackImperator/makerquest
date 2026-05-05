@@ -242,6 +242,11 @@ export type UserWhereInput = {
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
   awardedPoints?: Prisma.AwardedPointsListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
+  ownedLearningPaths?: Prisma.LearningPathListRelationFilter
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentListRelationFilter
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionListRelationFilter
+  learningPathCompletions?: Prisma.LearningPathCompletionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -261,6 +266,11 @@ export type UserOrderByWithRelationInput = {
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   userFachExperiences?: Prisma.UserFachExperienceOrderByRelationAggregateInput
   awardedPoints?: Prisma.AwardedPointsOrderByRelationAggregateInput
+  attachments?: Prisma.AttachmentOrderByRelationAggregateInput
+  ownedLearningPaths?: Prisma.LearningPathOrderByRelationAggregateInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentOrderByRelationAggregateInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionOrderByRelationAggregateInput
+  learningPathCompletions?: Prisma.LearningPathCompletionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -283,6 +293,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
   awardedPoints?: Prisma.AwardedPointsListRelationFilter
+  attachments?: Prisma.AttachmentListRelationFilter
+  ownedLearningPaths?: Prisma.LearningPathListRelationFilter
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentListRelationFilter
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionListRelationFilter
+  learningPathCompletions?: Prisma.LearningPathCompletionListRelationFilter
 }, "id" | "slug" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -338,6 +353,11 @@ export type UserCreateInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -357,6 +377,11 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -376,6 +401,11 @@ export type UserUpdateInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -395,6 +425,11 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -492,6 +527,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
@@ -528,6 +568,22 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttachmentsInput, Prisma.UserUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttachmentsInput, Prisma.UserUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.UserUpsertWithoutAttachmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.UserUpdateWithoutAttachmentsInput>, Prisma.UserUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type UserCreateNestedOneWithoutUserFachExperiencesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUserFachExperiencesInput, Prisma.UserUncheckedCreateWithoutUserFachExperiencesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserFachExperiencesInput
@@ -556,6 +612,62 @@ export type UserUpdateOneRequiredWithoutAwardedPointsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAwardedPointsInput, Prisma.UserUpdateWithoutAwardedPointsInput>, Prisma.UserUncheckedUpdateWithoutAwardedPointsInput>
 }
 
+export type UserCreateNestedOneWithoutOwnedLearningPathsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedCreateWithoutOwnedLearningPathsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedLearningPathsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOwnedLearningPathsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedCreateWithoutOwnedLearningPathsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedLearningPathsInput
+  upsert?: Prisma.UserUpsertWithoutOwnedLearningPathsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedLearningPathsInput, Prisma.UserUpdateWithoutOwnedLearningPathsInput>, Prisma.UserUncheckedUpdateWithoutOwnedLearningPathsInput>
+}
+
+export type UserCreateNestedOneWithoutLearningPathEnrollmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedCreateWithoutLearningPathEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLearningPathEnrollmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedCreateWithoutLearningPathEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathEnrollmentsInput
+  upsert?: Prisma.UserUpsertWithoutLearningPathEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLearningPathEnrollmentsInput, Prisma.UserUpdateWithoutLearningPathEnrollmentsInput>, Prisma.UserUncheckedUpdateWithoutLearningPathEnrollmentsInput>
+}
+
+export type UserCreateNestedOneWithoutLearningPathStepCompletionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathStepCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathStepCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLearningPathStepCompletionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathStepCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathStepCompletionsInput
+  upsert?: Prisma.UserUpsertWithoutLearningPathStepCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLearningPathStepCompletionsInput, Prisma.UserUpdateWithoutLearningPathStepCompletionsInput>, Prisma.UserUncheckedUpdateWithoutLearningPathStepCompletionsInput>
+}
+
+export type UserCreateNestedOneWithoutLearningPathCompletionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLearningPathCompletionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathCompletionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLearningPathCompletionsInput
+  upsert?: Prisma.UserUpsertWithoutLearningPathCompletionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLearningPathCompletionsInput, Prisma.UserUpdateWithoutLearningPathCompletionsInput>, Prisma.UserUncheckedUpdateWithoutLearningPathCompletionsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -572,6 +684,11 @@ export type UserCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -590,6 +707,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -624,6 +746,11 @@ export type UserUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -642,6 +769,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -660,6 +792,11 @@ export type UserCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -678,6 +815,11 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -712,6 +854,11 @@ export type UserUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -730,6 +877,119 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAttachmentsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttachmentsInput, Prisma.UserUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type UserUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAttachmentsInput, Prisma.UserUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttachmentsInput, Prisma.UserUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAttachmentsInput, Prisma.UserUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type UserUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUserFachExperiencesInput = {
@@ -748,6 +1008,11 @@ export type UserCreateWithoutUserFachExperiencesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
@@ -766,6 +1031,11 @@ export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUserFachExperiencesInput = {
@@ -800,6 +1070,11 @@ export type UserUpdateWithoutUserFachExperiencesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
@@ -818,6 +1093,11 @@ export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAwardedPointsInput = {
@@ -836,6 +1116,11 @@ export type UserCreateWithoutAwardedPointsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAwardedPointsInput = {
@@ -854,6 +1139,11 @@ export type UserUncheckedCreateWithoutAwardedPointsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAwardedPointsInput = {
@@ -888,6 +1178,11 @@ export type UserUpdateWithoutAwardedPointsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAwardedPointsInput = {
@@ -906,6 +1201,443 @@ export type UserUncheckedUpdateWithoutAwardedPointsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOwnedLearningPathsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOwnedLearningPathsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedCreateWithoutOwnedLearningPathsInput>
+}
+
+export type UserUpsertWithoutOwnedLearningPathsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedUpdateWithoutOwnedLearningPathsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedCreateWithoutOwnedLearningPathsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOwnedLearningPathsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOwnedLearningPathsInput, Prisma.UserUncheckedUpdateWithoutOwnedLearningPathsInput>
+}
+
+export type UserUpdateWithoutOwnedLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLearningPathEnrollmentsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLearningPathEnrollmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedCreateWithoutLearningPathEnrollmentsInput>
+}
+
+export type UserUpsertWithoutLearningPathEnrollmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutLearningPathEnrollmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedCreateWithoutLearningPathEnrollmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLearningPathEnrollmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutLearningPathEnrollmentsInput>
+}
+
+export type UserUpdateWithoutLearningPathEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLearningPathStepCompletionsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLearningPathStepCompletionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathStepCompletionsInput>
+}
+
+export type UserUpsertWithoutLearningPathStepCompletionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedUpdateWithoutLearningPathStepCompletionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathStepCompletionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLearningPathStepCompletionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathStepCompletionsInput, Prisma.UserUncheckedUpdateWithoutLearningPathStepCompletionsInput>
+}
+
+export type UserUpdateWithoutLearningPathStepCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLearningPathCompletionsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutLearningPathCompletionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathCompletionsInput>
+}
+
+export type UserUpsertWithoutLearningPathCompletionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedUpdateWithoutLearningPathCompletionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedCreateWithoutLearningPathCompletionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLearningPathCompletionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLearningPathCompletionsInput, Prisma.UserUncheckedUpdateWithoutLearningPathCompletionsInput>
+}
+
+export type UserUpdateWithoutLearningPathCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -918,6 +1650,11 @@ export type UserCountOutputType = {
   sessions: number
   userFachExperiences: number
   awardedPoints: number
+  attachments: number
+  ownedLearningPaths: number
+  learningPathEnrollments: number
+  learningPathStepCompletions: number
+  learningPathCompletions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -925,6 +1662,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   userFachExperiences?: boolean | UserCountOutputTypeCountUserFachExperiencesArgs
   awardedPoints?: boolean | UserCountOutputTypeCountAwardedPointsArgs
+  attachments?: boolean | UserCountOutputTypeCountAttachmentsArgs
+  ownedLearningPaths?: boolean | UserCountOutputTypeCountOwnedLearningPathsArgs
+  learningPathEnrollments?: boolean | UserCountOutputTypeCountLearningPathEnrollmentsArgs
+  learningPathStepCompletions?: boolean | UserCountOutputTypeCountLearningPathStepCompletionsArgs
+  learningPathCompletions?: boolean | UserCountOutputTypeCountLearningPathCompletionsArgs
 }
 
 /**
@@ -965,6 +1707,41 @@ export type UserCountOutputTypeCountAwardedPointsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.AwardedPointsWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttachmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOwnedLearningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLearningPathEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathEnrollmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLearningPathStepCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathStepCompletionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLearningPathCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LearningPathCompletionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -983,6 +1760,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
   awardedPoints?: boolean | Prisma.User$awardedPointsArgs<ExtArgs>
+  attachments?: boolean | Prisma.User$attachmentsArgs<ExtArgs>
+  ownedLearningPaths?: boolean | Prisma.User$ownedLearningPathsArgs<ExtArgs>
+  learningPathEnrollments?: boolean | Prisma.User$learningPathEnrollmentsArgs<ExtArgs>
+  learningPathStepCompletions?: boolean | Prisma.User$learningPathStepCompletionsArgs<ExtArgs>
+  learningPathCompletions?: boolean | Prisma.User$learningPathCompletionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1037,6 +1819,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
   awardedPoints?: boolean | Prisma.User$awardedPointsArgs<ExtArgs>
+  attachments?: boolean | Prisma.User$attachmentsArgs<ExtArgs>
+  ownedLearningPaths?: boolean | Prisma.User$ownedLearningPathsArgs<ExtArgs>
+  learningPathEnrollments?: boolean | Prisma.User$learningPathEnrollmentsArgs<ExtArgs>
+  learningPathStepCompletions?: boolean | Prisma.User$learningPathStepCompletionsArgs<ExtArgs>
+  learningPathCompletions?: boolean | Prisma.User$learningPathCompletionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1049,6 +1836,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     userFachExperiences: Prisma.$UserFachExperiencePayload<ExtArgs>[]
     awardedPoints: Prisma.$AwardedPointsPayload<ExtArgs>[]
+    attachments: Prisma.$AttachmentPayload<ExtArgs>[]
+    ownedLearningPaths: Prisma.$LearningPathPayload<ExtArgs>[]
+    learningPathEnrollments: Prisma.$LearningPathEnrollmentPayload<ExtArgs>[]
+    learningPathStepCompletions: Prisma.$LearningPathStepCompletionPayload<ExtArgs>[]
+    learningPathCompletions: Prisma.$LearningPathCompletionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1461,6 +2253,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   userFachExperiences<T extends Prisma.User$userFachExperiencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userFachExperiencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFachExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   awardedPoints<T extends Prisma.User$awardedPointsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$awardedPointsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AwardedPointsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attachments<T extends Prisma.User$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ownedLearningPaths<T extends Prisma.User$ownedLearningPathsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedLearningPathsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  learningPathEnrollments<T extends Prisma.User$learningPathEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$learningPathEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  learningPathStepCompletions<T extends Prisma.User$learningPathStepCompletionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$learningPathStepCompletionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathStepCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  learningPathCompletions<T extends Prisma.User$learningPathCompletionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$learningPathCompletionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1983,6 +2780,126 @@ export type User$awardedPointsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.AwardedPointsScalarFieldEnum | Prisma.AwardedPointsScalarFieldEnum[]
+}
+
+/**
+ * User.attachments
+ */
+export type User$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attachment
+   */
+  select?: Prisma.AttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attachment
+   */
+  omit?: Prisma.AttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttachmentInclude<ExtArgs> | null
+  where?: Prisma.AttachmentWhereInput
+  orderBy?: Prisma.AttachmentOrderByWithRelationInput | Prisma.AttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.AttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
+}
+
+/**
+ * User.ownedLearningPaths
+ */
+export type User$ownedLearningPathsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPath
+   */
+  select?: Prisma.LearningPathSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPath
+   */
+  omit?: Prisma.LearningPathOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathInclude<ExtArgs> | null
+  where?: Prisma.LearningPathWhereInput
+  orderBy?: Prisma.LearningPathOrderByWithRelationInput | Prisma.LearningPathOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathScalarFieldEnum | Prisma.LearningPathScalarFieldEnum[]
+}
+
+/**
+ * User.learningPathEnrollments
+ */
+export type User$learningPathEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPathEnrollment
+   */
+  select?: Prisma.LearningPathEnrollmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPathEnrollment
+   */
+  omit?: Prisma.LearningPathEnrollmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathEnrollmentInclude<ExtArgs> | null
+  where?: Prisma.LearningPathEnrollmentWhereInput
+  orderBy?: Prisma.LearningPathEnrollmentOrderByWithRelationInput | Prisma.LearningPathEnrollmentOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathEnrollmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathEnrollmentScalarFieldEnum | Prisma.LearningPathEnrollmentScalarFieldEnum[]
+}
+
+/**
+ * User.learningPathStepCompletions
+ */
+export type User$learningPathStepCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPathStepCompletion
+   */
+  select?: Prisma.LearningPathStepCompletionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPathStepCompletion
+   */
+  omit?: Prisma.LearningPathStepCompletionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathStepCompletionInclude<ExtArgs> | null
+  where?: Prisma.LearningPathStepCompletionWhereInput
+  orderBy?: Prisma.LearningPathStepCompletionOrderByWithRelationInput | Prisma.LearningPathStepCompletionOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathStepCompletionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathStepCompletionScalarFieldEnum | Prisma.LearningPathStepCompletionScalarFieldEnum[]
+}
+
+/**
+ * User.learningPathCompletions
+ */
+export type User$learningPathCompletionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LearningPathCompletion
+   */
+  select?: Prisma.LearningPathCompletionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LearningPathCompletion
+   */
+  omit?: Prisma.LearningPathCompletionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LearningPathCompletionInclude<ExtArgs> | null
+  where?: Prisma.LearningPathCompletionWhereInput
+  orderBy?: Prisma.LearningPathCompletionOrderByWithRelationInput | Prisma.LearningPathCompletionOrderByWithRelationInput[]
+  cursor?: Prisma.LearningPathCompletionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LearningPathCompletionScalarFieldEnum | Prisma.LearningPathCompletionScalarFieldEnum[]
 }
 
 /**

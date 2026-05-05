@@ -1,0 +1,338 @@
+// Read-only client for the legacy makerspace database (migration scripts only).
+// All legacy tables live in Postgres schema "makerspace" (not "public").
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+  output        = "../../src/generated-old"
+}
+
+// Connection URL is set in prisma/old/prisma.config.ts (Prisma ORM v7+).
+datasource db {
+  provider     = "postgresql"
+  schemas      = ["makerspace"]
+  relationMode = "prisma"
+}
+
+enum DifficultyLevel {
+  VERY_EASY
+  EASY
+  MEDIUM
+  DIFFICULT
+  VERY_DIFFICULT
+
+  @@schema("makerspace")
+}
+
+model MathEditorDocument {
+  id        String   @id @default(uuid())
+  name      String
+  head      String?
+  data      Json     @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@schema("makerspace")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  userName     String?
+  userImageUrl String?
+  firstName    String
+  lastName     String
+  email        String
+  isTeacher    Boolean?
+  isAdmin      Boolean?
+
+  jahrgang String?
+  klasse   String?
+
+  userFachExperiences UserFachExperience[]
+  awardedPoints       AwardedPoints[]
+  events              Event[]
+  attachments         Attachment[]
+  journalEntries      JournalEntry[]
+
+  createdAt DateTime @default(now())
+
+  @@index([id])
+  @@schema("makerspace")
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  title     String
+  date      DateTime
+  content   Json     @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@schema("makerspace")
+}
+
+model UserFachExperience {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fachId     String
+  fach       Fach     @relation(fields: [fachId], references: [id], onDelete: Cascade)
+  experience Int      @default(0)
+  level      Int?     @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([userId, fachId])
+  @@index([userId])
+  @@index([fachId])
+  @@schema("makerspace")
+}
+
+model AwardedPoints {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fachId    String
+  fach      Fach     @relation(fields: [fachId], references: [id], onDelete: Cascade)
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  points    Int
+  awardedAt DateTime @default(now())
+
+  @@unique([userId, fachId, courseId])
+  @@index([userId])
+  @@index([fachId])
+  @@index([courseId])
+  @@schema("makerspace")
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  time      String
+  task      String?
+  completed Boolean  @default(false)
+  day       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@schema("makerspace")
+}
+
+model Course {
+  id              String           @id @default(uuid())
+  userId          String
+  title           String           @db.Text
+  description     String?          @db.Text
+  longDescription String?          @db.Text
+  prerequisites   String?          @db.Text
+  vorkenntnisse   String?          @db.Text
+  kompetenzen     String?          @db.Text
+  imageUrl        String?          @db.Text
+  price           Float?
+  level           Int?
+  schwierigkeit   DifficultyLevel?
+  klassenstufe    Int?
+  isPublished     Boolean          @default(false)
+
+  faecher       Fach[]
+  categories    Category[]
+  awardedPoints AwardedPoints[]
+  chapters      Chapter[]
+  attachments   Attachment[]
+  purchases     Purchase[]
+  tasks         Task[]
+  gradings      Grading[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@schema("makerspace")
+}
+
+model Fach {
+  id                  String               @id @default(uuid())
+  name                String               @unique
+  userFachExperiences UserFachExperience[]
+  awardedPoints       AwardedPoints[]
+  courses             Course[]
+
+  @@index([id])
+  @@schema("makerspace")
+}
+
+model Category {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  courses Course[]
+
+  @@schema("makerspace")
+}
+
+model Attachment {
+  id       String  @id @default(uuid())
+  name     String
+  url      String  @db.Text
+  courseId String
+  course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@schema("makerspace")
+}
+
+model Chapter {
+  id                String   @id @default(uuid())
+  title             String
+  description       String?  @db.Text
+  descriptionEditor Json?    @db.Json
+  mathEditor        Json?    @db.Json
+  videoUrl          String?  @db.Text
+  position          Int
+  isPublished       Boolean  @default(false)
+  isFree            Boolean  @default(false)
+  muxData           MuxData?
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  @@schema("makerspace")
+}
+
+model MuxData {
+  id         String  @id @default(uuid())
+  assetId    String
+  playbackId String?
+  chapterId  String  @unique
+  chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@schema("makerspace")
+}
+
+model UserProgress {
+  id          String  @id @default(uuid())
+  userId      String
+  chapterId   String
+  chapter     Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
+  @@schema("makerspace")
+}
+
+model Purchase {
+  id       String @id @default(uuid())
+  userId   String
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+  @@schema("makerspace")
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  stripeCustomerId String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@schema("makerspace")
+}
+
+model Grading {
+  id             String  @id @default(uuid())
+  userId         String
+  points         Int
+  points_awarded Boolean @default(false)
+  courseId       String
+  course         Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+  @@schema("makerspace")
+}
+
+model Badge {
+  id          String      @id @default(uuid())
+  name        String      @unique
+  description String?     @db.Text
+  imageUrl    String
+  userBadges  UserBadge[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@schema("makerspace")
+}
+
+model UserBadge {
+  id      String @id @default(uuid())
+  userId  String
+  badgeId String
+  badge   Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, badgeId], name: "unique_user_badge")
+  @@schema("makerspace")
+}
+
+model Column {
+  id    String @id @default(uuid())
+  title String
+  cards Card[]
+
+  @@schema("makerspace")
+}
+
+model Card {
+  id       String @id @default(uuid())
+  title    String
+  columnId String
+  column   Column @relation(fields: [columnId], references: [id])
+
+  @@schema("makerspace")
+}
+
+model Event {
+  Id              Int      @id @default(autoincrement())
+  Subject         String
+  Location        String?
+  StartTime       DateTime
+  EndTime         DateTime
+  Description     String?
+  IsAllDay        Boolean?
+  IsReadonly      Boolean?
+  EventType       String?
+  MaxParticipants String?
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
+
+  @@schema("makerspace")
+}

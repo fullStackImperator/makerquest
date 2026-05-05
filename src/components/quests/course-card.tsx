@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
-// import { IconBadge } from '@/components/icon-badge'
-import { BookOpen, Wrench, LayoutList, Tag } from 'lucide-react'
+import { BookOpen, GraduationCap, SignalHigh } from 'lucide-react'
 import { CourseProgress } from './course-progress'
 import { Separator } from '@/components/ui/separator'
 import { CourseEnrollButton } from './course-enroll-button'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 type CourseCardProps = {
   id: string
@@ -12,8 +15,9 @@ type CourseCardProps = {
   description: string
   imageUrl: string
   chaptersLength: number
-  level: number
   schwierigkeit: string
+  klassenstufe?: number | null
+  isPublished?: boolean
   progress?: number | null
   categories: string[] | undefined
   faecher: string[] | undefined
@@ -28,108 +32,154 @@ export const CourseCard = ({
   description,
   imageUrl,
   chaptersLength,
-  level,
   schwierigkeit,
+  klassenstufe,
+  isPublished,
   progress,
   categories,
   faecher,
-  prerequisites,
-  vorkenntnisse,
-  kompetenzen,
 }: CourseCardProps) => {
   return (
-    <Link href={`/courses/${id}`}>
-      <div className="group panel shadow-lg hover:scale-[1.02] border transition overflow-hidden rounded-lg p-3 h-full flex flex-col">
-        <div className="flex-1 flex flex-col">
-          <div
-            className="relative w-full aspect-video rounded-md overflow-hidden
-          duration-700 ease-in-out scale-100 blur-0 grayscale-0 object-cover"
+    <Card className="border-border/60 overflow-hidden shadow-sm transition hover:shadow-md">
+      <CardContent className="flex h-full flex-col gap-4 p-3">
+        <div className="space-y-3">
+          <Link
+            href={`/quests/${id}`}
+            className="group relative block aspect-video overflow-hidden rounded-md border border-border/60 bg-muted/20"
           >
-            <Image fill className="object-cover" alt={title} src={imageUrl} />
-          </div>
-          <div className="flex-1 flex flex-col pt-2">
-            <div className="text-lg md:text-lg font-bold group-hover:text-sky-700 transition line-clamp-2">
-              {title}
-            </div>
-            <div
-              className='text-md mt-2 mb-4 font-light group-hover:text-sky-700 transition line-clamp-2'
+            <Image
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+              alt={title}
+              src={imageUrl}
+            />
+          </Link>
+
+          <div className="space-y-2">
+            <Link
+              href={`/quests/${id}`}
+              className="hover:text-foreground/90 block"
             >
+              <h3 className="line-clamp-2 text-base font-semibold leading-snug tracking-tight">
+                {title}
+              </h3>
+            </Link>
+
+            <p className="text-muted-foreground line-clamp-2 text-sm">
               {description}
-            </div>
-
-            {/* Title for Faecher */}
-            {faecher && faecher.length > 0 && (
-              <>
-                <div className="flex items-center mb-2">
-                  {/* <IconBadge size="sm" icon={LayoutList} /> */}
-                  <h4 className="text-sm font-semibold ml-2">Fächer:</h4>
-                </div>
-                {/* <h4 className="text-sm font-semibold mb-2">Fächer:</h4> */}
-                <div className="flex flex-wrap rounded-xl gap-2 mb-6">
-                  {faecher.map((fach, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded"
-                    >
-                      {fach}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Title for Categories */}
-            {categories && categories.length > 0 && (
-              <>
-                <div className="flex items-center mb-2">
-                  {/* <IconBadge size="sm" icon={Tag} /> */}
-                  <h4 className="text-sm font-semibold ml-2">Themen:</h4>
-                </div>{' '}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded"
-                    >
-                      {category}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
+            </p>
           </div>
         </div>
-        {/* Progress or Enroll button at the bottom */}
-        <div className="mt-auto">
-          <div className="my-3 flex items-center justify-between text-sm">
-            <div className="flex items-center gap-x-2 text-black">
-              {/* <IconBadge size="sm" icon={BookOpen} /> */}
-              <span>
-                {chaptersLength} {chaptersLength === 1 ? 'Kapitel' : 'Kapitel'}
+
+        <div className="text-muted-foreground grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-7 items-center justify-center rounded-md border border-border/60">
+              <BookOpen className="size-3.5" aria-hidden />
+            </div>
+            <span className="tabular-nums">
+              {chaptersLength} Kapitel
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-7 items-center justify-center rounded-md border border-border/60">
+              <SignalHigh className="size-3.5" aria-hidden />
+            </div>
+            <span className="truncate">{schwierigkeit}</span>
+          </div>
+          {typeof klassenstufe === 'number' && (
+            <div className="flex items-center gap-2">
+              <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-7 items-center justify-center rounded-md border border-border/60">
+                <GraduationCap className="size-3.5" aria-hidden />
+              </div>
+              <span className="tabular-nums">{klassenstufe}. Klasse</span>
+            </div>
+          )}
+          {isPublished === false && (
+            <div className="flex items-center justify-end">
+              <span className="text-[11px] font-medium tracking-wide uppercase">
+                Entwurf
               </span>
             </div>
-            <div className="flex items-center gap-x-2 text-slate-500">
-              {/* <IconBadge size="sm" icon={Wrench} /> */}
-              <p className="text-md md:text-sm text-black font-medium">
-                {schwierigkeit}
-              </p>
-            </div>
-          </div>
+          )}
+        </div>
 
-          <Separator className="my-4" />
+        {(faecher?.length || categories?.length) ? (
+          <div className="flex flex-col gap-3">
+            {!!faecher?.length && (
+              <div className="space-y-1.5">
+                <p className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider">
+                  Fächer
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {faecher.slice(0, 3).map((fach) => (
+                    <Badge
+                      key={fach}
+                      variant="secondary"
+                      className="bg-muted/40 text-[11px]"
+                    >
+                      {fach}
+                    </Badge>
+                  ))}
+                  {faecher.length > 3 && (
+                    <Badge variant="secondary" className="text-[11px]">
+                      +{faecher.length - 3}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            )}
+            {!!categories?.length && (
+              <div className="space-y-1.5">
+                <p className="text-muted-foreground text-[11px] font-semibold uppercase tracking-wider">
+                  Themen
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {categories.slice(0, 4).map((category) => (
+                    <Badge
+                      key={category}
+                      variant="outline"
+                      className="border-border/60 text-[11px]"
+                    >
+                      {category}
+                    </Badge>
+                  ))}
+                  {categories.length > 4 && (
+                    <Badge
+                      variant="outline"
+                      className="border-border/60 text-[11px]"
+                    >
+                      +{categories.length - 4}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : null}
+
+        <div className="mt-auto space-y-3">
+          <Separator className="bg-border/50" />
+
           {progress !== null ? (
-            <div className="space-y-2">
+            <div className="space-y-3">
               <CourseProgress
                 variant={progress === 100 ? 'success' : 'default'}
                 size="sm"
                 value={progress!}
               />
+              <Link href={`/quests/${id}`} className="block">
+                <Button className="w-full" size="sm">
+                  {progress === 100 ? 'Quest ansehen' : 'Weiterlernen'}
+                </Button>
+              </Link>
             </div>
           ) : (
-            <CourseEnrollButton courseId={id} level={level} />
+            <div className={cn(isPublished === false && 'opacity-60')}>
+              <CourseEnrollButton courseId={id} />
+            </div>
           )}
         </div>
-      </div>
-    </Link>
+      </CardContent>
+    </Card>
   )
 }

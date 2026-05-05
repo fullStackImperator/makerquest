@@ -334,6 +334,23 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumLernpfadDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LernpfadDifficulty | Prisma.EnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel> | $Enums.LernpfadDifficulty
+}
+
+export type EnumLernpfadDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LernpfadDifficulty | Prisma.EnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLernpfadDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.LernpfadDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -611,6 +628,23 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumLernpfadDifficultyFilter<$PrismaModel = never> = {
+  equals?: $Enums.LernpfadDifficulty | Prisma.EnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel> | $Enums.LernpfadDifficulty
+}
+
+export type NestedEnumLernpfadDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LernpfadDifficulty | Prisma.EnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  in?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLernpfadDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.LernpfadDifficulty
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLernpfadDifficultyFilter<$PrismaModel>
 }
 
 

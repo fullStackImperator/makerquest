@@ -1,4 +1,4 @@
-import { Category, Course, Fach } from '@prisma/client'
+import type { Category, Course, Fach } from '@/generated/client'
 import { CourseCard } from '@/components/quests/course-card'
 
 type CourseWithProgressWithCategory = Course & {
@@ -25,16 +25,17 @@ export const CoursesList = ({ items }: CoursesListProps) => {
             description={item.description!}
             imageUrl={item.imageUrl!}
             chaptersLength={item.chapters.length}
-            level={item.level!}
             schwierigkeit={item.schwierigkeit!}
+            klassenstufe={item.klassenstufe}
+            isPublished={item.isPublished}
             progress={item.progress}
             faecher={(item.faecher || []).map((fach) => fach.name)}
             categories={(item.categories || []).map(
               (category) => category.name
             )}
-            prerequisites={item?.prerequisites!}
-            vorkenntnisse={item?.vorkenntnisse!}
-            kompetenzen={item?.kompetenzen!}
+            prerequisites={item.prerequisites ?? ''}
+            vorkenntnisse={item.vorkenntnisse ?? ''}
+            kompetenzen={item.kompetenzen ?? ''}
           />
         ))}
       </div>

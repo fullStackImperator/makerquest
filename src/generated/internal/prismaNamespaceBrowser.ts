@@ -58,6 +58,7 @@ export const ModelName = {
   Verification: 'Verification',
   Course: 'Course',
   Chapter: 'Chapter',
+  Attachment: 'Attachment',
   UserProgress: 'UserProgress',
   Fach: 'Fach',
   Category: 'Category',
@@ -66,7 +67,12 @@ export const ModelName = {
   Purchase: 'Purchase',
   Grading: 'Grading',
   Badge: 'Badge',
-  UserBadge: 'UserBadge'
+  UserBadge: 'UserBadge',
+  LearningPath: 'LearningPath',
+  LearningPathStep: 'LearningPathStep',
+  LearningPathEnrollment: 'LearningPathEnrollment',
+  LearningPathStepCompletion: 'LearningPathStepCompletion',
+  LearningPathCompletion: 'LearningPathCompletion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -200,6 +206,19 @@ export const ChapterScalarFieldEnum = {
 export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
 
 
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  courseId: 'courseId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
+
+
 export const UserProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -298,6 +317,66 @@ export const UserBadgeScalarFieldEnum = {
 } as const
 
 export type UserBadgeScalarFieldEnum = (typeof UserBadgeScalarFieldEnum)[keyof typeof UserBadgeScalarFieldEnum]
+
+
+export const LearningPathScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  slug: 'slug',
+  difficulty: 'difficulty',
+  ownerId: 'ownerId',
+  isPublished: 'isPublished',
+  badgeId: 'badgeId',
+  flowData: 'flowData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LearningPathScalarFieldEnum = (typeof LearningPathScalarFieldEnum)[keyof typeof LearningPathScalarFieldEnum]
+
+
+export const LearningPathStepScalarFieldEnum = {
+  id: 'id',
+  learningPathId: 'learningPathId',
+  courseId: 'courseId',
+  position: 'position',
+  bonusXp: 'bonusXp'
+} as const
+
+export type LearningPathStepScalarFieldEnum = (typeof LearningPathStepScalarFieldEnum)[keyof typeof LearningPathStepScalarFieldEnum]
+
+
+export const LearningPathEnrollmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  learningPathId: 'learningPathId',
+  currentStepIndex: 'currentStepIndex',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LearningPathEnrollmentScalarFieldEnum = (typeof LearningPathEnrollmentScalarFieldEnum)[keyof typeof LearningPathEnrollmentScalarFieldEnum]
+
+
+export const LearningPathStepCompletionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  learningPathStepId: 'learningPathStepId',
+  completedAt: 'completedAt'
+} as const
+
+export type LearningPathStepCompletionScalarFieldEnum = (typeof LearningPathStepCompletionScalarFieldEnum)[keyof typeof LearningPathStepCompletionScalarFieldEnum]
+
+
+export const LearningPathCompletionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  learningPathId: 'learningPathId',
+  completedAt: 'completedAt'
+} as const
+
+export type LearningPathCompletionScalarFieldEnum = (typeof LearningPathCompletionScalarFieldEnum)[keyof typeof LearningPathCompletionScalarFieldEnum]
 
 
 export const SortOrder = {

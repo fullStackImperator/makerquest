@@ -1,0 +1,56 @@
+math-field {
+  display: inline-block;
+  white-space: initial;
+  word-break: initial;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  padding: 0;
+  --selection-color: nope;
+  pointer-events: auto;
+}
+
+math-field::part(virtual-keyboard-toggle),
+math-field::part(menu-toggle) {
+  display: none;
+}
+
+[theme=dark] math-field {
+  --contains-highlight-background-color: rgba(255, 255, 255, 0.1);
+  --selection-background-color: rgb(95 183 255 / 50%);
+}
+
+math-field.selection-active {
+  background-color: rgb(95 183 255 / 50%);
+}
+
+.ML__keyboard {
+  --keycap-height: 52px !important;
+  --_keyboard-height: 295px !important;
+  --keyboard-zindex: 10000;
+}
+
+.MLK__plate,
+.MLK__layer {
+  height: 100%;
+}
+
+.MLK__rows {
+  margin: auto 0 !important;
+}
+
+.MLK__rows>.MLK__row .MLK__keycap {
+  height: var(--keycap-height) !important;
+}
+
+.MLK__variant-panel {
+  user-select: none;
+}
+
+@media print {
+  .ML__keyboard {
+    display: none !important;
+  }
+}

@@ -7,12 +7,12 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 type CourseEnrollButtonProps = {
-  level: number
+  // level: number
   courseId: string
 }
 
 export const CourseEnrollButton = ({
-  level: _level,
+  // level: _level,
   courseId,
 }: CourseEnrollButtonProps) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -41,7 +41,7 @@ export const CourseEnrollButton = ({
       onClick={onClick}
       disabled={isLoading}
       size="sm"
-      className="w-full md:w-auto"
+      className="w-full"
     >
       Anmelden
     </Button>

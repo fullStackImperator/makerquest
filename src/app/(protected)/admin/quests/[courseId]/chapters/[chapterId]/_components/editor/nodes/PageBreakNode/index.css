@@ -1,0 +1,7 @@
+.selected[type='page-break'] {
+  border-color: var(--editor-color-primary, #4766cb);
+}
+
+.selected[type='page-break']::before {
+  opacity: 1;
+}

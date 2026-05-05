@@ -35,7 +35,7 @@ export function DataTableScores<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   )
 
   const table = useReactTable({
@@ -51,13 +51,14 @@ export function DataTableScores<TData, TValue>({
       sorting,
       columnFilters,
     },
+    filterFns: {},
   })
 
   return (
     <div>
       <div className="">
         <Table>
-          <TableHeader >
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -67,7 +68,7 @@ export function DataTableScores<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   )
@@ -86,7 +87,7 @@ export function DataTableScores<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

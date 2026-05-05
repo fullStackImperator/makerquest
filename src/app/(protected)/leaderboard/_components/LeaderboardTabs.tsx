@@ -15,7 +15,7 @@ import { Separator } from '@/components/ui/separator'
 import {
   getLeaderboard,
   type LeaderboardUser,
-} from '@/app/(protected)/leaderboard/_actions/get-leaderboard'
+} from '../_actions/get-leaderboard'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 

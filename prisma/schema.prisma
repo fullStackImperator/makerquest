@@ -18,6 +18,12 @@ enum DifficultyLevel {
   VERY_DIFFICULT
 }
 
+enum LernpfadDifficulty {
+  ANFAENGER
+  FORTGESCHRITTEN
+  PRO
+}
+
 
 model MathEditorDocument {
   id          String    @id @default(uuid())
@@ -50,7 +56,12 @@ model User {
 
   userFachExperiences UserFachExperience[] // Add this relation
   awardedPoints AwardedPoints[] // Add this relation
+  attachments  Attachment[] // Relation field for attachments to quest
 
+  ownedLearningPaths           LearningPath[]                 @relation("LearningPathOwner")
+  learningPathEnrollments      LearningPathEnrollment[]
+  learningPathStepCompletions  LearningPathStepCompletion[]
+  learningPathCompletions      LearningPathCompletion[]
 
   @@map("user")
 }
@@ -133,11 +144,14 @@ model Course {
   awardedPoints AwardedPoints[] // Add this relation
 
   chapters Chapter[]
+  attachments Attachment[]
   purchases Purchase[]
   // requirements String[] // List of requirements for the course
 
 
   gradings Grading[]
+
+  learningPathSteps LearningPathStep[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -170,6 +184,23 @@ model Chapter {
   // @@map("chapter")
 }
 
+model Attachment {
+  id String @id @default(uuid())
+  name String
+  url String @db.Text
+
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade )
+
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade )
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+  // @@map("attachment")
+}
 
 model UserProgress{
   id String @id @default(uuid())
@@ -298,6 +329,7 @@ model Badge {
   imageUrl    String
 
   userBadges   UserBadge[]
+  learningPaths LearningPath[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -316,4 +348,78 @@ model UserBadge {
 
   @@index([userId, badgeId], name: "unique_user_badge")
   // @@map("userbadge")
+}
+
+model LearningPath {
+  id          String             @id @default(uuid())
+  title       String             @db.Text
+  description String?            @db.Text
+  slug        String             @unique
+  difficulty  LernpfadDifficulty
+  ownerId     String
+  owner       User               @relation("LearningPathOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  isPublished Boolean            @default(false)
+  badgeId     String?
+  badge       Badge?             @relation(fields: [badgeId], references: [id], onDelete: SetNull)
+  flowData    Json               @db.Json
+  steps       LearningPathStep[]
+  enrollments LearningPathEnrollment[]
+  completions LearningPathCompletion[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([ownerId])
+}
+
+model LearningPathStep {
+  id             String                       @id @default(uuid())
+  learningPathId String
+  learningPath   LearningPath   @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  courseId       String
+  course         Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  position       Int
+  bonusXp        Int            @default(0)
+  stepCompletions LearningPathStepCompletion[]
+
+  @@unique([learningPathId, position])
+  @@unique([learningPathId, courseId])
+  @@index([courseId])
+}
+
+model LearningPathEnrollment {
+  id               String       @id @default(uuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learningPathId   String
+  learningPath     LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  currentStepIndex Int          @default(0)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@unique([userId, learningPathId])
+  @@index([learningPathId])
+}
+
+model LearningPathStepCompletion {
+  id                 String           @id @default(uuid())
+  userId             String
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learningPathStepId String
+  learningPathStep   LearningPathStep @relation(fields: [learningPathStepId], references: [id], onDelete: Cascade)
+  completedAt        DateTime         @default(now())
+
+  @@unique([userId, learningPathStepId])
+  @@index([userId])
+}
+
+model LearningPathCompletion {
+  id             String       @id @default(uuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learningPathId String
+  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  completedAt    DateTime     @default(now())
+
+  @@unique([userId, learningPathId])
+  @@index([learningPathId])
 }

@@ -16,12 +16,12 @@ import {
 import { authClient } from '@/lib/auth-client'
 import { Loader2 } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { Suspense, useState, useTransition } from 'react'
 import { toast } from 'sonner'
 import { getUserSlug } from './get-user-slug'
 
 
-export default function VerifyRequest() {
+function VerifyRequest() {
   const router = useRouter()
   const [otp, setOtp] = useState('')
   const [isEmailPending, startTransition] = useTransition()
@@ -132,5 +132,21 @@ function verifyOtp() {
         </Button>
       </CardContent>
     </Card>
+  )
+}
+
+export default function VerifyRequestPage() {
+  return (
+    <Suspense
+      fallback={
+        <Card className="mx-auto w-full">
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="text-muted-foreground size-8 animate-spin" />
+          </CardContent>
+        </Card>
+      }
+    >
+      <VerifyRequest />
+    </Suspense>
   )
 }

@@ -1,0 +1,77 @@
+.editor-container:has(.editor-input) {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-input {
+  flex: 1;
+  resize: none;
+  caret-color: rgb(5, 5, 5);
+  position: relative;
+  tab-size: 1;
+  outline: 0;
+  caret-color: #444;
+}
+
+[theme="dark"] .editor-input {
+  caret-color: #eee;
+  color-scheme: dark;
+}
+
+.editor-placeholder {
+  color: #999;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 15px;
+  left: 10px;
+  font-size: 15px;
+  user-select: none;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.editor-toolbar {
+  background-color: #fff;
+}
+
+[theme="dark"] .editor-toolbar {
+  background-color: #121212;
+}
+
+.tree-view-output {
+  margin-top: 1rem;
+  font-size: 12px;
+}
+
+.tree-view-output {
+  max-height: 276px;
+}
+
+.tree-view-output pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  scroll-behavior: smooth;
+}
+
+@media print {
+  * {
+    overflow: visible !important;
+  }
+
+  *,
+  *:before,
+  *:after {
+    filter: unset !important;
+  }
+}
+
+.excalidraw.excalidraw-modal-container,
+#typeahead-menu {
+  z-index: 1500 !important;
+}
+
+body:has(.excalidraw.excalidraw-modal-container) {
+  position: initial !important;
+  overflow: hidden !important;
+}

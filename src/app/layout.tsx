@@ -4,6 +4,10 @@ import './globals.css'
 import { ThemeProvider } from '@/components/sidebar/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
+import { extractRouterConfig } from 'uploadthing/server'
+import { ourFileRouter } from '@/app/api/uploadthing/core'
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -35,6 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           {children}
           <Toaster />
         </ThemeProvider>{' '}

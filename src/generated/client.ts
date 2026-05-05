@@ -77,6 +77,11 @@ export type Course = Prisma.CourseModel
  */
 export type Chapter = Prisma.ChapterModel
 /**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel
+/**
  * Model UserProgress
  * 
  */
@@ -121,3 +126,28 @@ export type Badge = Prisma.BadgeModel
  * 
  */
 export type UserBadge = Prisma.UserBadgeModel
+/**
+ * Model LearningPath
+ * 
+ */
+export type LearningPath = Prisma.LearningPathModel
+/**
+ * Model LearningPathStep
+ * 
+ */
+export type LearningPathStep = Prisma.LearningPathStepModel
+/**
+ * Model LearningPathEnrollment
+ * 
+ */
+export type LearningPathEnrollment = Prisma.LearningPathEnrollmentModel
+/**
+ * Model LearningPathStepCompletion
+ * 
+ */
+export type LearningPathStepCompletion = Prisma.LearningPathStepCompletionModel
+/**
+ * Model LearningPathCompletion
+ * 
+ */
+export type LearningPathCompletion = Prisma.LearningPathCompletionModel
