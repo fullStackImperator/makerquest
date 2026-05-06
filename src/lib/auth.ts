@@ -32,7 +32,8 @@ export const auth = betterAuth({
     emailOTP({
       async sendVerificationOTP({ email, otp }) {
         await resend.emails.send({
-          from: 'MakerQuest <onboarding@resend.dev>',
+          from: 'MakerQuest <otp@lms.stuebi-makerspace.de>',
+          // from: 'MakerQuest <onboarding@resend.dev>',
           to: [email],
           subject: 'MakerQuest - Email bestätigen',
           html: `<p>Dein OTP ist <strong>${otp}</strong></p>`,
