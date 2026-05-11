@@ -31,13 +31,16 @@ export const auth = betterAuth({
   plugins: [
     emailOTP({
       async sendVerificationOTP({ email, otp }) {
-        await resend.emails.send({
+        const result = await resend.emails.send({
           from: 'MakerQuest <otp@lms.stuebi-makerspace.de>',
-          // from: 'MakerQuest <onboarding@resend.dev>',
           to: [email],
           subject: 'MakerQuest - Email bestätigen',
           html: `<p>Dein OTP ist <strong>${otp}</strong></p>`,
         })
+        if (result.error) {
+          console.error('[OTP] Resend send failed', result.error)
+          throw new Error(result.error.message ?? 'Failed to send verification email')
+        }
       },
     }),
   ],

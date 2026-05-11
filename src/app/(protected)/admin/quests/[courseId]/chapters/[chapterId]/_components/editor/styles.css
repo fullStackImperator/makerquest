@@ -13,6 +13,12 @@
   caret-color: #444;
 }
 
+.editor-input[contenteditable="true"] {
+  min-height: 28rem;
+  padding-bottom: 2rem;
+  cursor: text;
+}
+
 [theme="dark"] .editor-input {
   caret-color: #eee;
   color-scheme: dark;
