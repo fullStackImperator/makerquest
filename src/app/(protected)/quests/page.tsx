@@ -8,11 +8,11 @@ import { redirect } from 'next/navigation'
 import SearchCoursesPage from './_components/search-quests'
 
 type CourseLevelPageProps = {
-  searchParams: {
+  searchParams: Promise<{
     title: string
     categoryId?: string
     fachId?: string
-  }
+  }>
 }
 
 const AllCoursesPage = async ({ searchParams }: CourseLevelPageProps) => {
@@ -25,6 +25,8 @@ const AllCoursesPage = async ({ searchParams }: CourseLevelPageProps) => {
   }
 
   const userId = session.user.id
+
+  const resolvedSearchParams = await searchParams
 
   const categories = await db.category.findMany({
     orderBy: {
@@ -40,7 +42,7 @@ const AllCoursesPage = async ({ searchParams }: CourseLevelPageProps) => {
 
   const courses = await getCourses({
     userId,
-    ...searchParams,
+    ...resolvedSearchParams,
   })
 
   return (
