@@ -27,11 +27,11 @@ import { MultipleChoiceNode } from './nodes/MultipleChoiceNode/MultipleChoiceNod
 
 export const editorConfig = {
   namespace: 'matheditor',
-  // The editor theme
   theme: theme,
-  // Handling of errors during update
   onError(error: Error) {
-    throw error
+    // Throwing here kills the editor in production for any recoverable error.
+    // Log instead so the editor stays usable; surface fatal issues via console.
+    console.error('[Lexical]', error)
   },
   // Any custom nodes go here
   nodes: [
