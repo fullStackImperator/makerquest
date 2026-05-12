@@ -86,7 +86,7 @@ export default function LexicalClickableLinkPlugin({
       }
 
       // Allow user to select link text without follwing url
-      const selection = editor.getEditorState().read($getSelection);
+      const selection = editor.read($getSelection);
       if ($isRangeSelection(selection) && !selection.isCollapsed()) {
         event.preventDefault();
         return;

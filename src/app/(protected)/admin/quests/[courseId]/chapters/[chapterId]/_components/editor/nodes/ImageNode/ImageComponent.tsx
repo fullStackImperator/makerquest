@@ -276,7 +276,7 @@ export default function ImageComponent({
   }
 
   const onLoad = () => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()
       if (!$isRangeSelection(selection)) {
         const rootElement = editor.getRootElement()

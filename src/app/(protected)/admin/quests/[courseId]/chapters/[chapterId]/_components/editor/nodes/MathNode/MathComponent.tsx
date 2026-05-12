@@ -85,7 +85,7 @@ export default function MathComponent({
     // focus when node selected
     if (isSelected && !mathfield.hasFocus()) {
       if (!$isNodeSelection(selection)) return
-      editor.getEditorState().read(() => {
+      editor.read(() => {
         const mathNode = $getNodeByKey(nodeKey)
         if (!mathNode) return
         const anchor = lastRangeSelection?.anchor
@@ -116,7 +116,7 @@ export default function MathComponent({
     // binding causes "Ambiguous key binding [Return]" for layouts like English (international).
     // focus newly created mathfield
     if (isSelected && !mathfield.hasFocus()) {
-      const selection = editor.getEditorState().read($getSelection)
+      const selection = editor.read($getSelection)
       if (!$isNodeSelection(selection)) return
       setTimeout(() => {
         mathfield.focus()

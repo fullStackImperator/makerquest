@@ -85,7 +85,7 @@ export default function AITools({
     if (!isSubmit) return
     e.preventDefault()
     editor.focus()
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()
       if (!$isRangeSelection(selection)) return
       const anchorNode = selection.anchor.getNode()
@@ -103,7 +103,7 @@ export default function AITools({
 
   const handleRewrite = async () => {
     editor.focus()
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()
       if (!$isRangeSelection(selection)) return
       const textContent = selection.getTextContent()
@@ -113,7 +113,7 @@ export default function AITools({
 
   const handleShorter = async () => {
     editor.focus()
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()
       if (!$isRangeSelection(selection)) return
       const textContent = selection.getTextContent()
@@ -123,7 +123,7 @@ export default function AITools({
 
   const handleLonger = async () => {
     editor.focus()
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()
       if (!$isRangeSelection(selection)) return
       const textContent = selection.getTextContent()

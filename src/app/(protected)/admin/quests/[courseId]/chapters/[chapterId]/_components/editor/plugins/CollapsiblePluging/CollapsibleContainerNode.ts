@@ -67,7 +67,7 @@ export class CollapsibleContainerNode extends ElementNode {
       const detailsDom = document.createElement('details')
       detailsDom.open = this.__open
       detailsDom.addEventListener('toggle', () => {
-        const open = editor.getEditorState().read(() => this.getOpen())
+        const open = editor.read(() => this.getOpen())
         if (open !== detailsDom.open) {
           editor.update(() => this.toggleOpen())
         }

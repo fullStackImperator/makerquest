@@ -38,7 +38,7 @@ export default function AlignTextMenu({
   const decoratorBlockKeysRef = React.useRef<string[] | null>(null)
 
   const snapshotDecoratorBlocks = () => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const sel = $getSelection()
       if (!$isNodeSelection(sel)) {
         decoratorBlockKeysRef.current = null

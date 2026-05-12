@@ -46,7 +46,7 @@ export class CollapsibleContentNode extends ElementNode {
     const dom = document.createElement('div')
     dom.classList.add('Collapsible__content')
     if (IS_CHROME) {
-      editor.getEditorState().read(() => {
+      editor.read(() => {
         const containerNode = this.getParentOrThrow()
         invariant(
           $isCollapsibleContainerNode(containerNode),

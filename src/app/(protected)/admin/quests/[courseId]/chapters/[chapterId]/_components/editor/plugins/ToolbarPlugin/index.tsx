@@ -152,7 +152,10 @@ function ToolbarPlugin() {
   const updateToolbar = useCallback(() => {
     if (!activeEditor) return
     try {
-      activeEditor.getEditorState().read(() => {
+      // Use editor.read() (not editorState.read()) so getActiveEditor() works
+      // inside helpers like $isParentElementRTL and $getSelectionStyleValueForProperty.
+      // The minified production build of @lexical/selection throws #196 without it.
+      activeEditor.read(() => {
         const selection = $getSelection()
         if ($isNodeSelection(selection)) {
           const node = selection.getNodes()[0]

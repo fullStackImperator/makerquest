@@ -58,7 +58,7 @@ function TableDialog({
   }
 
   const restoreSelection = () => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection()?.clone() ?? null
       editor.update(() => $setSelection(selection))
     })

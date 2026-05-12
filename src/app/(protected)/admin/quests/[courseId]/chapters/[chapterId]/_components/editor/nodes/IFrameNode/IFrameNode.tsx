@@ -131,7 +131,7 @@ export class IFrameNode extends ImageNode {
     element.appendChild(iframe)
     if (!this.__showCaption) return { element }
     const caption = document.createElement('figcaption')
-    this.__caption.getEditorState().read(() => {
+    this.__caption.read(() => {
       caption.innerHTML = $generateHtmlFromNodes(this.__caption)
     })
     element.appendChild(caption)

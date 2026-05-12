@@ -94,7 +94,7 @@ function FloatingToolbar({ editor, anchorElem }: { editor: LexicalEditor; anchor
     const scrollerElem = anchorElem.parentElement;
 
     const update = () => {
-      editor.getEditorState().read(() => {
+      editor.read(() => {
         updateFloatingToolbar();
       });
     };
@@ -113,7 +113,7 @@ function FloatingToolbar({ editor, anchorElem }: { editor: LexicalEditor; anchor
   }, [editor, updateFloatingToolbar, anchorElem]);
 
   useEffect(() => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       updateFloatingToolbar();
     });
     return mergeRegister(
@@ -152,7 +152,7 @@ function useFloatingToolbar(
   const [isText, setIsText] = useState(false)
 
   const updatePopup = useCallback(() => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       // Should not to pop up the floating toolbar when using IME input
       if (editor.isComposing()) {
         return

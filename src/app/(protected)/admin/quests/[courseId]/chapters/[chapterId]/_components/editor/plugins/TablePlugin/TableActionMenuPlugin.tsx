@@ -160,7 +160,7 @@ function $selectLastDescendant(node: ElementNode): void {
 function currentCellStyle(
   editor: LexicalEditor,
 ): Record<string, string> | null {
-  return editor.getEditorState().read(() => {
+  return editor.read(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection) || $isTableSelection(selection)) {
       const [cell] = $getNodeTriplet(selection.anchor);
@@ -200,7 +200,7 @@ function TableActionMenu({
         nodeMutations.get(tableCellNode.getKey()) === 'updated';
 
       if (nodeUpdated) {
-        editor.getEditorState().read(() => {
+        editor.read(() => {
           updateTableCellNode(tableCellNode.getLatest());
         });
         setStyle(currentCellStyle(editor));
@@ -209,7 +209,7 @@ function TableActionMenu({
   }, [editor, tableCellNode]);
 
   useEffect(() => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const selection = $getSelection();
       // Merge cells
       if ($isTableSelection(selection)) {
@@ -575,7 +575,7 @@ function TableCellActionMenuContainer({
 
   useEffect(() => {
     return editor.registerUpdateListener(() => {
-      editor.getEditorState().read(() => {
+      editor.read(() => {
         moveMenu();
       });
     });

@@ -91,7 +91,7 @@ export class StickyNode extends DecoratorNode<React.ReactElement> {
   exportDOM(editor: LexicalEditor): DOMExportOutput {
     const { element } = super.exportDOM(editor)
     if (element && isHTMLElement(element)) {
-      this.__editor.getEditorState().read(() => {
+      this.__editor.read(() => {
         const html = $generateHtmlFromNodes(this.__editor)
         element.innerHTML = `<div class="sticky-note-container" theme="light"><div class="sticky-note ${this.__color}"><div class="nested-contentEditable">${html}</div></div></div>`
       })

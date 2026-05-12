@@ -90,7 +90,7 @@ export function TablePlugin({
 
     // Plugins might be loaded _after_ initial content is set, hence existing table nodes
     // won't be initialized from mutation[create] listener. Instead doing it here,
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const tableNodes = $nodesOfType(TableNode);
       for (const tableNode of tableNodes) {
         if ($isTableNode(tableNode)) {
@@ -104,7 +104,7 @@ export function TablePlugin({
       (nodeMutations) => {
         for (const [nodeKey, mutation] of nodeMutations) {
           if (mutation === 'created') {
-            editor.getEditorState().read(() => {
+            editor.read(() => {
               const tableNode = $getNodeByKey<TableNode>(nodeKey);
               if ($isTableNode(tableNode)) {
                 initializeTableNode(tableNode);

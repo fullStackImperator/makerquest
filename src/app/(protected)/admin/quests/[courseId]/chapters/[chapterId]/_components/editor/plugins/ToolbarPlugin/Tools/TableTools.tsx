@@ -31,7 +31,7 @@ export default function TableTools({
   node: TableNode
 }): React.ReactElement {
   function currentNodeStyle(): Record<string, string> | null {
-    return editor.getEditorState().read(() => {
+    return editor.read(() => {
       if (!('getStyle' in node)) return null
       const css = node.getStyle()
       if (!css) return null

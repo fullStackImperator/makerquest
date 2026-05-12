@@ -104,7 +104,7 @@ export default function MathTools({
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       const fs = $getNodeStyleValueForProperty(node, 'font-size', '15px')
       setFontSize(fs)
     })
