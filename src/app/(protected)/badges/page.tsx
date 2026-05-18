@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { 
-  Trophy, 
-  Award, 
-  Star, 
+import { useEffect, useState } from "react";
+import {
+  Trophy,
+  Award,
+  Star,
   Target,
   Lock,
   CheckCircle2,
@@ -14,8 +14,18 @@ import {
   Crown,
   Zap,
   Flame,
-  BookOpen
+  BookOpen,
+  Construction,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface Achievement {
   id: string;
@@ -284,6 +294,12 @@ export default function BadgesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Alle");
   const [selectedRarity, setSelectedRarity] = useState<string>("Alle");
   const [showOnlyLocked, setShowOnlyLocked] = useState(false);
+  const [showConstructionDialog, setShowConstructionDialog] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowConstructionDialog(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const categories = ["Alle", "Lernpfade", "Quests", "Streak", "Punkte", "Special"];
   const rarities = ["Alle", "Common", "Rare", "Epic", "Legendary"];
@@ -305,6 +321,39 @@ export default function BadgesPage() {
 
   return (
     <div className="min-h-screen p-6">
+      {/* ── Under-construction notice ─────────────────────────── */}
+      <Dialog
+        open={showConstructionDialog}
+        onOpenChange={setShowConstructionDialog}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10">
+              <Construction className="h-7 w-7 text-amber-500" />
+            </div>
+            <DialogTitle className="text-center text-2xl">
+              Seite im Aufbau
+            </DialogTitle>
+            <DialogDescription className="text-center text-sm leading-relaxed">
+              Diese Seite befindet sich noch in Entwicklung. Die angezeigten
+              Auszeichnungen sind aktuell nur Platzhalter und haben keinen
+              Einfluss auf deinen echten Fortschritt.
+              <br />
+              <br />
+              Schau bald wieder vorbei – hier ist demnächst Loot zu holen!
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center">
+            <Button
+              onClick={() => setShowConstructionDialog(false)}
+              className="w-full sm:w-auto"
+            >
+              Alles klar, weiter erkunden
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

@@ -1,6 +1,13 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Pencil,
+  Route,
+} from 'lucide-react'
 
+import { Badge } from '@/components/ui/badge'
 import { PathFlowEditor } from '../../_components/path-flow-editor'
 import { PathMetaForm } from '../../_components/path-meta-form'
 import { getSessionUser } from '@/lib/get-session-user'
@@ -73,19 +80,52 @@ export default async function EditLearningPathPage({ params }: Props) {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-6">
+    <div className="mx-auto w-full max-w-6xl space-y-8 p-4 md:p-6">
       <Link
         href="/admin/lernpfade"
-        className="text-muted-foreground text-sm hover:underline"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        ← Zurück
+        <ArrowLeft className="h-4 w-4" />
+        Zurück zu Lernpfaden
       </Link>
-      <h1 className="text-2xl font-semibold">{path.title}</h1>
+
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <header className="space-y-3">
+        <div className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          <Route className="h-5 w-5" />
+          <span>Lernpfad bearbeiten</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          {path.isPublished ? (
+            <Badge
+              variant="outline"
+              className="border-emerald-500/30 bg-emerald-500/10 text-[10px] text-emerald-600 dark:text-emerald-400"
+            >
+              <CheckCircle2 />
+              Veröffentlicht
+            </Badge>
+          ) : (
+            <Badge
+              variant="outline"
+              className="border-muted-foreground/30 bg-muted/40 text-[10px] text-muted-foreground"
+            >
+              <Pencil />
+              Entwurf
+            </Badge>
+          )}
+        </div>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          {path.title}
+        </h1>
+      </header>
 
       <PathMetaForm path={path} badges={badges} />
 
       <section className="space-y-2">
-        <h2 className="text-lg font-medium">Quest-Kette</h2>
+        <h2 className="text-lg font-semibold">Quest-Kette</h2>
+        <p className="text-sm text-muted-foreground">
+          Verbinde Quests in der Reihenfolge, in der sie absolviert werden.
+        </p>
         <PathFlowEditor
           pathId={path.id}
           initialFlow={initialFlow as Parameters<typeof PathFlowEditor>[0]['initialFlow']}

@@ -405,7 +405,8 @@ export const ModelName = {
   LearningPathStep: 'LearningPathStep',
   LearningPathEnrollment: 'LearningPathEnrollment',
   LearningPathStepCompletion: 'LearningPathStepCompletion',
-  LearningPathCompletion: 'LearningPathCompletion'
+  LearningPathCompletion: 'LearningPathCompletion',
+  FaqEntry: 'FaqEntry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion"
+    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion" | "faqEntry"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2053,6 +2054,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FaqEntry: {
+      payload: Prisma.$FaqEntryPayload<ExtArgs>
+      fields: Prisma.FaqEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FaqEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FaqEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.FaqEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FaqEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        findMany: {
+          args: Prisma.FaqEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>[]
+        }
+        create: {
+          args: Prisma.FaqEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        createMany: {
+          args: Prisma.FaqEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FaqEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.FaqEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        update: {
+          args: Prisma.FaqEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.FaqEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FaqEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FaqEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.FaqEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaqEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.FaqEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFaqEntry>
+        }
+        groupBy: {
+          args: Prisma.FaqEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaqEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FaqEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaqEntryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2380,6 +2455,18 @@ export const LearningPathCompletionScalarFieldEnum = {
 export type LearningPathCompletionScalarFieldEnum = (typeof LearningPathCompletionScalarFieldEnum)[keyof typeof LearningPathCompletionScalarFieldEnum]
 
 
+export const FaqEntryScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FaqEntryScalarFieldEnum = (typeof FaqEntryScalarFieldEnum)[keyof typeof FaqEntryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2655,6 +2742,7 @@ export type GlobalOmitConfig = {
   learningPathEnrollment?: Prisma.LearningPathEnrollmentOmit
   learningPathStepCompletion?: Prisma.LearningPathStepCompletionOmit
   learningPathCompletion?: Prisma.LearningPathCompletionOmit
+  faqEntry?: Prisma.FaqEntryOmit
 }
 
 /* Types for Logging */

@@ -72,7 +72,8 @@ export const ModelName = {
   LearningPathStep: 'LearningPathStep',
   LearningPathEnrollment: 'LearningPathEnrollment',
   LearningPathStepCompletion: 'LearningPathStepCompletion',
-  LearningPathCompletion: 'LearningPathCompletion'
+  LearningPathCompletion: 'LearningPathCompletion',
+  FaqEntry: 'FaqEntry'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -377,6 +378,18 @@ export const LearningPathCompletionScalarFieldEnum = {
 } as const
 
 export type LearningPathCompletionScalarFieldEnum = (typeof LearningPathCompletionScalarFieldEnum)[keyof typeof LearningPathCompletionScalarFieldEnum]
+
+
+export const FaqEntryScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  answer: 'answer',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FaqEntryScalarFieldEnum = (typeof FaqEntryScalarFieldEnum)[keyof typeof FaqEntryScalarFieldEnum]
 
 
 export const SortOrder = {

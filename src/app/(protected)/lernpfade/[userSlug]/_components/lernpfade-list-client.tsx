@@ -1,20 +1,25 @@
 'use client'
 
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import {
   Search,
-  BookOpen,
-  Trophy,
-  Lock,
-  CheckCircle2,
   Clock,
-  Sparkles,
+  Zap,
+  CheckCircle2,
+  Lock,
   Route,
+  Star,
+  ChevronRight,
+  Flame,
+  X,
 } from 'lucide-react'
-import Link from 'next/link'
-import { useMemo, useState } from 'react'
-
-import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
 import {
   Card,
   CardContent,
@@ -23,11 +28,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Progress } from '@/components/ui/progress'
-import { Separator } from '@/components/ui/separator'
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs'
 import type { LernpfadDifficulty } from '@/generated/enums'
-import { cn } from '@/lib/utils'
+
+// ── Types ────────────────────────────────────────────────────────────────────
 
 export type LernpfadListItem = {
   id: string
@@ -43,31 +51,187 @@ export type LernpfadListItem = {
   badgeName: string | null
 }
 
-function difficultyLabel(d: LernpfadDifficulty): string {
-  switch (d) {
-    case 'ANFAENGER':
-      return 'Anfänger'
-    case 'FORTGESCHRITTEN':
-      return 'Fortgeschritten'
-    case 'PRO':
-      return 'Pro'
-    default:
-      return d
+type DifficultyFilter = 'Alle' | 'Anfänger' | 'Fortgeschritten' | 'Pro'
+
+// ── Config ───────────────────────────────────────────────────────────────────
+
+const diffConfig: Record<
+  LernpfadDifficulty,
+  {
+    label: DifficultyFilter
+    emoji: string
+    badgeClass: string
   }
+> = {
+  ANFAENGER: {
+    label: 'Anfänger',
+    emoji: '🌱',
+    badgeClass:
+      'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  },
+  FORTGESCHRITTEN: {
+    label: 'Fortgeschritten',
+    emoji: '⚔️',
+    badgeClass:
+      'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  },
+  PRO: {
+    label: 'Pro',
+    emoji: '👑',
+    badgeClass: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  },
 }
 
-function difficultyBadgeClass(difficulty: LernpfadDifficulty): string {
-  switch (difficulty) {
-    case 'ANFAENGER':
-      return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-    case 'FORTGESCHRITTEN':
-      return 'border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-300'
-    case 'PRO':
-      return 'border-rose-500/40 bg-rose-500/10 text-rose-800 dark:text-rose-300'
-    default:
-      return ''
+// ── PathCard ─────────────────────────────────────────────────────────────────
+
+function PathCard({
+  path,
+  userSlug,
+}: {
+  path: LernpfadListItem
+  userSlug: string
+}) {
+  const cfg = diffConfig[path.difficulty]
+  const progress =
+    path.totalQuests === 0
+      ? 0
+      : Math.round((path.completedQuests / path.totalQuests) * 100)
+  const isCompleted = progress === 100 && path.totalQuests > 0
+  const isInProgress = path.completedQuests > 0 && !isCompleted
+
+  const cardInner = (
+    <Card
+      className={cn(
+        'h-full gap-4 py-5 transition-all duration-200',
+        'hover:border-foreground/20 hover:shadow-md',
+        isCompleted && 'ring-1 ring-emerald-500/30',
+        path.isLocked && 'pointer-events-none opacity-60',
+      )}
+    >
+      <CardHeader className="gap-2">
+        <div className="flex items-center justify-between gap-2">
+          <Badge
+            variant="outline"
+            className={cn('text-[10px] uppercase tracking-wider', cfg.badgeClass)}
+          >
+            <span aria-hidden>{cfg.emoji}</span>
+            {cfg.label}
+          </Badge>
+
+          {path.isLocked ? (
+            <Badge variant="outline" className="text-[10px] text-muted-foreground">
+              <Lock />
+              Gesperrt
+            </Badge>
+          ) : isCompleted ? (
+            <Badge
+              variant="outline"
+              className="border-emerald-500/30 bg-emerald-500/10 text-[10px] text-emerald-600 dark:text-emerald-400"
+            >
+              <CheckCircle2 />
+              Abgeschlossen
+            </Badge>
+          ) : isInProgress ? (
+            <Badge
+              variant="outline"
+              className="border-orange-500/30 bg-orange-500/10 text-[10px] text-orange-600 dark:text-orange-400"
+            >
+              <Flame />
+              Aktiv
+            </Badge>
+          ) : (
+            <Badge
+              variant="outline"
+              className="border-blue-500/30 bg-blue-500/10 text-[10px] text-blue-600 dark:text-blue-400"
+            >
+              <Zap />
+              Verfügbar
+            </Badge>
+          )}
+        </div>
+
+        <CardTitle className="line-clamp-2 text-base leading-snug transition-colors group-hover:text-sky-600 dark:group-hover:text-sky-400">
+          {path.title}
+        </CardTitle>
+
+        {path.description && (
+          <CardDescription className="line-clamp-2 text-xs leading-relaxed">
+            {path.description}
+          </CardDescription>
+        )}
+      </CardHeader>
+
+      <CardContent className="flex flex-1 flex-col gap-4">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <span>Fortschritt</span>
+            <span className={cn(isCompleted && 'text-emerald-500')}>
+              {path.completedQuests} / {path.totalQuests} Quests
+            </span>
+          </div>
+          <Progress
+            value={progress}
+            className={cn(
+              'h-2',
+              isCompleted && '[&>[data-slot=progress-indicator]]:bg-emerald-500',
+            )}
+          />
+        </div>
+
+        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Clock className="h-3 w-3 shrink-0" />
+            {path.estimatedTime}
+          </span>
+          <span className="inline-flex items-center gap-1 font-medium text-amber-600 dark:text-amber-400">
+            <Zap className="h-3 w-3 shrink-0" />~{path.xpReward} XP
+          </span>
+          {path.badgeName && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/30 bg-amber-500/10 px-2 py-0.5 font-medium text-amber-700 dark:text-amber-300">
+              <Star className="h-3 w-3 shrink-0 fill-current" />
+              {path.badgeName}
+            </span>
+          )}
+        </div>
+      </CardContent>
+
+      <CardFooter>
+        <Button
+          variant={isCompleted ? 'outline' : 'secondary'}
+          className={cn(
+            'w-full justify-center gap-2',
+            isCompleted &&
+              'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300',
+          )}
+          tabIndex={-1}
+        >
+          {isCompleted ? <CheckCircle2 /> : <Route />}
+          {isCompleted
+            ? 'Nochmal ansehen'
+            : isInProgress
+              ? 'Weitermachen'
+              : 'Lernpfad starten'}
+          <ChevronRight className="transition-transform group-hover:translate-x-0.5" />
+        </Button>
+      </CardFooter>
+    </Card>
+  )
+
+  if (path.isLocked) {
+    return <div className="group">{cardInner}</div>
   }
+
+  return (
+    <Link
+      href={`/lernpfade/${userSlug}/${path.slug}`}
+      className="group block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    >
+      {cardInner}
+    </Link>
+  )
 }
+
+// ── Main component ───────────────────────────────────────────────────────────
 
 export function LernpfadeListClient({
   userSlug,
@@ -77,231 +241,129 @@ export function LernpfadeListClient({
   paths: LernpfadListItem[]
 }) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('Alle')
-
-  const difficulties = ['Alle', 'Anfänger', 'Fortgeschritten', 'Pro'] as const
+  const [selectedDifficulty, setSelectedDifficulty] =
+    useState<DifficultyFilter>('Alle')
 
   const filteredPaths = useMemo(() => {
     return paths.filter((path) => {
+      const q = searchQuery.toLowerCase().trim()
       const matchesSearch =
-        path.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (path.description ?? '')
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      const d = difficultyLabel(path.difficulty)
+        !q ||
+        path.title.toLowerCase().includes(q) ||
+        (path.description ?? '').toLowerCase().includes(q)
       const matchesDifficulty =
-        selectedDifficulty === 'Alle' || selectedDifficulty === d
+        selectedDifficulty === 'Alle' ||
+        diffConfig[path.difficulty].label === selectedDifficulty
       return matchesSearch && matchesDifficulty
     })
   }, [paths, searchQuery, selectedDifficulty])
 
-  const getProgressPercentage = (completed: number, total: number) => {
-    if (total === 0) return 0
-    return Math.round((completed / total) * 100)
-  }
+  const hasActiveFilters = searchQuery !== '' || selectedDifficulty !== 'Alle'
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-10 pt-2 md:px-6">
+    <div className="mx-auto w-full max-w-[1400px] space-y-8 p-4 md:p-6">
+      {/* ── Page header ──────────────────────────────────────────── */}
       <header className="space-y-2">
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-9 items-center justify-center rounded-lg border border-border/60">
-            <Route className="size-4" aria-hidden />
-          </div>
-          <span className="text-sm font-medium tracking-wide uppercase">
-            Lernen
-          </span>
+        <div className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          <Route className="h-5 w-5" />
+          <span>Lernen</span>
         </div>
-        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-          Lernpfade
-        </h1>
-        <p className="text-muted-foreground max-w-2xl text-pretty text-sm leading-relaxed md:text-base">
-          Wähle einen veröffentlichten Lernpfad und arbeite die Quests der Reihe
-          nach ab. Fortschritt und Belohnungen siehst du auf der Detailseite.
+        <h1 className="text-4xl font-bold tracking-tight">Lernpfade</h1>
+        <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+          Arbeite Quests der Reihe nach ab und schalte seltene Abzeichen frei.
+          Jeder abgeschlossene Pfad bringt XP und Ruhm.
         </p>
       </header>
 
-      <div className="space-y-4">
-        <div className="relative max-w-xl">
-          <Search
-            className="text-muted-foreground pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2"
-            aria-hidden
-          />
+      {/* ── Toolbar: search │ difficulty tabs (vertical separator) ─ */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className="relative w-full sm:max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Lernpfade durchsuchen…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-background/80 h-11 border-border/60 pl-10 shadow-xs backdrop-blur-sm"
+            className="h-10 pl-9 pr-9"
           />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              aria-label="Suche zurücksetzen"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-muted-foreground text-sm">
-            Schwierigkeit
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {difficulties.map((difficulty) => (
-              <Button
-                key={difficulty}
-                type="button"
-                size="sm"
-                variant={
-                  selectedDifficulty === difficulty ? 'default' : 'outline'
-                }
-                className={cn(
-                  'rounded-full',
-                  selectedDifficulty === difficulty &&
-                    'shadow-sm',
-                )}
-                onClick={() => setSelectedDifficulty(difficulty)}
-              >
-                {difficulty}
-              </Button>
-            ))}
-          </div>
-        </div>
+        <Separator
+          orientation="vertical"
+          className="hidden sm:block sm:!h-8"
+        />
+
+        <Tabs
+          value={selectedDifficulty}
+          onValueChange={(v) => setSelectedDifficulty(v as DifficultyFilter)}
+        >
+          <TabsList>
+            <TabsTrigger value="Alle">Alle</TabsTrigger>
+            <TabsTrigger value="Anfänger" className="gap-1">
+              <span aria-hidden>🌱</span>
+              Anfänger
+            </TabsTrigger>
+            <TabsTrigger value="Fortgeschritten" className="gap-1">
+              <span aria-hidden>⚔️</span>
+              Fortgeschritten
+            </TabsTrigger>
+            <TabsTrigger value="Pro" className="gap-1">
+              <span aria-hidden>👑</span>
+              Pro
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
-      <Separator className="bg-border/60" />
-
-      <p className="text-muted-foreground text-sm">
+      <p className="-mt-4 text-xs text-muted-foreground">
         {filteredPaths.length}{' '}
-        {filteredPaths.length === 1 ? 'Lernpfad' : 'Lernpfade'} gefunden
+        {filteredPaths.length === 1 ? 'Lernpfad' : 'Lernpfade'}
       </p>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {filteredPaths.map((path) => {
-          const progress = getProgressPercentage(
-            path.completedQuests,
-            path.totalQuests,
-          )
-          const isCompleted = progress === 100 && path.totalQuests > 0
-          const diffLabel = difficultyLabel(path.difficulty)
-
-          return (
-            <Card
-              key={path.id}
-              className={cn(
-                'border-border/60 overflow-hidden shadow-sm transition-shadow hover:shadow-md',
-                path.isLocked && 'opacity-70',
-              )}
-            >
-              <CardHeader className="relative space-y-3 pb-3">
-                {path.isLocked && (
-                  <div className="bg-background/85 absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 backdrop-blur-[2px]">
-                    <Lock className="text-muted-foreground size-10" />
-                    <p className="text-muted-foreground text-sm font-medium">
-                      Noch nicht verfügbar
-                    </p>
-                  </div>
-                )}
-
-                <div className="flex items-start justify-between gap-3">
-                  <div className="bg-muted/50 flex size-11 shrink-0 items-center justify-center rounded-xl border border-border/60">
-                    <BookOpen className="text-foreground size-5" aria-hidden />
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <Badge
-                      variant="outline"
-                      className={cn(
-                        'font-medium',
-                        difficultyBadgeClass(path.difficulty),
-                      )}
-                    >
-                      {diffLabel}
-                    </Badge>
-                    {isCompleted && (
-                      <Badge className="gap-1 bg-emerald-600 text-white hover:bg-emerald-600/90 dark:bg-emerald-600">
-                        <CheckCircle2 className="size-3.5" />
-                        Abgeschlossen
-                      </Badge>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <CardTitle className="line-clamp-2 text-lg leading-snug">
-                    {path.title}
-                  </CardTitle>
-                  <CardDescription className="mt-2 line-clamp-2 text-pretty">
-                    {path.description ?? 'Keine Beschreibung hinterlegt.'}
-                  </CardDescription>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4 pt-0">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground font-medium">
-                      Fortschritt
-                    </span>
-                    <span className="text-foreground tabular-nums">
-                      {path.completedQuests}/{path.totalQuests} Quests ·{' '}
-                      {progress}%
-                    </span>
-                  </div>
-                  <Progress value={progress} className="h-2" />
-                </div>
-
-                <div className="text-muted-foreground grid grid-cols-2 gap-3 text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-8 items-center justify-center rounded-md border border-border/60">
-                      <Clock className="size-3.5" aria-hidden />
-                    </div>
-                    <span>{path.estimatedTime}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-8 items-center justify-center rounded-md border border-border/60">
-                      <Sparkles className="size-3.5" aria-hidden />
-                    </div>
-                    <span className="tabular-nums">~{path.xpReward} XP</span>
-                  </div>
-                </div>
-
-                {path.badgeName && (
-                  <div className="bg-muted/40 flex items-center gap-2 rounded-lg border border-border/60 px-3 py-2 text-xs">
-                    <Trophy className="text-amber-600 dark:text-amber-400 size-4 shrink-0" />
-                    <span className="text-foreground/90 font-medium">
-                      Abschluss-Badge: {path.badgeName}
-                    </span>
-                  </div>
-                )}
-              </CardContent>
-
-              <CardFooter className="border-border/50 border-t pt-4">
-                {!path.isLocked ? (
-                  <Button className="w-full" asChild>
-                    <Link href={`/lernpfade/${userSlug}/${path.slug}`}>
-                      Details und starten
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button className="w-full" variant="secondary" disabled>
-                    Gesperrt
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
-          )
-        })}
-      </div>
-
-      {filteredPaths.length === 0 && (
-        <Card className="border-border/60 border-dashed py-16 shadow-none">
-          <CardContent className="flex flex-col items-center justify-center gap-3 text-center">
-            <div className="bg-muted/50 flex size-14 items-center justify-center rounded-full border border-border/60">
-              <BookOpen className="text-muted-foreground size-7" />
-            </div>
-            <p className="text-foreground text-lg font-medium">
-              Keine Lernpfade gefunden
+      {/* ── Card grid / empty state ─────────────────────────────── */}
+      {filteredPaths.length > 0 ? (
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {filteredPaths.map((path) => (
+            <PathCard key={path.id} path={path} userSlug={userSlug} />
+          ))}
+        </div>
+      ) : (
+        <Card className="mx-auto max-w-sm border-dashed py-10 text-center shadow-none">
+          <CardContent className="space-y-3">
+            <Route className="mx-auto h-10 w-10 text-muted-foreground/30" />
+            <p className="text-lg font-semibold">
+              {searchQuery ? `Nichts für „${searchQuery}“` : 'Keine Lernpfade'}
             </p>
-            <p className="text-muted-foreground max-w-sm text-sm">
-              Passe die Suche oder den Schwierigkeitsfilter an, oder schau später
-              wieder vorbei.
+            <p className="text-sm text-muted-foreground">
+              {searchQuery
+                ? 'Versuche einen anderen Suchbegriff oder setze die Filter zurück.'
+                : 'Für diesen Schwierigkeitsgrad gibt es noch keine Lernpfade. Schau später wieder vorbei!'}
             </p>
+            {hasActiveFilters && (
+              <Button
+                variant="link"
+                size="sm"
+                onClick={() => {
+                  setSearchQuery('')
+                  setSelectedDifficulty('Alle')
+                }}
+              >
+                Filter zurücksetzen
+              </Button>
+            )}
           </CardContent>
         </Card>
       )}
-    </section>
+    </div>
   )
 }

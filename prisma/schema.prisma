@@ -423,3 +423,14 @@ model LearningPathCompletion {
   @@unique([userId, learningPathId])
   @@index([learningPathId])
 }
+
+model FaqEntry {
+  id        String   @id @default(uuid())
+  question  String   @db.Text
+  answer    String   @db.Text
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([position])
+}

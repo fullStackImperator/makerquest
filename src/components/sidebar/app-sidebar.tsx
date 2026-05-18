@@ -6,8 +6,10 @@ import {
   Bot,
   Command,
   Frame,
+  HelpCircle,
   LifeBuoy,
   Map,
+  Mail,
   PieChart,
   Send,
   Settings2,
@@ -19,6 +21,8 @@ import {
   Wrench,
   BowArrow,
 } from 'lucide-react'
+
+import { FEEDBACK_EMAIL } from '@/lib/contact'
 
 import { NavMain } from '@/components/sidebar/nav-main'
 import { NavProjects } from '@/components/sidebar/nav-projects'
@@ -213,33 +217,33 @@ export function AppSidebar({
       url: '/leaderboard',
       icon: Trophy,
     },
-    {
-      name: 'Tools',
-      url: '#',
-      icon: Wrench,
-    },
+    // {
+    //   name: 'Tools',
+    //   url: '#',
+    //   icon: Wrench,
+    // },
     ...(isAdminOrTeacher
       ? [
           { name: 'Admin', url: '/admin', icon: Wrench },
-          {
-            name: 'Lernpfade verwalten',
-            url: '/admin/lernpfade',
-            icon: Map,
-          },
+          // {
+          //   name: 'Lernpfade verwalten',
+          //   url: '/admin/lernpfade',
+          //   icon: Map,
+          // },
         ]
       : []),
   ]
 
   const navSecondary = [
     {
-      title: 'Support',
-      url: '#',
-      icon: LifeBuoy,
+      title: 'Hilfe',
+      url: '/help',
+      icon: HelpCircle,
     },
     {
       title: 'Feedback',
-      url: '#',
-      icon: Send,
+      url: `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent('MakerQuest Feedback')}`,
+      icon: Mail,
     },
   ]
 

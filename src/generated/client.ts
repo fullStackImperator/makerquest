@@ -151,3 +151,8 @@ export type LearningPathStepCompletion = Prisma.LearningPathStepCompletionModel
  * 
  */
 export type LearningPathCompletion = Prisma.LearningPathCompletionModel
+/**
+ * Model FaqEntry
+ * 
+ */
+export type FaqEntry = Prisma.FaqEntryModel

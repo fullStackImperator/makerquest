@@ -4,13 +4,14 @@
 import { useEffect, useState } from 'react'
 import { DifficultyLevel } from '@/generated/enums'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Categories } from './categories-filter'
 import { Faecher } from './faecher-filter'
 import { useProjectStore } from '@/atoms/filter-state'
 import { KlassenstufeFilter } from './klassenstufe-filter'
 import { SchwierigkeitFilter } from './schwierigkeit-filter'
 import { Separator } from '@/components/ui/separator'
-import { RotateCcw } from 'lucide-react'
+import { RotateCcw, Search, X } from 'lucide-react'
 import { CoursesList } from '@/components/quests/courses-list'
 import { Category, Course, Fach } from '@/generated/client'
 
@@ -45,6 +46,7 @@ const SearchCoursesPage = ({
   const [filteredCourses, setFilteredCourses] =
     useState<CourseWithProgressWithCategory[]>(initialCourses)
   const [resetFiltersState, setResetFiltersState] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const filterCourses = () => {
@@ -73,6 +75,15 @@ const SearchCoursesPage = ({
         )
       }
 
+      const q = searchQuery.toLowerCase().trim()
+      if (q) {
+        courses = courses.filter(
+          (course) =>
+            course.title.toLowerCase().includes(q) ||
+            (course.description ?? '').toLowerCase().includes(q),
+        )
+      }
+
       setFilteredCourses(courses)
     }
 
@@ -82,6 +93,7 @@ const SearchCoursesPage = ({
     currentFachId,
     currentKlassenstufe,
     currentSchwierigkeit,
+    searchQuery,
     initialCourses,
   ])
 
@@ -90,6 +102,7 @@ const SearchCoursesPage = ({
     setFachId(null)
     setKlassenstufe(null)
     setSchwierigkeit(null)
+    setSearchQuery('')
     setResetFiltersState((prev) => !prev)
   }
 
@@ -100,6 +113,28 @@ const SearchCoursesPage = ({
       </div> */}
       <div className="p-6 space-y-8">
         <h1 className="text-center text-3xl my-4">Quests suchen </h1>
+
+        <div className="relative mx-auto w-full sm:max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Quests durchsuchen…"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="h-10 pl-9 pr-9"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              aria-label="Suche zurücksetzen"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+
         <div className="flex justify-center text-center items-center">
           <Faecher
             faecher={faecher}

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
 import { LernpfadDetailClient } from './_components/lernpfad-detail-client'
@@ -31,7 +30,18 @@ export default async function LernpfadDetailPage({ params }: Props) {
       steps: {
         orderBy: { position: 'asc' },
         include: {
-          course: { select: { id: true, title: true } },
+          course: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              klassenstufe: true,
+              chapters: {
+                where: { isPublished: true },
+                select: { id: true },
+              },
+            },
+          },
         },
       },
     },
@@ -66,6 +76,20 @@ export default async function LernpfadDetailPage({ params }: Props) {
     },
   })
 
+  // Estimated time + XP reward (same formula as the list page)
+  let minutes = 0
+  let xpReward = 0
+  for (const s of path.steps) {
+    const n = s.course.chapters.length
+    minutes += Math.max(15, n * 20)
+    const k = s.course.klassenstufe ?? 5
+    xpReward += 10 * k * 3
+  }
+  const estimatedTime =
+    minutes < 60
+      ? `${Math.max(1, minutes)} Min`
+      : `${Math.round(minutes / 60)} Std`
+
   const steps = path.steps.map((s) => {
     let status: 'done' | 'current' | 'locked' = 'locked'
     if (!enrollment) {
@@ -82,29 +106,35 @@ export default async function LernpfadDetailPage({ params }: Props) {
       position: s.position,
       courseId: s.courseId,
       title: s.course.title,
+      description: s.course.description ?? null,
+      bonusXp: s.bonusXp,
+      chapterCount: s.course.chapters.length,
       status,
     }
   })
 
-  return (
-    <div className="mx-auto max-w-2xl space-y-6 p-6">
-      <Link
-        href={`/lernpfade/${userSlug}`}
-        className="text-muted-foreground text-sm hover:underline"
-      >
-        ← Alle Lernpfade
-      </Link>
-      <h1 className="text-2xl font-semibold">{path.title}</h1>
-      {path.description && (
-        <p className="text-muted-foreground text-sm">{path.description}</p>
-      )}
+  const completedQuests = doneIds.size
+  const totalQuests = path.steps.length
 
+  return (
+    <div className="flex min-h-0 flex-1 flex-col">
       <LernpfadDetailClient
         pathId={path.id}
+        pathTitle={path.title}
+        pathDescription={path.description}
+        difficulty={path.difficulty}
         userSlug={userSlug}
         enrolled={!!enrollment}
         pathCompleted={!!pathCompletion}
-        badgeName={path.badge?.name ?? null}
+        badge={
+          path.badge
+            ? { name: path.badge.name, imageUrl: path.badge.imageUrl }
+            : null
+        }
+        estimatedTime={estimatedTime}
+        xpReward={xpReward}
+        completedQuests={completedQuests}
+        totalQuests={totalQuests}
         steps={steps}
       />
     </div>
