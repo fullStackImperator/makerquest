@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
             Verwalte deine Quests und gestalte neue. Verteile Punkte und
             Badges.
           </p>
-          <Link href="/teacher/create">
+          <Link href="/admin/quests/create">
             <Button>
               <PlusCircle className="h-4 w-4 mr-2" />
               Neuer Quest

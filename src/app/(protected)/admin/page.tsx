@@ -193,7 +193,7 @@ export default async function AdminDashboardPage() {
             title="Quests"
             description="Alle Quests bearbeiten und veröffentlichen"
             href="/admin/quests"
-            createHref="/admin/create"
+            createHref="/admin/quests/create"
             icon={BookOpen}
             meta={`${stats.publishedCourses} veröffentlicht · ${stats.totalCourses} gesamt`}
           />
