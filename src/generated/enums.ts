@@ -27,3 +27,24 @@ export const LernpfadDifficulty = {
 } as const
 
 export type LernpfadDifficulty = (typeof LernpfadDifficulty)[keyof typeof LernpfadDifficulty]
+
+
+export const QuestionKind = {
+  MC_SINGLE: 'MC_SINGLE',
+  FILL_BLANK: 'FILL_BLANK',
+  SHORT_TEXT: 'SHORT_TEXT',
+  MATH: 'MATH',
+  DRAG_DROP: 'DRAG_DROP'
+} as const
+
+export type QuestionKind = (typeof QuestionKind)[keyof typeof QuestionKind]
+
+
+export const AttemptStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  SUBMITTED: 'SUBMITTED',
+  NEEDS_REVIEW: 'NEEDS_REVIEW',
+  GRADED: 'GRADED'
+} as const
+
+export type AttemptStatus = (typeof AttemptStatus)[keyof typeof AttemptStatus]

@@ -45,6 +45,7 @@ async function getAdminStats() {
     completedChapters,
     learningPathCompletions,
     pendingGradings,
+    pendingExerciseReviews,
   ] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { isTeacher: true } }),
@@ -62,6 +63,7 @@ async function getAdminStats() {
     db.userProgress.count({ where: { isCompleted: true } }),
     db.learningPathCompletion.count(),
     db.grading.count({ where: { points_awarded: false } }),
+    db.exerciseResponse.count({ where: { needsReview: true } }),
   ])
 
   return {
@@ -81,6 +83,7 @@ async function getAdminStats() {
     completedChapters,
     learningPathCompletions,
     pendingGradings,
+    pendingExerciseReviews,
   }
 }
 
@@ -225,17 +228,24 @@ export default async function AdminDashboardPage() {
       <section>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-medium">Aktivität</h2>
-          {stats.pendingGradings > 0 ? (
+          {stats.pendingGradings + stats.pendingExerciseReviews > 0 ? (
             <span className="text-xs text-muted-foreground">
-              {stats.pendingGradings} offene Bewertungen
+              {stats.pendingGradings} Bewertungen ·{' '}
+              {stats.pendingExerciseReviews} Aufgaben-Reviews
             </span>
           ) : null}
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           <StatCard
             label="Offene Bewertungen"
             value={stats.pendingGradings}
-            hint="Punkte noch nicht vergeben"
+            hint="Quest-Noten noch nicht vergeben"
+            icon={ClipboardCheck}
+          />
+          <StatCard
+            label="Aufgaben-Reviews"
+            value={stats.pendingExerciseReviews}
+            hint="KI/Kurzantwort prüfen"
             icon={ClipboardCheck}
           />
           <StatCard

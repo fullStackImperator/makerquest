@@ -73,11 +73,15 @@ const OCRDialog = memo(function OCRDialog({
     try {
       setLoading(true)
       const fd = new FormData()
-      fd.append('file', blob)
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_FASTAPI_URL}/pix2text`,
-        { method: 'POST', body: fd }
+      fd.append(
+        'file',
+        blob,
+        blob instanceof File ? blob.name : 'image.jpeg',
       )
+      const response = await fetch('/api/ocr/pix2text', {
+        method: 'POST',
+        body: fd,
+      })
       if (!response.ok) {
         const errorText = await response.text()
         throw new Error(

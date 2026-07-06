@@ -77,6 +77,26 @@ export type Course = Prisma.CourseModel
  */
 export type Chapter = Prisma.ChapterModel
 /**
+ * Model Exercise
+ * 
+ */
+export type Exercise = Prisma.ExerciseModel
+/**
+ * Model ExerciseQuestion
+ * 
+ */
+export type ExerciseQuestion = Prisma.ExerciseQuestionModel
+/**
+ * Model ExerciseAttempt
+ * 
+ */
+export type ExerciseAttempt = Prisma.ExerciseAttemptModel
+/**
+ * Model ExerciseResponse
+ * 
+ */
+export type ExerciseResponse = Prisma.ExerciseResponseModel
+/**
  * Model Attachment
  * 
  */

@@ -52,11 +52,11 @@ export default function AITools({
 
   const { completion, complete, isLoading, stop } = useCompletion({
     api: '/api/completion',
-    onError() {
+    onError(error) {
       annouunce({
         message: {
-          title: 'Something went wrong',
-          subtitle: 'Please try again later',
+          title: 'AI request failed',
+          subtitle: error.message || 'Please try again later',
         },
       })
     },

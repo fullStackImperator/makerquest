@@ -3,6 +3,7 @@
 import { auth } from '@/lib/auth'
 import { getCourseIfTeachableBySession } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
+import { getNextCourseItemPosition } from '@/lib/exercises/course-items'
 import { headers } from 'next/headers'
 
 export type CreateChapterResult =
@@ -11,7 +12,7 @@ export type CreateChapterResult =
 
 export async function createChapter(
   courseId: string,
-  payload: { title: string }
+  payload: { title: string },
 ): Promise<CreateChapterResult> {
   try {
     const session = await auth.api.getSession({
@@ -33,12 +34,7 @@ export async function createChapter(
       return { success: false, error: 'Kurs nicht gefunden' }
     }
 
-    const lastChapter = await db.chapter.findFirst({
-      where: { courseId },
-      orderBy: { position: 'desc' },
-    })
-
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1
+    const newPosition = await getNextCourseItemPosition(courseId)
 
     const chapter = await db.chapter.create({
       data: {

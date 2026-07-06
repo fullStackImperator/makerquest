@@ -32,6 +32,16 @@ const ChapterCourseLayout = async ({
         },
         orderBy: { position: 'asc' },
       },
+      exercises: {
+        where: { isPublished: true },
+        orderBy: { position: 'asc' },
+        include: {
+          attempts: {
+            where: { userId: user.id },
+            take: 1,
+          },
+        },
+      },
       attachments: true,
     },
   })

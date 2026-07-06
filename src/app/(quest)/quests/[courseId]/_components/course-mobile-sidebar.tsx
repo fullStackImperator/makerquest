@@ -1,5 +1,12 @@
 import { Menu } from 'lucide-react'
-import { Attachment, Chapter, Course, UserProgress } from '@/generated/client'
+import {
+  Attachment,
+  Chapter,
+  Course,
+  Exercise,
+  ExerciseAttempt,
+  UserProgress,
+} from '@/generated/client'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
   CourseSidebar,
@@ -11,6 +18,7 @@ type CourseMobileSidebarProps = {
     chapters: (Chapter & {
       userProgress: UserProgress[] | null
     })[]
+    exercises?: (Exercise & { attempts: ExerciseAttempt[] })[]
     attachments: Attachment[]
   }
   progressCount: number

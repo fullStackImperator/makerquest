@@ -334,6 +334,40 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumQuestionKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuestionKind | Prisma.EnumQuestionKindFieldRefInput<$PrismaModel>
+  in?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel> | $Enums.QuestionKind
+}
+
+export type EnumQuestionKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuestionKind | Prisma.EnumQuestionKindFieldRefInput<$PrismaModel>
+  in?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQuestionKindWithAggregatesFilter<$PrismaModel> | $Enums.QuestionKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel>
+}
+
+export type EnumAttemptStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttemptStatus | Prisma.EnumAttemptStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel> | $Enums.AttemptStatus
+}
+
+export type EnumAttemptStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttemptStatus | Prisma.EnumAttemptStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttemptStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel>
+}
+
 export type EnumLernpfadDifficultyFilter<$PrismaModel = never> = {
   equals?: $Enums.LernpfadDifficulty | Prisma.EnumLernpfadDifficultyFieldRefInput<$PrismaModel>
   in?: $Enums.LernpfadDifficulty[] | Prisma.ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel>
@@ -628,6 +662,40 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumQuestionKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuestionKind | Prisma.EnumQuestionKindFieldRefInput<$PrismaModel>
+  in?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel> | $Enums.QuestionKind
+}
+
+export type NestedEnumQuestionKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QuestionKind | Prisma.EnumQuestionKindFieldRefInput<$PrismaModel>
+  in?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.QuestionKind[] | Prisma.ListEnumQuestionKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumQuestionKindWithAggregatesFilter<$PrismaModel> | $Enums.QuestionKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQuestionKindFilter<$PrismaModel>
+}
+
+export type NestedEnumAttemptStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttemptStatus | Prisma.EnumAttemptStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel> | $Enums.AttemptStatus
+}
+
+export type NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AttemptStatus | Prisma.EnumAttemptStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AttemptStatus[] | Prisma.ListEnumAttemptStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAttemptStatusWithAggregatesFilter<$PrismaModel> | $Enums.AttemptStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAttemptStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumLernpfadDifficultyFilter<$PrismaModel = never> = {

@@ -1,6 +1,13 @@
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
-import { Attachment, Chapter, Course, UserProgress } from '@/generated/client'
+import {
+  Attachment,
+  Chapter,
+  Course,
+  Exercise,
+  ExerciseAttempt,
+  UserProgress,
+} from '@/generated/client'
 import { redirect } from 'next/navigation'
 import { CourseSidebarItem } from './course-sidebar-item'
 import { CourseProgress } from '@/components/quests/course-progress'
@@ -10,6 +17,8 @@ import { CourseProgressButton } from '../chapters/[chapterId]/_components/course
 import { CourseEnrollButton } from '@/components/quests/course-enroll-button'
 import { Badge } from '@/components/ui/badge'
 import { LayoutDashboard, ListOrdered } from 'lucide-react'
+import { mergeCourseItems } from '@/lib/exercises/merge-course-items'
+import { attemptStatusLabel } from '@/lib/exercises/sidebar-items'
 
 export type CourseChapterPanelProps = {
   chapterId: string
@@ -25,13 +34,15 @@ type CourseSidebarProps = {
     chapters: (Chapter & {
       userProgress: UserProgress[] | null
     })[]
+    exercises?: (Exercise & {
+      attempts: ExerciseAttempt[]
+    })[]
     attachments: Attachment[]
   }
   progressCount: number
   chapterPanel?: CourseChapterPanelProps | null
 }
 
-/** Strip leading "1.", "1.1." etc. so we don't duplicate the index column. */
 function chapterTitleForDisplay(raw: string): string {
   let s = raw.trim()
   while (/^\d+\./.test(s)) {
@@ -57,9 +68,30 @@ export const CourseSidebar = async ({
     },
   })
 
+  const items = mergeCourseItems(
+    course.chapters,
+    course.exercises ?? [],
+  ).map((item) => {
+    if (item.kind === 'chapter') {
+      const ch = course.chapters.find((c) => c.id === item.id)
+      return {
+        ...item,
+        isCompleted: !!ch?.userProgress?.[0]?.isCompleted,
+        statusLabel: null as string | null,
+      }
+    }
+    const ex = course.exercises?.find((e) => e.id === item.id)
+    const attempt = ex?.attempts?.[0]
+    const status = attempt?.status
+    return {
+      ...item,
+      isCompleted: status === 'GRADED',
+      statusLabel: attemptStatusLabel(status),
+    }
+  })
+
   return (
     <div className="border-border/50 bg-card flex max-h-[calc(100vh-8rem)] flex-col overflow-hidden rounded-xl border shadow-sm">
-      {/* Quest */}
       <div className="from-muted/40 border-border/50 border-b bg-linear-to-b to-transparent p-4">
         <div className="flex gap-3">
           <div className="bg-sidebar-accent text-sidebar-accent-foreground flex size-10 shrink-0 items-center justify-center rounded-lg border border-border/60">
@@ -126,20 +158,22 @@ export const CourseSidebar = async ({
         <div className="border-border/50 bg-muted/15 border-b px-4 py-2.5">
           <div className="text-muted-foreground flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest">
             <ListOrdered className="size-3.5 shrink-0 opacity-70" aria-hidden />
-            {chapterPanel ? 'Alle Kapitel' : 'Kapitel'}
+            {chapterPanel ? 'Alle Inhalte' : 'Inhalte'}
           </div>
         </div>
 
         <div className="flex flex-col">
-          {course.chapters.map((chapter, i) => (
+          {items.map((item, i) => (
             <CourseSidebarItem
-              key={chapter.id}
+              key={`${item.kind}-${item.id}`}
               index={i + 1}
-              id={chapter.id}
-              label={chapterTitleForDisplay(chapter.title)}
-              isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
+              id={item.id}
+              kind={item.kind}
+              label={chapterTitleForDisplay(item.title)}
+              isCompleted={item.isCompleted}
               courseId={course.id}
-              isLocked={!chapter.isFree && !purchase}
+              isLocked={!item.isFree && !purchase}
+              statusLabel={item.statusLabel}
             />
           ))}
         </div>

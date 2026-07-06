@@ -1,39 +1,52 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { CheckCircle, Lock, PlayCircle } from 'lucide-react'
+import {
+  CheckCircle,
+  ClipboardList,
+  Lock,
+  PlayCircle,
+} from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
+import { Badge } from '@/components/ui/badge'
+import type { CourseItemKind } from '@/lib/exercises/types'
 
 type CourseSidebarItemProps = {
   index: number
   label: string
   id: string
+  kind: CourseItemKind
   isCompleted: boolean
   courseId: string
   isLocked: boolean
+  statusLabel?: string | null
 }
 
 export const CourseSidebarItem = ({
   index,
   label,
   id,
+  kind,
   isCompleted,
   courseId,
   isLocked,
+  statusLabel,
 }: CourseSidebarItemProps) => {
   const pathname = usePathname()
   const router = useRouter()
 
-  const Icon = isLocked ? Lock : isCompleted ? CheckCircle : PlayCircle
-  const isActive = pathname?.includes(id)
+  const href =
+    kind === 'chapter'
+      ? `/quests/${courseId}/chapters/${id}`
+      : `/quests/${courseId}/exercises/${id}`
 
-  const onClick = () => {
-    router.push(`/quests/${courseId}/chapters/${id}`)
-  }
+  const DefaultIcon = kind === 'exercise' ? ClipboardList : PlayCircle
+  const Icon = isLocked ? Lock : isCompleted ? CheckCircle : DefaultIcon
+  const isActive = pathname?.includes(id)
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => router.push(href)}
       type="button"
       className={cn(
         'border-border/30 hover:bg-muted/50 flex w-full items-stretch gap-0 border-b text-left text-sm transition-colors',
@@ -72,6 +85,11 @@ export const CourseSidebarItem = ({
         >
           {label}
         </span>
+        {statusLabel && (
+          <Badge variant="secondary" className="shrink-0 text-[10px]">
+            {statusLabel}
+          </Badge>
+        )}
       </div>
     </button>
   )

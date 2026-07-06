@@ -99,7 +99,9 @@ const Container: React.FC<{
       <Editor
         // initialConfig={{ editorState: JSON.stringify(editorState) }}
         initialConfig={{
-          editorState: JSON.stringify(editorData),
+          editorState: editorData
+            ? JSON.stringify(editorData)
+            : undefined,
           editable: editorEditable,
         }}
         // initialConfig={{

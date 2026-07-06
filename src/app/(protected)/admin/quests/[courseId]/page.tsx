@@ -6,6 +6,7 @@ import {
   BookCheck,
   BookPlus,
   ArrowLeft,
+  ClipboardCheck,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -18,7 +19,7 @@ import { TitleForm } from './_components/title-form'
 import { DescriptionForm } from './_components/description-form'
 import { ImageForm } from './_components/image-form'
 import { CategoryForm } from './_components/category-form'
-import { ChaptersForm } from './_components/chapters-form'
+import { CourseItemsForm } from './_components/course-items-form'
 import { CourseActions } from './_components/course-actions'
 import { Banner } from '@/components/banner'
 import { PrerequisiteForm } from './_components/prerequisite-form'
@@ -120,6 +121,9 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
       chapters: {
         orderBy: { position: 'asc' },
       },
+      exercises: {
+        orderBy: { position: 'asc' },
+      },
       categories: true,
       faecher: true,
     },
@@ -140,6 +144,13 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   if (!course) {
     return redirect('/')
   }
+
+  const pendingExerciseReviews = await db.exerciseResponse.count({
+    where: {
+      needsReview: true,
+      attempt: { exercise: { courseId } },
+    },
+  })
 
   const requiredFields = [
     course.title,
@@ -250,12 +261,24 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           </QuestSectionCard>
 
           <div className="flex flex-col gap-6">
+            {pendingExerciseReviews > 0 && (
+              <Link
+                href={`/admin/quests/${courseId}/reviews`}
+                className="border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/15 flex items-center gap-3 rounded-lg border px-4 py-3 text-sm transition-colors"
+              >
+                <ClipboardCheck className="size-5 shrink-0 text-amber-700" />
+                <span>
+                  <strong>{pendingExerciseReviews}</strong> Aufgaben-Antwort(en)
+                  warten auf Prüfung
+                </span>
+              </Link>
+            )}
             <QuestSectionCard
               icon={ListChecks}
-              title="Kapitel"
-              description="Reihenfolge, Titel und Bearbeitung der Kapitel"
+              title="Inhalte"
+              description="Kapitel und Aufgaben — Reihenfolge per Drag & Drop"
             >
-              <ChaptersForm initialData={course} courseId={course.id} />
+              <CourseItemsForm initialData={course} courseId={course.id} />
             </QuestSectionCard>
 
             <QuestSectionCard

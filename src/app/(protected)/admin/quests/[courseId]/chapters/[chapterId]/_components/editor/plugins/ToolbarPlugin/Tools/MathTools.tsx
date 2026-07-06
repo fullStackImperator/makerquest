@@ -62,7 +62,6 @@ const WolframIcon = () => (
   </svg>
 )
 
-const FASTAPI_URL = process.env.NEXT_PUBLIC_FASTAPI_URL
 const themeMode = 'light'
 
 export const useCallbackRefState = () => {
@@ -212,8 +211,12 @@ export default function MathTools({
     try {
       setLoading(true)
       const fd = new FormData()
-      fd.append('file', blob)
-      const response = await fetch(`${FASTAPI_URL}/pix2text`, {
+      fd.append(
+        'file',
+        blob,
+        blob instanceof File ? blob.name : 'image.png',
+      )
+      const response = await fetch('/api/ocr/pix2text', {
         method: 'POST',
         body: fd,
       })

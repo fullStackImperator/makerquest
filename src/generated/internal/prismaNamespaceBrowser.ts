@@ -58,6 +58,10 @@ export const ModelName = {
   Verification: 'Verification',
   Course: 'Course',
   Chapter: 'Chapter',
+  Exercise: 'Exercise',
+  ExerciseQuestion: 'ExerciseQuestion',
+  ExerciseAttempt: 'ExerciseAttempt',
+  ExerciseResponse: 'ExerciseResponse',
   Attachment: 'Attachment',
   UserProgress: 'UserProgress',
   Fach: 'Fach',
@@ -205,6 +209,73 @@ export const ChapterScalarFieldEnum = {
 } as const
 
 export type ChapterScalarFieldEnum = (typeof ChapterScalarFieldEnum)[keyof typeof ChapterScalarFieldEnum]
+
+
+export const ExerciseScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  title: 'title',
+  description: 'description',
+  intro: 'intro',
+  position: 'position',
+  isPublished: 'isPublished',
+  isFree: 'isFree',
+  passingScore: 'passingScore',
+  awardXp: 'awardXp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
+
+
+export const ExerciseQuestionScalarFieldEnum = {
+  id: 'id',
+  exerciseId: 'exerciseId',
+  kind: 'kind',
+  prompt: 'prompt',
+  spec: 'spec',
+  solution: 'solution',
+  explanation: 'explanation',
+  points: 'points',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExerciseQuestionScalarFieldEnum = (typeof ExerciseQuestionScalarFieldEnum)[keyof typeof ExerciseQuestionScalarFieldEnum]
+
+
+export const ExerciseAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  exerciseId: 'exerciseId',
+  startedAt: 'startedAt',
+  submittedAt: 'submittedAt',
+  totalScore: 'totalScore',
+  maxScore: 'maxScore',
+  status: 'status'
+} as const
+
+export type ExerciseAttemptScalarFieldEnum = (typeof ExerciseAttemptScalarFieldEnum)[keyof typeof ExerciseAttemptScalarFieldEnum]
+
+
+export const ExerciseResponseScalarFieldEnum = {
+  id: 'id',
+  attemptId: 'attemptId',
+  questionId: 'questionId',
+  answer: 'answer',
+  autoScore: 'autoScore',
+  finalScore: 'finalScore',
+  feedback: 'feedback',
+  needsReview: 'needsReview',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExerciseResponseScalarFieldEnum = (typeof ExerciseResponseScalarFieldEnum)[keyof typeof ExerciseResponseScalarFieldEnum]
 
 
 export const AttachmentScalarFieldEnum = {
