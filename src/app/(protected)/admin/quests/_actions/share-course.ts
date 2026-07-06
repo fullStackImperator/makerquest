@@ -20,23 +20,29 @@ export type CourseShareState = {
  * Only the course owner or a platform admin may view/manage who a course is
  * shared with.
  */
-async function requireShareManager(courseId: string) {
+type ShareManagerResult =
+  | { ok: false; error: string }
+  | { ok: true; user: { id: string }; course: { id: string; userId: string } }
+
+async function requireShareManager(
+  courseId: string,
+): Promise<ShareManagerResult> {
   const user = await getSessionUser()
   if (!user || (!user.isTeacher && !user.isAdmin)) {
-    return { error: 'Unauthorized' as const }
+    return { ok: false, error: 'Unauthorized' }
   }
 
   const course = await db.course.findUnique({
     where: { id: courseId },
     select: { id: true, userId: true },
   })
-  if (!course) return { error: 'Nicht gefunden' as const }
+  if (!course) return { ok: false, error: 'Nicht gefunden' }
 
   if (course.userId !== user.id && !user.isAdmin) {
-    return { error: 'Unauthorized' as const }
+    return { ok: false, error: 'Unauthorized' }
   }
 
-  return { user, course }
+  return { ok: true, user, course }
 }
 
 /** Teachers a course can be shared with plus who it is currently shared with. */
@@ -46,7 +52,7 @@ export async function getCourseShareState(
   { success: true; data: CourseShareState } | { success: false; error: string }
 > {
   const ctx = await requireShareManager(courseId)
-  if ('error' in ctx) return { success: false, error: ctx.error }
+  if (!ctx.ok) return { success: false, error: ctx.error }
 
   const [teachers, shares] = await Promise.all([
     db.user.findMany({
@@ -82,7 +88,7 @@ export async function updateCourseShares(
   teacherIds: string[],
 ): Promise<{ success: true } | { success: false; error: string }> {
   const ctx = await requireShareManager(courseId)
-  if ('error' in ctx) return { success: false, error: ctx.error }
+  if (!ctx.ok) return { success: false, error: ctx.error }
 
   const validTeachers = await db.user.findMany({
     where: {
