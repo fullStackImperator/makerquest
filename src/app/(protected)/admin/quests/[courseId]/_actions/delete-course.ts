@@ -29,6 +29,11 @@ export async function deleteCourse(
       return { success: false, error: 'Unauthorized' }
     }
 
+    // Only the owner or an admin may delete – not teachers it was shared with.
+    if (teachable.course.userId !== session.user.id && !user.isAdmin) {
+      return { success: false, error: 'Unauthorized' }
+    }
+
     const course = await db.course.findUnique({
       where: { id: courseId },
       include: { categories: true },

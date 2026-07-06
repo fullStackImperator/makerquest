@@ -313,6 +313,7 @@ export type CourseWhereInput = {
   purchases?: Prisma.PurchaseListRelationFilter
   gradings?: Prisma.GradingListRelationFilter
   learningPathSteps?: Prisma.LearningPathStepListRelationFilter
+  sharedWith?: Prisma.UserListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -341,6 +342,7 @@ export type CourseOrderByWithRelationInput = {
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
   gradings?: Prisma.GradingOrderByRelationAggregateInput
   learningPathSteps?: Prisma.LearningPathStepOrderByRelationAggregateInput
+  sharedWith?: Prisma.UserOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -372,6 +374,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   purchases?: Prisma.PurchaseListRelationFilter
   gradings?: Prisma.GradingListRelationFilter
   learningPathSteps?: Prisma.LearningPathStepListRelationFilter
+  sharedWith?: Prisma.UserListRelationFilter
 }, "id" | "slug">
 
 export type CourseOrderByWithAggregationInput = {
@@ -446,6 +449,7 @@ export type CourseCreateInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -474,6 +478,7 @@ export type CourseUncheckedCreateInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUpdateInput = {
@@ -502,6 +507,7 @@ export type CourseUpdateInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -530,6 +536,7 @@ export type CourseUncheckedUpdateInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -587,6 +594,16 @@ export type CourseUncheckedUpdateManyInput = {
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CourseListRelationFilter = {
+  every?: Prisma.CourseWhereInput
+  some?: Prisma.CourseWhereInput
+  none?: Prisma.CourseWhereInput
+}
+
+export type CourseOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type CourseCountOrderByAggregateInput = {
@@ -659,14 +676,42 @@ export type CourseScalarRelationFilter = {
   isNot?: Prisma.CourseWhereInput
 }
 
-export type CourseListRelationFilter = {
-  every?: Prisma.CourseWhereInput
-  some?: Prisma.CourseWhereInput
-  none?: Prisma.CourseWhereInput
+export type CourseCreateNestedManyWithoutSharedWithInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput> | Prisma.CourseCreateWithoutSharedWithInput[] | Prisma.CourseUncheckedCreateWithoutSharedWithInput[]
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSharedWithInput | Prisma.CourseCreateOrConnectWithoutSharedWithInput[]
+  connect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
 }
 
-export type CourseOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type CourseUncheckedCreateNestedManyWithoutSharedWithInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput> | Prisma.CourseCreateWithoutSharedWithInput[] | Prisma.CourseUncheckedCreateWithoutSharedWithInput[]
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSharedWithInput | Prisma.CourseCreateOrConnectWithoutSharedWithInput[]
+  connect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+}
+
+export type CourseUpdateManyWithoutSharedWithNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput> | Prisma.CourseCreateWithoutSharedWithInput[] | Prisma.CourseUncheckedCreateWithoutSharedWithInput[]
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSharedWithInput | Prisma.CourseCreateOrConnectWithoutSharedWithInput[]
+  upsert?: Prisma.CourseUpsertWithWhereUniqueWithoutSharedWithInput | Prisma.CourseUpsertWithWhereUniqueWithoutSharedWithInput[]
+  set?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  disconnect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  delete?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  connect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  update?: Prisma.CourseUpdateWithWhereUniqueWithoutSharedWithInput | Prisma.CourseUpdateWithWhereUniqueWithoutSharedWithInput[]
+  updateMany?: Prisma.CourseUpdateManyWithWhereWithoutSharedWithInput | Prisma.CourseUpdateManyWithWhereWithoutSharedWithInput[]
+  deleteMany?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
+}
+
+export type CourseUncheckedUpdateManyWithoutSharedWithNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput> | Prisma.CourseCreateWithoutSharedWithInput[] | Prisma.CourseUncheckedCreateWithoutSharedWithInput[]
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutSharedWithInput | Prisma.CourseCreateOrConnectWithoutSharedWithInput[]
+  upsert?: Prisma.CourseUpsertWithWhereUniqueWithoutSharedWithInput | Prisma.CourseUpsertWithWhereUniqueWithoutSharedWithInput[]
+  set?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  disconnect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  delete?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  connect?: Prisma.CourseWhereUniqueInput | Prisma.CourseWhereUniqueInput[]
+  update?: Prisma.CourseUpdateWithWhereUniqueWithoutSharedWithInput | Prisma.CourseUpdateWithWhereUniqueWithoutSharedWithInput[]
+  updateMany?: Prisma.CourseUpdateManyWithWhereWithoutSharedWithInput | Prisma.CourseUpdateManyWithWhereWithoutSharedWithInput[]
+  deleteMany?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
 }
 
 export type NullableEnumDifficultyLevelFieldUpdateOperationsInput = {
@@ -855,6 +900,105 @@ export type CourseUpdateOneRequiredWithoutLearningPathStepsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutLearningPathStepsInput, Prisma.CourseUpdateWithoutLearningPathStepsInput>, Prisma.CourseUncheckedUpdateWithoutLearningPathStepsInput>
 }
 
+export type CourseCreateWithoutSharedWithInput = {
+  id?: string
+  userId: string
+  title: string
+  description?: string | null
+  longDescription?: string | null
+  slug?: string | null
+  fileKey?: string | null
+  prerequisites?: string | null
+  vorkenntnisse?: string | null
+  kompetenzen?: string | null
+  imageUrl?: string | null
+  schwierigkeit?: $Enums.DifficultyLevel | null
+  klassenstufe?: number | null
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  faecher?: Prisma.FachCreateNestedManyWithoutCoursesInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutCoursesInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput
+  exercises?: Prisma.ExerciseCreateNestedManyWithoutCourseInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutCourseInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
+  gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
+  learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutSharedWithInput = {
+  id?: string
+  userId: string
+  title: string
+  description?: string | null
+  longDescription?: string | null
+  slug?: string | null
+  fileKey?: string | null
+  prerequisites?: string | null
+  vorkenntnisse?: string | null
+  kompetenzen?: string | null
+  imageUrl?: string | null
+  schwierigkeit?: $Enums.DifficultyLevel | null
+  klassenstufe?: number | null
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  faecher?: Prisma.FachUncheckedCreateNestedManyWithoutCoursesInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutCoursesInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput
+  exercises?: Prisma.ExerciseUncheckedCreateNestedManyWithoutCourseInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutCourseInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
+  gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
+  learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutSharedWithInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput>
+}
+
+export type CourseUpsertWithWhereUniqueWithoutSharedWithInput = {
+  where: Prisma.CourseWhereUniqueInput
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutSharedWithInput, Prisma.CourseUncheckedUpdateWithoutSharedWithInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutSharedWithInput, Prisma.CourseUncheckedCreateWithoutSharedWithInput>
+}
+
+export type CourseUpdateWithWhereUniqueWithoutSharedWithInput = {
+  where: Prisma.CourseWhereUniqueInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutSharedWithInput, Prisma.CourseUncheckedUpdateWithoutSharedWithInput>
+}
+
+export type CourseUpdateManyWithWhereWithoutSharedWithInput = {
+  where: Prisma.CourseScalarWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateManyMutationInput, Prisma.CourseUncheckedUpdateManyWithoutSharedWithInput>
+}
+
+export type CourseScalarWhereInput = {
+  AND?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
+  OR?: Prisma.CourseScalarWhereInput[]
+  NOT?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
+  id?: Prisma.StringFilter<"Course"> | string
+  userId?: Prisma.StringFilter<"Course"> | string
+  title?: Prisma.StringFilter<"Course"> | string
+  description?: Prisma.StringNullableFilter<"Course"> | string | null
+  longDescription?: Prisma.StringNullableFilter<"Course"> | string | null
+  slug?: Prisma.StringNullableFilter<"Course"> | string | null
+  fileKey?: Prisma.StringNullableFilter<"Course"> | string | null
+  prerequisites?: Prisma.StringNullableFilter<"Course"> | string | null
+  vorkenntnisse?: Prisma.StringNullableFilter<"Course"> | string | null
+  kompetenzen?: Prisma.StringNullableFilter<"Course"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Course"> | string | null
+  schwierigkeit?: Prisma.EnumDifficultyLevelNullableFilter<"Course"> | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.IntNullableFilter<"Course"> | number | null
+  isPublished?: Prisma.BoolFilter<"Course"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
+}
+
 export type CourseCreateWithoutChaptersInput = {
   id?: string
   userId: string
@@ -880,6 +1024,7 @@ export type CourseCreateWithoutChaptersInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutChaptersInput = {
@@ -907,6 +1052,7 @@ export type CourseUncheckedCreateWithoutChaptersInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutChaptersInput = {
@@ -950,6 +1096,7 @@ export type CourseUpdateWithoutChaptersInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutChaptersInput = {
@@ -977,6 +1124,7 @@ export type CourseUncheckedUpdateWithoutChaptersInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutExercisesInput = {
@@ -1004,6 +1152,7 @@ export type CourseCreateWithoutExercisesInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutExercisesInput = {
@@ -1031,6 +1180,7 @@ export type CourseUncheckedCreateWithoutExercisesInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutExercisesInput = {
@@ -1074,6 +1224,7 @@ export type CourseUpdateWithoutExercisesInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutExercisesInput = {
@@ -1101,6 +1252,7 @@ export type CourseUncheckedUpdateWithoutExercisesInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutAttachmentsInput = {
@@ -1128,6 +1280,7 @@ export type CourseCreateWithoutAttachmentsInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutAttachmentsInput = {
@@ -1155,6 +1308,7 @@ export type CourseUncheckedCreateWithoutAttachmentsInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutAttachmentsInput = {
@@ -1198,6 +1352,7 @@ export type CourseUpdateWithoutAttachmentsInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutAttachmentsInput = {
@@ -1225,6 +1380,7 @@ export type CourseUncheckedUpdateWithoutAttachmentsInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutFaecherInput = {
@@ -1252,6 +1408,7 @@ export type CourseCreateWithoutFaecherInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutFaecherInput = {
@@ -1279,6 +1436,7 @@ export type CourseUncheckedCreateWithoutFaecherInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutFaecherInput = {
@@ -1300,28 +1458,6 @@ export type CourseUpdateWithWhereUniqueWithoutFaecherInput = {
 export type CourseUpdateManyWithWhereWithoutFaecherInput = {
   where: Prisma.CourseScalarWhereInput
   data: Prisma.XOR<Prisma.CourseUpdateManyMutationInput, Prisma.CourseUncheckedUpdateManyWithoutFaecherInput>
-}
-
-export type CourseScalarWhereInput = {
-  AND?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
-  OR?: Prisma.CourseScalarWhereInput[]
-  NOT?: Prisma.CourseScalarWhereInput | Prisma.CourseScalarWhereInput[]
-  id?: Prisma.StringFilter<"Course"> | string
-  userId?: Prisma.StringFilter<"Course"> | string
-  title?: Prisma.StringFilter<"Course"> | string
-  description?: Prisma.StringNullableFilter<"Course"> | string | null
-  longDescription?: Prisma.StringNullableFilter<"Course"> | string | null
-  slug?: Prisma.StringNullableFilter<"Course"> | string | null
-  fileKey?: Prisma.StringNullableFilter<"Course"> | string | null
-  prerequisites?: Prisma.StringNullableFilter<"Course"> | string | null
-  vorkenntnisse?: Prisma.StringNullableFilter<"Course"> | string | null
-  kompetenzen?: Prisma.StringNullableFilter<"Course"> | string | null
-  imageUrl?: Prisma.StringNullableFilter<"Course"> | string | null
-  schwierigkeit?: Prisma.EnumDifficultyLevelNullableFilter<"Course"> | $Enums.DifficultyLevel | null
-  klassenstufe?: Prisma.IntNullableFilter<"Course"> | number | null
-  isPublished?: Prisma.BoolFilter<"Course"> | boolean
-  createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string
 }
 
 export type CourseCreateWithoutCategoriesInput = {
@@ -1349,6 +1485,7 @@ export type CourseCreateWithoutCategoriesInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutCategoriesInput = {
@@ -1376,6 +1513,7 @@ export type CourseUncheckedCreateWithoutCategoriesInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutCategoriesInput = {
@@ -1424,6 +1562,7 @@ export type CourseCreateWithoutAwardedPointsInput = {
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutAwardedPointsInput = {
@@ -1451,6 +1590,7 @@ export type CourseUncheckedCreateWithoutAwardedPointsInput = {
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutAwardedPointsInput = {
@@ -1494,6 +1634,7 @@ export type CourseUpdateWithoutAwardedPointsInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutAwardedPointsInput = {
@@ -1521,6 +1662,7 @@ export type CourseUncheckedUpdateWithoutAwardedPointsInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutPurchasesInput = {
@@ -1548,6 +1690,7 @@ export type CourseCreateWithoutPurchasesInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutPurchasesInput = {
@@ -1575,6 +1718,7 @@ export type CourseUncheckedCreateWithoutPurchasesInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutPurchasesInput = {
@@ -1618,6 +1762,7 @@ export type CourseUpdateWithoutPurchasesInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutPurchasesInput = {
@@ -1645,6 +1790,7 @@ export type CourseUncheckedUpdateWithoutPurchasesInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutGradingsInput = {
@@ -1672,6 +1818,7 @@ export type CourseCreateWithoutGradingsInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutCourseInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutGradingsInput = {
@@ -1699,6 +1846,7 @@ export type CourseUncheckedCreateWithoutGradingsInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutCourseInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutGradingsInput = {
@@ -1742,6 +1890,7 @@ export type CourseUpdateWithoutGradingsInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutCourseNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutGradingsInput = {
@@ -1769,6 +1918,7 @@ export type CourseUncheckedUpdateWithoutGradingsInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutCourseNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseCreateWithoutLearningPathStepsInput = {
@@ -1796,6 +1946,7 @@ export type CourseCreateWithoutLearningPathStepsInput = {
   attachments?: Prisma.AttachmentCreateNestedManyWithoutCourseInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseUncheckedCreateWithoutLearningPathStepsInput = {
@@ -1823,6 +1974,7 @@ export type CourseUncheckedCreateWithoutLearningPathStepsInput = {
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutCourseInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
   gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
 }
 
 export type CourseCreateOrConnectWithoutLearningPathStepsInput = {
@@ -1866,6 +2018,7 @@ export type CourseUpdateWithoutLearningPathStepsInput = {
   attachments?: Prisma.AttachmentUpdateManyWithoutCourseNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutLearningPathStepsInput = {
@@ -1893,6 +2046,82 @@ export type CourseUncheckedUpdateWithoutLearningPathStepsInput = {
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutCourseNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
+}
+
+export type CourseUpdateWithoutSharedWithInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prerequisites?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vorkenntnisse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kompetenzen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schwierigkeit?: Prisma.NullableEnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  faecher?: Prisma.FachUpdateManyWithoutCoursesNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutCoursesNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutCourseNestedInput
+  chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput
+  exercises?: Prisma.ExerciseUpdateManyWithoutCourseNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutCourseNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
+  gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
+  learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutSharedWithInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prerequisites?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vorkenntnisse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kompetenzen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schwierigkeit?: Prisma.NullableEnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  faecher?: Prisma.FachUncheckedUpdateManyWithoutCoursesNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutCoursesNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutCourseNestedInput
+  chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput
+  exercises?: Prisma.ExerciseUncheckedUpdateManyWithoutCourseNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutCourseNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
+  gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
+  learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateManyWithoutSharedWithInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prerequisites?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vorkenntnisse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kompetenzen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schwierigkeit?: Prisma.NullableEnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CourseUpdateWithoutFaecherInput = {
@@ -1920,6 +2149,7 @@ export type CourseUpdateWithoutFaecherInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutFaecherInput = {
@@ -1947,6 +2177,7 @@ export type CourseUncheckedUpdateWithoutFaecherInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutFaecherInput = {
@@ -1993,6 +2224,7 @@ export type CourseUpdateWithoutCategoriesInput = {
   purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutCategoriesInput = {
@@ -2020,6 +2252,7 @@ export type CourseUncheckedUpdateWithoutCategoriesInput = {
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
   gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
   learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutCategoriesInput = {
@@ -2056,6 +2289,7 @@ export type CourseCountOutputType = {
   purchases: number
   gradings: number
   learningPathSteps: number
+  sharedWith: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2068,6 +2302,7 @@ export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   purchases?: boolean | CourseCountOutputTypeCountPurchasesArgs
   gradings?: boolean | CourseCountOutputTypeCountGradingsArgs
   learningPathSteps?: boolean | CourseCountOutputTypeCountLearningPathStepsArgs
+  sharedWith?: boolean | CourseCountOutputTypeCountSharedWithArgs
 }
 
 /**
@@ -2143,6 +2378,13 @@ export type CourseCountOutputTypeCountLearningPathStepsArgs<ExtArgs extends runt
   where?: Prisma.LearningPathStepWhereInput
 }
 
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountSharedWithArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
 
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2170,6 +2412,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   purchases?: boolean | Prisma.Course$purchasesArgs<ExtArgs>
   gradings?: boolean | Prisma.Course$gradingsArgs<ExtArgs>
   learningPathSteps?: boolean | Prisma.Course$learningPathStepsArgs<ExtArgs>
+  sharedWith?: boolean | Prisma.Course$sharedWithArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -2241,6 +2484,7 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   purchases?: boolean | Prisma.Course$purchasesArgs<ExtArgs>
   gradings?: boolean | Prisma.Course$gradingsArgs<ExtArgs>
   learningPathSteps?: boolean | Prisma.Course$learningPathStepsArgs<ExtArgs>
+  sharedWith?: boolean | Prisma.Course$sharedWithArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2258,6 +2502,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     purchases: Prisma.$PurchasePayload<ExtArgs>[]
     gradings: Prisma.$GradingPayload<ExtArgs>[]
     learningPathSteps: Prisma.$LearningPathStepPayload<ExtArgs>[]
+    sharedWith: Prisma.$UserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2679,6 +2924,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   purchases<T extends Prisma.Course$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gradings<T extends Prisma.Course$gradingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$gradingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GradingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   learningPathSteps<T extends Prisma.Course$learningPathStepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$learningPathStepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LearningPathStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sharedWith<T extends Prisma.Course$sharedWithArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$sharedWithArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3325,6 +3571,30 @@ export type Course$learningPathStepsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.LearningPathStepScalarFieldEnum | Prisma.LearningPathStepScalarFieldEnum[]
+}
+
+/**
+ * Course.sharedWith
+ */
+export type Course$sharedWithArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**

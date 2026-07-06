@@ -23,7 +23,9 @@ export default async function AdminQuestsPage() {
   const isAdmin = viewer?.isAdmin === true
 
   const coursesWithEnrolledStudents = await db.course.findMany({
-    where: isAdmin ? {} : { userId },
+    where: isAdmin
+      ? {}
+      : { OR: [{ userId }, { sharedWith: { some: { id: userId } } }] },
     include: {
       purchases: {
         select: { userId: true },
@@ -32,9 +34,15 @@ export default async function AdminQuestsPage() {
     orderBy: { createdAt: 'desc' },
   })
 
+  // Show the author column for admins, or when a teacher sees shared quests.
+  const hasSharedQuests = coursesWithEnrolledStudents.some(
+    (c) => c.userId !== userId,
+  )
+  const showOwner = isAdmin || hasSharedQuests
+
   const ownerIds = [...new Set(coursesWithEnrolledStudents.map((c) => c.userId))]
   const owners =
-    isAdmin && ownerIds.length > 0
+    showOwner && ownerIds.length > 0
       ? await db.user.findMany({
           where: { id: { in: ownerIds } },
           select: { id: true, name: true, email: true },
@@ -50,7 +58,8 @@ export default async function AdminQuestsPage() {
     title: course.title,
     enrolledStudents: course.purchases.length,
     isPublished: course.isPublished,
-    ...(isAdmin && {
+    isOwner: course.userId === userId,
+    ...(showOwner && {
       ownerLabel: ownerLabelById.get(course.userId) ?? '—',
     }),
   }))
@@ -58,7 +67,11 @@ export default async function AdminQuestsPage() {
   return (
     <div className="p-6 space-y-8">
       <h1 className="text-center text-3xl my-4">Projekte Übersicht</h1>
-      <AdminQuestsDataTable isAdmin={isAdmin} data={tableData} />
+      <AdminQuestsDataTable
+        isAdmin={isAdmin}
+        showOwner={showOwner}
+        data={tableData}
+      />
     </div>
   )
 }

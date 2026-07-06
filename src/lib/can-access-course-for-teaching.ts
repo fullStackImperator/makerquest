@@ -9,8 +9,8 @@ export type CourseForTeaching = {
 }
 
 /**
- * Course owner (teacher) or platform admin may access teaching views
- * (grading, attachments, etc.) for a course.
+ * Course owner (teacher), a teacher the course was shared with, or a platform
+ * admin may access teaching views (grading, attachments, etc.) for a course.
  */
 export async function getCourseIfTeachable(
   courseId: string,
@@ -28,6 +28,10 @@ export async function getCourseIfTeachable(
           name: true,
         },
       },
+      sharedWith: {
+        where: { id: viewer.id },
+        select: { id: true },
+      },
     },
   })
 
@@ -35,10 +39,12 @@ export async function getCourseIfTeachable(
 
   const isOwner = course.userId === viewer.id
   const isAdmin = viewer.isAdmin === true
+  const isSharedWithViewer = course.sharedWith.length > 0
 
-  if (!isOwner && !isAdmin) return null
+  if (!isOwner && !isAdmin && !isSharedWithViewer) return null
 
-  return { course }
+  const { sharedWith: _sharedWith, ...rest } = course
+  return { course: rest }
 }
 
 /** Loads viewer by session id and applies {@link getCourseIfTeachable}. */

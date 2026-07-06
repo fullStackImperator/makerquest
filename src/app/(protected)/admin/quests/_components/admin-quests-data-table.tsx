@@ -8,11 +8,13 @@ import {
 
 export function AdminQuestsDataTable({
   isAdmin,
+  showOwner,
   data,
 }: {
   isAdmin: boolean
+  showOwner: boolean
   data: CoursesWithEnrolledStudentsProps[]
 }) {
-  const columns = createQuestColumns(isAdmin)
+  const columns = createQuestColumns({ showOwner, isAdmin })
   return <DataTable columns={columns} data={data} />
 }

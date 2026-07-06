@@ -79,6 +79,8 @@ model User {
   learningPathCompletions      LearningPathCompletion[]
   exerciseAttempts             ExerciseAttempt[]
 
+  sharedCourses                Course[]                       @relation("CourseShares")
+
   @@map("user")
 }
 
@@ -169,6 +171,8 @@ model Course {
   gradings Grading[]
 
   learningPathSteps LearningPathStep[]
+
+  sharedWith User[] @relation("CourseShares")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

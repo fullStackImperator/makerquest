@@ -37,10 +37,7 @@ export default async function EditLearningPathPage({ params }: Props) {
   if (user.id !== path.ownerId && !user.isAdmin) redirect('/admin/lernpfade')
 
   const courses = await db.course.findMany({
-    where: {
-      isPublished: true,
-      ...(user.isAdmin ? {} : { userId: user.id }),
-    },
+    where: { isPublished: true },
     select: { id: true, title: true },
     orderBy: { title: 'asc' },
   })
