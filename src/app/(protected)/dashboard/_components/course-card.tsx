@@ -1,13 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { IconBadge } from '@/components/icon-badge'
-import { BookOpen, Wrench, LayoutList, Tag } from 'lucide-react'
+import { BookOpen, Wrench } from 'lucide-react'
 import { CourseProgress } from '@/components/quests/course-progress'
-import { Separator } from '@/components/ui/separator'
 import { CourseEnrollButton } from '@/components/quests/course-enroll-button'
-
-
-
+import { CARD_INNER, FONT, TEXT } from './glass-styles'
 
 type CourseCardProps = {
   id: string
@@ -15,7 +11,6 @@ type CourseCardProps = {
   description: string
   imageUrl: string
   chaptersLength: number
-  // level: number
   schwierigkeit: string
   progress?: number | null
   categories: string[] | undefined
@@ -25,112 +20,105 @@ type CourseCardProps = {
   kompetenzen: string
 }
 
+function schwierigkeitStyle(s: string): { color: string; bg: string; border: string } {
+  const l = s.toLowerCase()
+  if (l.includes('anfänger') || l.includes('anfaenger') || l === 'easy')
+    return { color: '#047857', bg: 'rgba(52,211,153,0.10)', border: 'rgba(52,211,153,0.25)' }
+  if (l.includes('fortgeschritten') || l === 'medium')
+    return { color: '#b45309', bg: 'rgba(251,191,36,0.10)', border: 'rgba(251,191,36,0.25)' }
+  if (l.includes('pro') || l.includes('experte') || l === 'hard')
+    return { color: '#b91c1c', bg: 'rgba(248,113,113,0.10)', border: 'rgba(248,113,113,0.25)' }
+  return { color: '#4e6878', bg: 'rgba(100,160,220,0.08)', border: 'rgba(100,160,220,0.18)' }
+}
+
 export const CourseCard = ({
   id,
   title,
   description,
   imageUrl,
   chaptersLength,
-  // level,
   schwierigkeit,
   progress,
-  categories,
   faecher,
 }: CourseCardProps) => {
   return (
     <Link href={`/courses/${id}`}>
-      <div className="group panel shadow-lg hover:scale-[1.02] border transition overflow-hidden rounded-lg p-3 h-full flex flex-col">
-        <div className="flex-1 flex flex-col">
-          <div
-            className="relative w-full aspect-video rounded-md overflow-hidden
-          duration-700 ease-in-out scale-100 blur-0 grayscale-0 object-cover"
-          >
-            <Image fill className="object-cover" alt={title} src={imageUrl} />
-          </div>
-          <div className="flex-1 flex flex-col pt-2">
-            <div className="text-lg md:text-lg font-bold group-hover:text-sky-700 transition line-clamp-2">
-              {title}
-            </div>
-            <div
-              className='text-md mt-2 mb-4 font-light group-hover:text-sky-700 transition line-clamp-2'
-            >
-              {description}
-            </div>
-
-            {/* Title for Faecher */}
-            {faecher && faecher.length > 0 && (
-              <>
-                <div className="flex items-center mb-2">
-                  <IconBadge size="sm" icon={LayoutList} />
-                  <h4 className="text-sm font-semibold ml-2">Fächer:</h4>
-                </div>
-                {/* <h4 className="text-sm font-semibold mb-2">Fächer:</h4> */}
-                <div className="flex flex-wrap rounded-xl gap-2 mb-6">
-                  {faecher.map((fach, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded"
-                    >
-                      {fach}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Title for Categories */}
-            {categories && categories.length > 0 && (
-              <>
-                <div className="flex items-center mb-2">
-                  <IconBadge size="sm" icon={Tag} />
-                  <h4 className="text-sm font-semibold ml-2">Themen:</h4>
-                </div>{' '}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded"
-                    >
-                      {category}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        {/* Progress or Enroll button at the bottom */}
-        <div className="mt-auto">
-          <div className="my-3 flex items-center justify-between text-sm">
-            <div className="flex items-center gap-x-2 text-black">
-              <IconBadge size="sm" icon={BookOpen} />
-              <span>
-                {chaptersLength} {chaptersLength === 1 ? 'Kapitel' : 'Kapitel'}
-              </span>
-            </div>
-            <div className="flex items-center gap-x-2 text-slate-500">
-              <IconBadge size="sm" icon={Wrench} />
-              <p className="text-md md:text-sm text-black font-medium">
+      <div
+        className="group relative h-full flex flex-col overflow-hidden transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
+        style={CARD_INNER}
+      >
+        {/* Thumbnail */}
+        <div className="relative w-full aspect-video overflow-hidden" style={{ borderRadius: '12px 12px 0 0' }}>
+          <Image
+            fill
+            className="object-cover transition duration-500 group-hover:scale-105"
+            alt={title}
+            src={imageUrl}
+          />
+          {schwierigkeit && (() => {
+            const sp = schwierigkeitStyle(schwierigkeit)
+            return (
+              <div
+                className="absolute top-2 right-2 text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                style={{ color: sp.color, background: 'rgba(255,255,255,0.92)', border: `1px solid ${sp.border}`, fontFamily: FONT }}
+              >
                 {schwierigkeit}
-              </p>
+              </div>
+            )
+          })()}
+
+          {faecher && faecher.length > 0 && (
+            <div className="absolute bottom-2 left-2 flex gap-1">
+              {faecher.slice(0, 2).map((fach, i) => (
+                <span
+                  key={i}
+                  className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
+                  style={{ background: 'rgba(255,255,255,0.90)', color: '#459ea1', border: '1px solid rgba(69,158,161,0.20)', fontFamily: FONT }}
+                >
+                  {fach}
+                </span>
+              ))}
             </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 flex flex-col p-3.5 gap-2">
+          <h3
+            className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-[#459ea1] transition-colors"
+            style={{ color: TEXT.primary, fontFamily: FONT }}
+          >
+            {title}
+          </h3>
+
+          {description && (
+            <p className="text-xs line-clamp-2 flex-1" style={{ color: TEXT.muted }}>{description}</p>
+          )}
+
+          <div
+            className="mt-auto pt-3 flex items-center justify-between text-[10px]"
+            style={{ color: TEXT.faint, borderTop: '1px solid rgba(180,210,225,0.25)', fontFamily: FONT }}
+          >
+            <span className="flex items-center gap-1.5">
+              <BookOpen className="h-3 w-3" />
+              {chaptersLength} Kapitel
+            </span>
+            {schwierigkeit && (
+              <span className="flex items-center gap-1.5">
+                <Wrench className="h-3 w-3" />
+                {schwierigkeit}
+              </span>
+            )}
           </div>
 
-          <Separator className="my-4" />
-          {progress !== null ? (
-            <div className="space-y-2">
-              <CourseProgress
-                variant={progress === 100 ? 'success' : 'default'}
-                size="sm"
-                value={progress!}
-              />
-            </div>
-          ) : (
-            <CourseEnrollButton courseId={id}  />
-          )}
+          <div className="mt-1">
+            {progress !== null
+              ? <CourseProgress variant={progress === 100 ? 'success' : 'default'} size="sm" value={progress!} />
+              : <CourseEnrollButton courseId={id} />
+            }
+          </div>
         </div>
       </div>
     </Link>
   )
 }
-

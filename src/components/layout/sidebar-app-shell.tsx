@@ -34,14 +34,25 @@ export async function SidebarAppShell({
 
   const isAdminOrTeacher = user?.isTeacher === true || user?.isAdmin === true
 
+  const dateStr = new Date().toLocaleDateString('de-DE', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+
   return (
     <SidebarProvider>
       <AppSidebar
         userSlug={user?.slug ?? ''}
         isAdminOrTeacher={isAdminOrTeacher}
       />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 justify-between border-b px-4">
+
+      {/* !bg-transparent lets the body gradient show through the inset panel */}
+      <SidebarInset className="!bg-transparent overflow-hidden">
+
+        {/* Header — transparent so it blends with the main gradient */}
+        <header className="flex h-14 shrink-0 items-center gap-2 justify-between border-b border-white/30 px-5">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -54,14 +65,17 @@ export async function SidebarAppShell({
             />
           </div>
 
-          <div>
+          <div className="flex items-center gap-4">
+            {/* Date — right-aligned, capitalised */}
+            <span
+              className="hidden md:block text-[10px] font-semibold uppercase tracking-[0.2em]"
+              style={{ color: '#459ea1', fontFamily: 'var(--font-jakarta)' }}
+            >
+              {dateStr}
+            </span>
+
             <ClientOnly
-              fallback={
-                <div
-                  className="flex min-h-10 min-w-28 items-center gap-2"
-                  aria-hidden
-                />
-              }
+              fallback={<div className="flex min-h-10 min-w-28 items-center gap-2" aria-hidden />}
             >
               <div className="flex items-center gap-2">
                 <ThemeToggle />
@@ -71,7 +85,7 @@ export async function SidebarAppShell({
           </div>
         </header>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-4 p-4">{children}</div>
+        <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )

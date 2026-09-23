@@ -1,29 +1,17 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Zap, Shield, ChevronUp, Trophy, BookOpen } from 'lucide-react'
+import { Zap, Shield, Trophy, BookOpen, ArrowUpRight, ArrowDown } from 'lucide-react'
 import Link from 'next/link'
 import { getLevelName } from '@/lib/levelNames'
+import { CARD, CARD_INNER, FONT, TEXT } from './glass-styles'
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 
 interface UserBadge {
-  badge: {
-    id: string
-    name: string
-    imageUrl: string
-    createdAt?: Date
-    updatedAt?: Date
-  }
+  badge: { id: string; name: string; imageUrl: string; createdAt?: Date; updatedAt?: Date }
 }
-
-type SessionUser = {
-  id: string
-  name: string | null
-  image: string | null
-}
-
-// kept for backward compat
+type SessionUser = { id: string; name: string | null; image: string | null }
 type UserScoreBannerProps = {
   usr: SessionUser
   userBadges: UserBadge[]
@@ -32,11 +20,11 @@ type UserScoreBannerProps = {
   totalXP: number
 }
 
-// ── PlayerProfile ────────────────────────────────────────────────────────────
+// ── PlayerProfile ──────────────────────────────────────────────────────────────
 
-type PlayerProfileProps = { usr: SessionUser; totalXP: number }
+type PlayerProfileProps = { usr: SessionUser; totalXP: number; activeCount: number; completedCount: number }
 
-export function PlayerProfile({ usr, totalXP }: PlayerProfileProps) {
+export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: PlayerProfileProps) {
   const playerLevel = Math.floor(Math.sqrt(totalXP / 120))
   const playerLevelName = getLevelName(playerLevel)
   const currentLevelXP = 120 * playerLevel * playerLevel
@@ -49,103 +37,164 @@ export function PlayerProfile({ usr, totalXP }: PlayerProfileProps) {
   const displayName = usr.name ?? 'Anonym'
   const initial = displayName.charAt(0).toUpperCase()
 
+  const scrollAndSwitch = (tab: string) => {
+    window.dispatchEvent(new CustomEvent('dash-tab', { detail: tab }))
+    document.getElementById('quests-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <div className="panel shadowhard rounded-2xl border border-border/60 p-5 h-full">
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="relative shrink-0">
-          <div className="p-[3px] rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-700 shadow-lg shadow-emerald-500/30">
-            <Avatar className="w-28 h-28 border-2 border-background">
-              <AvatarImage src={usr.image ?? undefined} alt={displayName} />
-              <AvatarFallback className="text-4xl font-bold">{initial}</AvatarFallback>
-            </Avatar>
-          </div>
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded-full px-2.5 py-1 shadow-md shadow-emerald-500/40 whitespace-nowrap">
-            <Shield className="h-2.5 w-2.5" />
-            Lv.&nbsp;{playerLevel}
+    <div style={{ ...CARD, padding: '1.5rem' }} className="h-full flex flex-col">
+
+      {/* Section label */}
+      <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] mb-4"
+         style={{ color: TEXT.muted, fontFamily: FONT }}>
+        <Shield className="h-3 w-3" />
+        Spielerprofil
+      </p>
+
+      <div className="flex flex-col items-center gap-4 text-center flex-1">
+        {/* Avatar */}
+        <div className="relative">
+          <Avatar className="w-32 h-32 ring-4 ring-white" style={{ background: '#1a2d3d' }}>
+            <AvatarImage src={usr.image ?? undefined} alt={displayName} />
+            <AvatarFallback
+              className="text-4xl font-bold"
+              style={{ background: '#1a2d3d', color: '#ffffff', fontFamily: FONT }}
+            >
+              {initial}
+            </AvatarFallback>
+          </Avatar>
+          {/* LV chip */}
+          <div
+            className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold rounded-full px-2.5 py-0.5"
+            style={{ background: '#459ea1', color: '#fff', fontFamily: FONT }}
+          >
+            LV. {playerLevel}
           </div>
         </div>
-        <div className="w-full min-w-0 pt-2">
-          <p className="font-bold text-xl leading-tight truncate">{displayName}</p>
-          <span className="inline-block mt-1.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-500 border border-emerald-500/30 bg-emerald-500/10 rounded px-1.5 py-0.5">
+
+        <div className="pt-1.5 w-full">
+          <p className="font-bold text-lg leading-tight truncate" style={{ color: TEXT.primary, fontFamily: FONT }}>
+            {displayName}
+          </p>
+          <span
+            className="inline-block mt-2 text-[10px] font-semibold uppercase tracking-widest rounded-full px-3 py-0.5"
+            style={{ color: '#459ea1', background: 'rgba(69,158,161,0.09)', border: '1px solid rgba(69,158,161,0.18)', fontFamily: FONT }}
+          >
             {playerLevelName}
           </span>
         </div>
       </div>
 
-      <div className="mt-5 space-y-1.5">
-        <div className="flex justify-between text-xs">
-          <span className="flex items-center gap-1 font-semibold text-amber-500">
+      {/* XP bar */}
+      <div className="mt-5 space-y-2">
+        <div className="flex justify-between items-center">
+          <span className="flex items-center gap-1 text-xs font-semibold" style={{ color: '#c97c18', fontFamily: FONT }}>
             <Zap className="h-3.5 w-3.5" />
             {totalXP.toLocaleString('de-DE')} XP
           </span>
-          <span className="flex items-center gap-1 text-muted-foreground">
-            <ChevronUp className="h-3.5 w-3.5 text-emerald-500" />
-            {xpToNextLevel.toLocaleString('de-DE')} bis Lv.{playerLevel + 1}
+          <span className="text-[10px]" style={{ color: TEXT.faint, fontFamily: FONT }}>
+            +{xpToNextLevel.toLocaleString('de-DE')} → Lv.{playerLevel + 1}
           </span>
         </div>
-        <div className="relative h-3 rounded-full bg-muted/60 overflow-hidden border border-border/40">
+        <div className="relative h-2 rounded-full overflow-hidden" style={{ background: 'rgba(201,124,24,0.10)' }}>
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 transition-all duration-700"
-            style={{ width: `${progressToNextLevel}%` }}
+            className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
+            style={{ width: `${progressToNextLevel}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/15 to-transparent pointer-events-none rounded-full" />
         </div>
+      </div>
+
+      {/* Quest stat links */}
+      <div
+        className="mt-4 pt-4 grid grid-cols-2"
+        style={{ borderTop: '1px solid rgba(100,160,220,0.15)' }}
+      >
+        <button
+          onClick={() => scrollAndSwitch('active')}
+          className="flex flex-col items-center gap-0.5 py-1.5 rounded-lg hover:bg-black/4 transition-colors cursor-pointer"
+        >
+          <span className="text-2xl font-bold tabular-nums" style={{ color: '#459ea1', fontFamily: FONT }}>
+            {activeCount}
+          </span>
+          <span className="flex items-center gap-0.5 text-[9px] font-semibold uppercase tracking-widest" style={{ color: TEXT.muted, fontFamily: FONT }}>
+            Aktive Quests <ArrowDown className="h-2.5 w-2.5" />
+          </span>
+        </button>
+
+        <button
+          onClick={() => scrollAndSwitch('completed')}
+          className="flex flex-col items-center gap-0.5 py-1.5 rounded-lg hover:bg-black/4 transition-colors cursor-pointer"
+          style={{ borderLeft: '1px solid rgba(100,160,220,0.15)' }}
+        >
+          <span className="text-2xl font-bold tabular-nums" style={{ color: '#1a9060', fontFamily: FONT }}>
+            {completedCount}
+          </span>
+          <span className="flex items-center gap-0.5 text-[9px] font-semibold uppercase tracking-widest" style={{ color: TEXT.muted, fontFamily: FONT }}>
+            Abgeschlossen <ArrowDown className="h-2.5 w-2.5" />
+          </span>
+        </button>
       </div>
     </div>
   )
 }
 
-// ── AchievementsShowcase ─────────────────────────────────────────────────────
+// ── AchievementsShowcase ───────────────────────────────────────────────────────
 
 type AchievementsShowcaseProps = { userBadges: UserBadge[] }
 
 export function AchievementsShowcase({ userBadges }: AchievementsShowcaseProps) {
   return (
-    <div className="panel shadowhard rounded-2xl border border-amber-500/25 p-6 h-full bg-gradient-to-br from-amber-500/5 via-transparent to-transparent relative overflow-hidden">
-      {/* Decorative shimmer line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/60 to-transparent" />
-
-      <div className="flex items-center justify-between mb-5">
-        <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-amber-500">
-          <Trophy className="h-4 w-4" />
-          Errungenschaften
-        </h2>
-        <span className="text-xs font-bold bg-amber-500/15 border border-amber-500/30 rounded-full px-3 py-1 text-amber-600 dark:text-amber-400">
-          {userBadges.length} {userBadges.length === 1 ? 'Abzeichen' : 'Abzeichen'} verdient
-        </span>
+    <div style={{ ...CARD, padding: '1.25rem 1.5rem' }}>
+      {/* Header row */}
+      <div className="flex items-center justify-between mb-4">
+        <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em]"
+           style={{ color: TEXT.muted, fontFamily: FONT }}>
+          <Trophy className="h-3 w-3" />
+          Deine Erfolge
+        </p>
+        <Link href="/badges">
+          <span className="flex items-center gap-1 text-[10px] font-semibold hover:underline"
+                style={{ color: TEXT.muted, fontFamily: FONT }}>
+            Alle Erfolge <ArrowUpRight className="h-3 w-3" />
+          </span>
+        </Link>
       </div>
 
       {userBadges.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-10 text-center space-y-2">
-          <div className="relative">
-            <Trophy className="h-14 w-14 text-amber-500/15" />
+        <div className="flex items-center gap-4 py-4">
+          <div className="p-3 rounded-2xl shrink-0" style={{ background: 'rgba(201,124,24,0.07)', border: '1px solid rgba(201,124,24,0.14)' }}>
+            <Trophy className="h-7 w-7" style={{ color: 'rgba(201,124,24,0.28)' }} />
           </div>
-          <p className="font-semibold text-muted-foreground">Dein Vitrinenschrank ist noch leer</p>
-          <p className="text-xs text-muted-foreground/60 max-w-xs">
-            Schließe Quests und Lernpfade ab, um seltene Abzeichen zu verdienen!
-          </p>
+          <div>
+            <p className="font-semibold text-sm" style={{ color: TEXT.muted, fontFamily: FONT }}>Vitrinenschrank noch leer</p>
+            <p className="text-xs mt-0.5" style={{ color: TEXT.faint }}>Schließe Quests ab, um Abzeichen zu verdienen</p>
+          </div>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-4">
+        /* Horizontal scroll row — like the reference */
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {userBadges.map(({ badge }) => (
             <Link key={badge.id} href={`/badges/${badge.id}`}>
-              <div className="group relative flex flex-col items-center gap-2 hover:-translate-y-2 transition-all duration-300 cursor-pointer">
-                {/* Glow halo */}
-                <div className="absolute -inset-2 bg-amber-400/20 rounded-3xl blur-xl scale-75 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-400 pointer-events-none" />
-                {/* Badge frame */}
-                <div className="relative w-[88px] h-[88px] rounded-2xl bg-gradient-to-br from-amber-200 via-yellow-400 to-amber-500 border-2 border-amber-300/80 shadow-lg shadow-amber-500/25 group-hover:shadow-amber-500/50 group-hover:border-amber-200 transition-all duration-300 flex items-center justify-center overflow-hidden">
-                  <Avatar className="h-[68px] w-[68px]">
+              <div
+                className="group flex items-center gap-3 rounded-xl px-3 py-2.5 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                style={{ ...CARD_INNER }}
+              >
+                <div
+                  className="relative w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden shrink-0"
+                  style={{ background: 'rgba(201,124,24,0.10)', border: '1px solid rgba(201,124,24,0.20)' }}
+                >
+                  <Avatar className="h-8 w-8">
                     <AvatarImage src={badge.imageUrl} alt={badge.name} />
-                    <AvatarFallback className="text-2xl font-bold text-amber-800 bg-transparent">✦</AvatarFallback>
+                    <AvatarFallback className="text-sm font-bold bg-transparent" style={{ color: '#c97c18' }}>✦</AvatarFallback>
                   </Avatar>
-                  {/* Top shine */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none rounded-2xl" />
-                  {/* Bottom depth */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-amber-700/25 to-transparent pointer-events-none" />
                 </div>
-                <p className="text-[11px] font-medium text-center leading-tight max-w-[88px] text-muted-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
-                  {badge.name}
-                </p>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold truncate group-hover:text-amber-600 transition-colors"
+                     style={{ color: TEXT.secondary, fontFamily: FONT }}>
+                    {badge.name}
+                  </p>
+                </div>
               </div>
             </Link>
           ))}
@@ -155,7 +204,7 @@ export function AchievementsShowcase({ userBadges }: AchievementsShowcaseProps) 
   )
 }
 
-// ── FachMastery (used in tabs) ───────────────────────────────────────────────
+// ── Fach colour maps ───────────────────────────────────────────────────────────
 
 export const fachIcons: Record<string, string> = {
   Mathe: '🧮', Biologie: '🧬', Deutsch: '📚', Englisch: '🗣️',
@@ -163,21 +212,36 @@ export const fachIcons: Record<string, string> = {
   Makerspace: '🛠️', 'NW/T': '🔬', Physik: '⚛️',
 }
 
-export const fachAccent: Record<string, { border: string; bar: string; track: string; glow: string }> = {
-  Mathe:        { border: 'border-l-blue-500',   bar: 'from-blue-600 to-blue-400',     track: 'bg-blue-500/20',   glow: 'bg-blue-500/10' },
-  Biologie:     { border: 'border-l-green-500',  bar: 'from-green-600 to-emerald-400', track: 'bg-green-500/20',  glow: 'bg-green-500/10' },
-  Deutsch:      { border: 'border-l-orange-500', bar: 'from-orange-500 to-amber-400',  track: 'bg-orange-500/20', glow: 'bg-orange-500/10' },
-  Englisch:     { border: 'border-l-sky-500',    bar: 'from-sky-500 to-cyan-400',      track: 'bg-sky-500/20',    glow: 'bg-sky-500/10' },
-  Gesellschaft: { border: 'border-l-teal-500',   bar: 'from-teal-500 to-teal-300',     track: 'bg-teal-500/20',   glow: 'bg-teal-500/10' },
-  Informatik:   { border: 'border-l-purple-500', bar: 'from-purple-600 to-violet-400', track: 'bg-purple-500/20', glow: 'bg-purple-500/10' },
-  Kunst:        { border: 'border-l-pink-500',   bar: 'from-pink-500 to-rose-400',     track: 'bg-pink-500/20',   glow: 'bg-pink-500/10' },
-  Makerspace:   { border: 'border-l-amber-500',  bar: 'from-amber-500 to-yellow-400',  track: 'bg-amber-500/20',  glow: 'bg-amber-500/10' },
-  'NW/T':       { border: 'border-l-cyan-500',   bar: 'from-cyan-500 to-teal-400',     track: 'bg-cyan-500/20',   glow: 'bg-cyan-500/10' },
-  Physik:       { border: 'border-l-violet-500', bar: 'from-violet-600 to-purple-400', track: 'bg-violet-500/20', glow: 'bg-violet-500/10' },
+const fachColor: Record<string, { dot: string; bar: string; pill: string; pillBg: string }> = {
+  Mathe:        { dot: '#38bdf8', bar: '#38bdf8', pill: '#0369a1', pillBg: 'rgba(56,189,248,0.10)'  },
+  Biologie:     { dot: '#34d399', bar: '#34d399', pill: '#047857', pillBg: 'rgba(52,211,153,0.10)'  },
+  Deutsch:      { dot: '#fb923c', bar: '#fb923c', pill: '#c2410c', pillBg: 'rgba(251,146,60,0.10)'  },
+  Englisch:     { dot: '#60a5fa', bar: '#60a5fa', pill: '#1d4ed8', pillBg: 'rgba(96,165,250,0.10)'  },
+  Gesellschaft: { dot: '#2dd4bf', bar: '#2dd4bf', pill: '#0f766e', pillBg: 'rgba(45,212,191,0.10)'  },
+  Informatik:   { dot: '#c084fc', bar: '#c084fc', pill: '#7e22ce', pillBg: 'rgba(192,132,252,0.10)' },
+  Kunst:        { dot: '#f472b6', bar: '#f472b6', pill: '#be185d', pillBg: 'rgba(244,114,182,0.10)' },
+  Makerspace:   { dot: '#fbbf24', bar: '#fbbf24', pill: '#b45309', pillBg: 'rgba(251,191,36,0.10)'  },
+  'NW/T':       { dot: '#22d3ee', bar: '#22d3ee', pill: '#0e7490', pillBg: 'rgba(34,211,238,0.10)'  },
+  Physik:       { dot: '#a78bfa', bar: '#a78bfa', pill: '#6d28d9', pillBg: 'rgba(167,139,250,0.10)' },
 }
-export const defaultFachAccent = { border: 'border-l-slate-500', bar: 'from-slate-500 to-slate-400', track: 'bg-slate-500/20', glow: 'bg-slate-500/10' }
+const defaultFachColor = { dot: '#94a3b8', bar: '#94a3b8', pill: '#475569', pillBg: 'rgba(148,163,184,0.10)' }
 
-// ── FachPanel ────────────────────────────────────────────────────────────────
+// backward-compat exports
+export const fachAccent: Record<string, { border: string; bar: string; track: string; glow: string }> = {
+  Mathe:        { border: 'border-l-blue-400',    bar: 'from-blue-400 to-sky-300',      track: 'bg-blue-400/10',    glow: 'bg-blue-400/5'    },
+  Biologie:     { border: 'border-l-emerald-400', bar: 'from-emerald-400 to-green-300', track: 'bg-emerald-400/10', glow: 'bg-emerald-400/5' },
+  Deutsch:      { border: 'border-l-orange-400',  bar: 'from-orange-400 to-amber-300',  track: 'bg-orange-400/10',  glow: 'bg-orange-400/5'  },
+  Englisch:     { border: 'border-l-sky-400',     bar: 'from-sky-400 to-blue-300',      track: 'bg-sky-400/10',     glow: 'bg-sky-400/5'     },
+  Gesellschaft: { border: 'border-l-teal-400',    bar: 'from-teal-400 to-teal-200',     track: 'bg-teal-400/10',    glow: 'bg-teal-400/5'    },
+  Informatik:   { border: 'border-l-purple-400',  bar: 'from-purple-400 to-violet-300', track: 'bg-purple-400/10',  glow: 'bg-purple-400/5'  },
+  Kunst:        { border: 'border-l-pink-400',    bar: 'from-pink-400 to-rose-300',     track: 'bg-pink-400/10',    glow: 'bg-pink-400/5'    },
+  Makerspace:   { border: 'border-l-amber-400',   bar: 'from-amber-400 to-yellow-300',  track: 'bg-amber-400/10',   glow: 'bg-amber-400/5'   },
+  'NW/T':       { border: 'border-l-cyan-400',    bar: 'from-cyan-400 to-teal-300',     track: 'bg-cyan-400/10',    glow: 'bg-cyan-400/5'    },
+  Physik:       { border: 'border-l-violet-400',  bar: 'from-violet-400 to-purple-300', track: 'bg-violet-400/10',  glow: 'bg-violet-400/5'  },
+}
+export const defaultFachAccent = { border: 'border-l-slate-400', bar: 'from-slate-400 to-slate-300', track: 'bg-slate-400/10', glow: 'bg-slate-400/5' }
+
+// ── FachPanel ─────────────────────────────────────────────────────────────────
 
 type FachPanelProps = {
   allFaecher: { id: string; name: string }[]
@@ -191,12 +255,14 @@ export function FachPanel({ allFaecher, userFachExperience }: FachPanelProps) {
   )
 
   return (
-    <div className="panel shadowhard rounded-2xl border border-border/60 p-5">
-      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-        <BookOpen className="h-3.5 w-3.5" />
-        Fach-Meisterschaften
-      </h3>
-      <div className="space-y-2">
+    <div>
+      <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] mb-3 px-1"
+         style={{ color: TEXT.muted, fontFamily: FONT }}>
+        <BookOpen className="h-3 w-3" />
+        Deine Fächer
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {allFaecher.map((fach) => {
           const data = xpMap[fach.id]
           const experience = data?.experience ?? 0
@@ -208,31 +274,37 @@ export function FachPanel({ allFaecher, userFachExperience }: FachPanelProps) {
             Math.min(100, ((experience - fachCurrentXP) / (fachNextXP - fachCurrentXP)) * 100),
           )
           const fachXpToNext = fachNextXP - experience
-          const accent = fachAccent[fach.name] ?? defaultFachAccent
+          const c = fachColor[fach.name] ?? defaultFachColor
 
           return (
             <div
               key={fach.id}
-              className={`rounded-lg border border-border/50 border-l-4 ${accent.border} ${accent.glow} px-3 py-2.5 space-y-1.5`}
+              style={{ ...CARD, padding: '0.875rem 1rem' }}
+              className="transition-transform duration-150 hover:-translate-y-0.5"
             >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium flex items-center gap-1.5 truncate">
-                  <span>{fachIcons[fach.name]}</span>
+              <div className="flex items-center justify-between mb-2">
+                <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: TEXT.primary, fontFamily: FONT }}>
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c.dot }} />
                   {fach.name}
                 </span>
-                <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 rounded px-1.5 py-0.5 shrink-0 ml-2">
-                  Lv.{level}
+                <span
+                  className="text-[9px] font-bold rounded-full px-2 py-0.5 shrink-0"
+                  style={{ color: c.pill, background: c.pillBg, border: `1px solid ${c.dot}30`, fontFamily: FONT }}
+                >
+                  Lv. {level}
                 </span>
               </div>
-              <div className={`relative h-2.5 rounded-full ${accent.track} overflow-hidden border border-white/5`}>
+
+              <div className="relative h-1.5 rounded-full overflow-hidden" style={{ background: `${c.dot}18` }}>
                 <div
-                  className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${accent.bar} transition-all duration-700 shadow-sm`}
-                  style={{ width: `${Math.max(levelProgress, 0)}%` }}
+                  className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
+                  style={{ width: `${Math.max(levelProgress, 0)}%`, background: c.bar }}
                 />
               </div>
-              <div className="flex justify-between text-[10px] text-muted-foreground">
+
+              <div className="flex justify-between mt-1.5 text-[10px]" style={{ color: TEXT.faint, fontFamily: FONT }}>
                 <span>{experience} XP</span>
-                <span>+{fachXpToNext} XP bis Lv.{level + 1}</span>
+                <span>+{fachXpToNext} XP → Lv.{level + 1}</span>
               </div>
             </div>
           )
@@ -242,11 +314,11 @@ export function FachPanel({ allFaecher, userFachExperience }: FachPanelProps) {
   )
 }
 
-// ── UserScoreBanner (backward compat) ────────────────────────────────────────
+// ── backward compat ───────────────────────────────────────────────────────────
 
 export const UserScoreBanner = ({ usr, userBadges, totalXP }: UserScoreBannerProps) => (
   <div className="max-w-6xl mx-auto space-y-4">
-    <PlayerProfile usr={usr} totalXP={totalXP} />
+    <PlayerProfile usr={usr} totalXP={totalXP} activeCount={0} completedCount={0} />
     <AchievementsShowcase userBadges={userBadges} />
   </div>
 )
