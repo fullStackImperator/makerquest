@@ -6,6 +6,7 @@ import { FillBlankEditor } from './fill-blank-editor'
 import { ShortTextEditor } from './short-text-editor'
 import { MathQuestionEditor } from './math-editor'
 import { DragDropEditor } from './drag-drop-editor'
+import { H5pEditor } from './h5p-editor'
 
 export function QuestionEditor({
   question,
@@ -52,6 +53,14 @@ export function QuestionEditor({
     case 'DRAG_DROP':
       return (
         <DragDropEditor
+          question={question}
+          courseId={courseId}
+          exerciseId={exerciseId}
+        />
+      )
+    case 'H5P':
+      return (
+        <H5pEditor
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}

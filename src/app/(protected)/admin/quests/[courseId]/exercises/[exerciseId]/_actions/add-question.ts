@@ -9,6 +9,7 @@ import type {
   DragDropSolution,
   FillBlankSpec,
   FillBlankSolution,
+  H5pSpec,
   MathSpec,
   MathSolution,
   McSingleSpec,
@@ -72,6 +73,15 @@ function defaultSpecAndSolution(kind: QuestionKind): {
           ],
         } satisfies DragDropSpec,
         solution: { order: ['i1', 'i2'] } satisfies DragDropSolution,
+      }
+    case 'H5P':
+      return {
+        spec: {
+          embedUrl: '',
+          wpOrigin: '',
+          height: 640,
+        } satisfies H5pSpec,
+        solution: {},
       }
     default:
       return { spec: {}, solution: {} }

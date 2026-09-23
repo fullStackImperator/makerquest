@@ -20,6 +20,7 @@ const KINDS: QuestionKind[] = [
   'SHORT_TEXT',
   'MATH',
   'DRAG_DROP',
+  'H5P',
 ]
 
 export function AddQuestionMenu({

@@ -12,6 +12,8 @@ import type {
 import type {
   DragDropSpec,
   FillBlankSpec,
+  H5pAnswer,
+  H5pSpec,
   McSingleSpec,
   QuestionAnswer,
   ShortTextSpec,
@@ -24,6 +26,7 @@ import { FillBlankInput } from './questions/fill-blank'
 import { ShortTextInput } from './questions/short-text'
 import { MathInput } from './questions/math'
 import { DragDropInput } from './questions/drag-drop'
+import { H5pInput } from './questions/h5p'
 import { ResultSummary } from './result-summary'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -219,6 +222,15 @@ function QuestionInput({
                 : { pairs: v.pairs ?? {} },
             )
           }
+          disabled={disabled}
+        />
+      )
+    case 'H5P':
+      return (
+        <H5pInput
+          spec={question.spec as H5pSpec}
+          value={answer as H5pAnswer | undefined}
+          onAnswer={(a) => onAnswer(a)}
           disabled={disabled}
         />
       )

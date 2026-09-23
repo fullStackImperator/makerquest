@@ -6,6 +6,7 @@ import type {
   FillBlankAnswer,
   FillBlankSolution,
   FillBlankSpec,
+  H5pAnswer,
   MathAnswer,
   MathSolution,
   MathSpec,
@@ -122,6 +123,27 @@ export async function gradeQuestion(
         needsReview: false,
         feedback: result.correct ? 'Richtig!' : 'Nicht vollständig richtig.',
         correct: result.correct,
+      }
+    }
+    case 'H5P': {
+      const h5p = answer as H5pAnswer | null | undefined
+      const scaled =
+        typeof h5p?.scaled === 'number'
+          ? Math.max(0, Math.min(1, h5p.scaled))
+          : 0
+      const score = Math.round(scaled * maxPoints)
+      const interacted = h5p != null && typeof h5p.scaled === 'number'
+      return {
+        questionId: question.id,
+        autoScore: score,
+        finalScore: score,
+        needsReview: false,
+        feedback: !interacted
+          ? 'Keine Ergebnisdaten empfangen.'
+          : score >= maxPoints
+            ? 'Richtig!'
+            : `${Math.round(scaled * 100)}% erreicht.`,
+        correct: score >= maxPoints,
       }
     }
     case 'SHORT_TEXT': {

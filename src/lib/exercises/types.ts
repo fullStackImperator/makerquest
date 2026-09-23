@@ -62,6 +62,14 @@ export type DragDropSolution =
   | { pairs: Record<string, string> }
   | { order: string[] }
 
+export type H5pSpec = {
+  embedUrl: string
+  wpOrigin: string
+  contentId?: string
+  resizerUrl?: string
+  height?: number
+}
+
 export type McSingleAnswer = { optionId: string }
 export type FillBlankAnswer = { values: Record<string, string> }
 export type ShortTextAnswer = { text: string }
@@ -69,6 +77,13 @@ export type MathAnswer = { latex: string }
 export type DragDropAnswer =
   | { pairs: Record<string, string> }
   | { order: string[] }
+export type H5pAnswer = {
+  scaled: number
+  raw?: number
+  max?: number
+  min?: number
+  statement?: unknown
+}
 
 export type QuestionAnswer =
   | McSingleAnswer
@@ -76,6 +91,7 @@ export type QuestionAnswer =
   | ShortTextAnswer
   | MathAnswer
   | DragDropAnswer
+  | H5pAnswer
 
 export const QUESTION_KIND_LABELS: Record<QuestionKind, string> = {
   MC_SINGLE: 'Multiple Choice',
@@ -83,6 +99,7 @@ export const QUESTION_KIND_LABELS: Record<QuestionKind, string> = {
   SHORT_TEXT: 'Kurzantwort',
   MATH: 'Mathe',
   DRAG_DROP: 'Drag & Drop',
+  H5P: 'H5P',
 }
 
 export const ATTEMPT_STATUS_LABELS = {
