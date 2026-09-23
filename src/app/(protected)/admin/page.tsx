@@ -14,6 +14,7 @@ import {
   Layers,
   Trophy,
   CheckCircle2,
+  NotebookPen,
 } from 'lucide-react'
 import {
   Card,
@@ -46,6 +47,7 @@ async function getAdminStats() {
     learningPathCompletions,
     pendingGradings,
     pendingExerciseReviews,
+    pendingJournalEntries,
   ] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { isTeacher: true } }),
@@ -64,6 +66,7 @@ async function getAdminStats() {
     db.learningPathCompletion.count(),
     db.grading.count({ where: { points_awarded: false } }),
     db.exerciseResponse.count({ where: { needsReview: true } }),
+    db.journalEntry.count({ where: { status: 'READY' } }),
   ])
 
   return {
@@ -84,6 +87,7 @@ async function getAdminStats() {
     learningPathCompletions,
     pendingGradings,
     pendingExerciseReviews,
+    pendingJournalEntries,
   }
 }
 
@@ -214,6 +218,13 @@ export default async function AdminDashboardPage() {
             href="/admin/create-badges"
             icon={Award}
             meta={`${stats.totalBadges} Badges · ${stats.awardedBadges} vergeben`}
+          />
+          <ManagementCard
+            title="Journale"
+            description="Einträge ansehen, Feedback geben, abschließend bewerten"
+            href="/admin/journal"
+            icon={NotebookPen}
+            meta={`${stats.pendingJournalEntries} eingereicht, noch offen`}
           />
           <ManagementCard
             title="Nutzer"

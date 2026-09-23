@@ -7,6 +7,7 @@ import {
   BookPlus,
   ArrowLeft,
   ClipboardCheck,
+  NotebookPen,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -152,6 +153,10 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
     },
   })
 
+  const pendingJournalEntries = await db.journalEntry.count({
+    where: { courseId, status: 'READY' },
+  })
+
   const requiredFields = [
     course.title,
     course.description,
@@ -261,6 +266,18 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           </QuestSectionCard>
 
           <div className="flex flex-col gap-6">
+            {pendingJournalEntries > 0 && (
+              <Link
+                href={`/admin/journal?course=${courseId}`}
+                className="border-sky-500/40 bg-sky-500/10 hover:bg-sky-500/15 flex items-center gap-3 rounded-lg border px-4 py-3 text-sm transition-colors"
+              >
+                <NotebookPen className="size-5 shrink-0 text-sky-700" />
+                <span>
+                  <strong>{pendingJournalEntries}</strong> Journal-Eintrag/Einträge
+                  warten auf Feedback
+                </span>
+              </Link>
+            )}
             {pendingExerciseReviews > 0 && (
               <Link
                 href={`/admin/quests/${courseId}/reviews`}

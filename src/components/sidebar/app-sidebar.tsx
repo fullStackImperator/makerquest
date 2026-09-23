@@ -20,6 +20,7 @@ import {
   Award,
   Wrench,
   BowArrow,
+  NotebookPen,
 } from 'lucide-react'
 
 import { FEEDBACK_EMAIL } from '@/lib/contact'
@@ -206,6 +207,11 @@ export function AppSidebar({
       name: 'Quests',
       url: '/quests',
       icon: BowArrow,
+    },
+    {
+      name: 'Journal',
+      url: '/journal',
+      icon: NotebookPen,
     },
     {
       name: 'Badges',

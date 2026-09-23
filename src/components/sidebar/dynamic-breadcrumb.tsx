@@ -24,6 +24,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   dashboard: 'Dashboard',
   lernpfade: 'Lernpfade',
   leaderboard: 'Leaderboard',
+  journal: 'Journal',
 }
 
 function looksLikeId(segment: string): boolean {

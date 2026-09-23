@@ -16,6 +16,8 @@ import { useEffect } from 'react';
 import { INSERT_IMAGE_COMMAND } from '../ImagePlugin';
 import Compressor from 'compressorjs';
 import { getImageDimensions } from '../../nodes/utils';
+import { toast } from 'sonner';
+import { compressImage, useEditorVariant } from '../../context/EditorVariantContext';
 
 const ACCEPTABLE_IMAGE_TYPES = [
   'image/',
@@ -27,6 +29,7 @@ const ACCEPTABLE_IMAGE_TYPES = [
 
 export default function DragDropPaste(): null {
   const [editor] = useLexicalComposerContext();
+  const { uploadImage } = useEditorVariant();
   useEffect(() => {
     return editor.registerCommand(
       DRAG_DROP_PASTE,
@@ -37,6 +40,21 @@ export default function DragDropPaste(): null {
             [ACCEPTABLE_IMAGE_TYPES].flatMap((x) => x),
           );
           for (const { file, result } of filesResult) {
+            if (uploadImage && isMimeType(file, ACCEPTABLE_IMAGE_TYPES)) {
+              try {
+                const src = await uploadImage(await compressImage(file));
+                const dimensions = await getImageDimensions(src);
+                editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+                  src,
+                  altText: file.name.replace(/\.[^/.]+$/, ""),
+                  showCaption: true,
+                  ...dimensions,
+                });
+              } catch {
+                toast.error('Bild konnte nicht hochgeladen werden');
+              }
+              continue;
+            }
             if (isMimeType(file, ACCEPTABLE_IMAGE_TYPES)) {
               new Compressor(file, {
                 quality: 0.6,
@@ -75,6 +93,6 @@ export default function DragDropPaste(): null {
       },
       COMMAND_PRIORITY_LOW,
     );
-  }, [editor]);
+  }, [editor, uploadImage]);
   return null;
 }

@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import type { SerializedEditorState, EditorState, LexicalEditor } from 'lexical'
 import { useRef } from 'react'
 import { resolveLexicalInitialData } from '@/lib/lexical/defaults'
+import type { EditorVariant } from '@/app/(protected)/admin/quests/[courseId]/chapters/[chapterId]/_components/editor/context/EditorVariantContext'
 
 export {
   emptyLexicalState,
@@ -36,6 +37,9 @@ type LexicalContentEditorProps = {
     tags: Set<string>,
   ) => void
   className?: string
+  /** `student` hides teacher-only blocks; pair with `uploadImage` to avoid base64 images. */
+  variant?: EditorVariant
+  uploadImage?: (file: File) => Promise<string>
 }
 
 export function LexicalContentEditor({
@@ -43,6 +47,8 @@ export function LexicalContentEditor({
   editable = true,
   onChange,
   className,
+  variant,
+  uploadImage,
 }: LexicalContentEditorProps) {
   const editorRef = useRef<LexicalEditor | null>(null)
   const editorData = resolveLexicalInitialData(initialData)
@@ -54,6 +60,8 @@ export function LexicalContentEditor({
         editorEditable={editable}
         editorRef={editorRef}
         onChange={onChange}
+        variant={variant}
+        uploadImage={uploadImage}
       />
     </div>
   )

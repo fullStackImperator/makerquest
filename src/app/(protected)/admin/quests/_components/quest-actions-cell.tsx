@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { MoreHorizontal, Pencil, Users } from 'lucide-react'
+import { MoreHorizontal, NotebookPen, Pencil, Users } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -41,6 +41,12 @@ export function QuestActionsCell({
             <DropdownMenuItem>
               <Pencil className="h-4 w-4 mr-2" />
               Inhalt bearbeiten
+            </DropdownMenuItem>
+          </Link>
+          <Link href={`/admin/journal?course=${id}`}>
+            <DropdownMenuItem>
+              <NotebookPen className="h-4 w-4 mr-2" />
+              Journale ansehen
             </DropdownMenuItem>
           </Link>
           <Link href={`/admin/quests/${id}/grading`}>

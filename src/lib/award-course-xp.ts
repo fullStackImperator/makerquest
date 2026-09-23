@@ -162,3 +162,26 @@ export async function awardBonusXpToCourseFirstFach(
     data: { level: newLevel },
   })
 }
+
+/** Adds XP to one Fach and recalculates the level. */
+export async function addFachExperience(
+  userId: string,
+  fachId: string,
+  points: number,
+  dbx: DbCtx = db,
+): Promise<void> {
+  if (points <= 0) return
+
+  const updatedExperience = await ctx(dbx).userFachExperience.upsert({
+    where: { userId_fachId: { userId, fachId } },
+    update: { experience: { increment: points } },
+    create: { userId, fachId, experience: points },
+  })
+
+  await ctx(dbx).userFachExperience.update({
+    where: { userId_fachId: { userId, fachId } },
+    data: {
+      level: Math.floor(Math.sqrt(updatedExperience.experience / LEVEL_SCALE)),
+    },
+  })
+}

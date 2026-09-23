@@ -64,3 +64,20 @@ export const editorConfig = {
     YouTubeNode,
   ],
 }
+
+/** Blocks that only make sense in teacher-authored content. */
+const TEACHER_ONLY_NODES: ReadonlySet<unknown> = new Set([
+  MultipleChoiceNode,
+  StickyNode,
+  PageBreakNode,
+  IFrameNode,
+  LayoutContainerNode,
+  LayoutItemNode,
+])
+
+// Toolbar and slash menu only offer blocks whose node is registered,
+// so a smaller node list is enough to hide them for students.
+export const studentEditorConfig = {
+  ...editorConfig,
+  nodes: editorConfig.nodes.filter((node) => !TEACHER_ONLY_NODES.has(node)),
+}

@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation'
 import { CourseSidebarItem } from './course-sidebar-item'
 import { CourseProgress } from '@/components/quests/course-progress'
 import { CourseUnEnrollButton } from '../../../../../components/quests/course-unenroll-button'
-import { AttachmentFormUser } from './attachments-user'
+import { JournalSidebarCard } from './journal-sidebar-card'
 import { CourseProgressButton } from '../chapters/[chapterId]/_components/course-progress-button'
 import { CourseEnrollButton } from '@/components/quests/course-enroll-button'
 import { Badge } from '@/components/ui/badge'
@@ -121,6 +121,7 @@ export const CourseSidebar = async ({
             <CourseProgress variant="default" value={progressCount} />
           </div>
         )}
+
         {purchase && (
           <div className="mt-3">
             <CourseUnEnrollButton courseId={course.id} />
@@ -178,9 +179,13 @@ export const CourseSidebar = async ({
           ))}
         </div>
 
-        <div className="border-border/50 mt-auto border-t bg-muted/10 p-4">
-          <AttachmentFormUser initialData={course} courseId={course.id} />
-        </div>
+        {purchase && (
+          <div className="border-border/50 mt-auto border-t bg-muted/10 p-4">
+            <JournalSidebarCard courseId={course.id} userId={user.id} />
+          </div>
+        )}
+
+
       </div>
     </div>
   )

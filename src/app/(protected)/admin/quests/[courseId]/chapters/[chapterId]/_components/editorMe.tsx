@@ -8,6 +8,7 @@ import type { SerializedEditorState, EditorState, LexicalEditor } from 'lexical'
 
 import dynamic from 'next/dynamic'
 import SplashScreen from './splashScreen'
+import type { EditorVariant } from './editor/context/EditorVariantContext'
 // import type { SerializedEditorState } from 'lexical'
 
 // export interface EditorDocument {
@@ -42,7 +43,9 @@ const Container: React.FC<{
     editor: LexicalEditor,
     tags: Set<string>
   ) => void
-}> = ({ editorData, editorEditable, editorRef, onChange }) => {
+  variant?: EditorVariant
+  uploadImage?: (file: File) => Promise<string>
+}> = ({ editorData, editorEditable, editorRef, onChange, variant, uploadImage }) => {
   const fallbackRef = useRef<LexicalEditor | null>(null)
   const resolvedEditorRef = editorRef ?? fallbackRef
   // }> = ({ document, editorRef, onChange }) => {
@@ -111,6 +114,8 @@ const Container: React.FC<{
         // onChange={onEditorChange}
         onChange={handleEditorChange}
         editorRef={resolvedEditorRef}
+        variant={variant}
+        uploadImage={uploadImage}
       />
       {/* <Button onClick={handleSaveToDatabase} className="mt-20">
         Save to Database

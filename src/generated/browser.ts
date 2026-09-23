@@ -152,3 +152,38 @@ export type LearningPathCompletion = Prisma.LearningPathCompletionModel
  * 
  */
 export type FaqEntry = Prisma.FaqEntryModel
+/**
+ * Model JournalEntry
+ * 
+ */
+export type JournalEntry = Prisma.JournalEntryModel
+/**
+ * Model JournalAttachment
+ * 
+ */
+export type JournalAttachment = Prisma.JournalAttachmentModel
+/**
+ * Model JournalEntryVersion
+ * 
+ */
+export type JournalEntryVersion = Prisma.JournalEntryVersionModel
+/**
+ * Model JournalEvent
+ * 
+ */
+export type JournalEvent = Prisma.JournalEventModel
+/**
+ * Model RubricCriterion
+ * 
+ */
+export type RubricCriterion = Prisma.RubricCriterionModel
+/**
+ * Model FinalAssessment
+ * 
+ */
+export type FinalAssessment = Prisma.FinalAssessmentModel
+/**
+ * Model RubricScore
+ * 
+ */
+export type RubricScore = Prisma.RubricScoreModel

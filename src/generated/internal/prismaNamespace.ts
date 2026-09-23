@@ -410,7 +410,14 @@ export const ModelName = {
   LearningPathEnrollment: 'LearningPathEnrollment',
   LearningPathStepCompletion: 'LearningPathStepCompletion',
   LearningPathCompletion: 'LearningPathCompletion',
-  FaqEntry: 'FaqEntry'
+  FaqEntry: 'FaqEntry',
+  JournalEntry: 'JournalEntry',
+  JournalAttachment: 'JournalAttachment',
+  JournalEntryVersion: 'JournalEntryVersion',
+  JournalEvent: 'JournalEvent',
+  RubricCriterion: 'RubricCriterion',
+  FinalAssessment: 'FinalAssessment',
+  RubricScore: 'RubricScore'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "exercise" | "exerciseQuestion" | "exerciseAttempt" | "exerciseResponse" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion" | "faqEntry"
+    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "exercise" | "exerciseQuestion" | "exerciseAttempt" | "exerciseResponse" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion" | "faqEntry" | "journalEntry" | "journalAttachment" | "journalEntryVersion" | "journalEvent" | "rubricCriterion" | "finalAssessment" | "rubricScore"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2428,6 +2435,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JournalEntry: {
+      payload: Prisma.$JournalEntryPayload<ExtArgs>
+      fields: Prisma.JournalEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JournalEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JournalEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.JournalEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JournalEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        findMany: {
+          args: Prisma.JournalEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+        }
+        create: {
+          args: Prisma.JournalEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        createMany: {
+          args: Prisma.JournalEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JournalEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.JournalEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        update: {
+          args: Prisma.JournalEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.JournalEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JournalEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JournalEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.JournalEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.JournalEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJournalEntry>
+        }
+        groupBy: {
+          args: Prisma.JournalEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JournalEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    JournalAttachment: {
+      payload: Prisma.$JournalAttachmentPayload<ExtArgs>
+      fields: Prisma.JournalAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JournalAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JournalAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.JournalAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JournalAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.JournalAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.JournalAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.JournalAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JournalAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.JournalAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        update: {
+          args: Prisma.JournalAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.JournalAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JournalAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JournalAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.JournalAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.JournalAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJournalAttachment>
+        }
+        groupBy: {
+          args: Prisma.JournalAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JournalAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalAttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    JournalEntryVersion: {
+      payload: Prisma.$JournalEntryVersionPayload<ExtArgs>
+      fields: Prisma.JournalEntryVersionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JournalEntryVersionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JournalEntryVersionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        findFirst: {
+          args: Prisma.JournalEntryVersionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JournalEntryVersionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        findMany: {
+          args: Prisma.JournalEntryVersionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>[]
+        }
+        create: {
+          args: Prisma.JournalEntryVersionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        createMany: {
+          args: Prisma.JournalEntryVersionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JournalEntryVersionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>[]
+        }
+        delete: {
+          args: Prisma.JournalEntryVersionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        update: {
+          args: Prisma.JournalEntryVersionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        deleteMany: {
+          args: Prisma.JournalEntryVersionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JournalEntryVersionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JournalEntryVersionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>[]
+        }
+        upsert: {
+          args: Prisma.JournalEntryVersionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEntryVersionPayload>
+        }
+        aggregate: {
+          args: Prisma.JournalEntryVersionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJournalEntryVersion>
+        }
+        groupBy: {
+          args: Prisma.JournalEntryVersionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEntryVersionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JournalEntryVersionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEntryVersionCountAggregateOutputType> | number
+        }
+      }
+    }
+    JournalEvent: {
+      payload: Prisma.$JournalEventPayload<ExtArgs>
+      fields: Prisma.JournalEventFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JournalEventFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JournalEventFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        findFirst: {
+          args: Prisma.JournalEventFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JournalEventFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        findMany: {
+          args: Prisma.JournalEventFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>[]
+        }
+        create: {
+          args: Prisma.JournalEventCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        createMany: {
+          args: Prisma.JournalEventCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JournalEventCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>[]
+        }
+        delete: {
+          args: Prisma.JournalEventDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        update: {
+          args: Prisma.JournalEventUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        deleteMany: {
+          args: Prisma.JournalEventDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JournalEventUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JournalEventUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>[]
+        }
+        upsert: {
+          args: Prisma.JournalEventUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JournalEventPayload>
+        }
+        aggregate: {
+          args: Prisma.JournalEventAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJournalEvent>
+        }
+        groupBy: {
+          args: Prisma.JournalEventGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEventGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JournalEventCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JournalEventCountAggregateOutputType> | number
+        }
+      }
+    }
+    RubricCriterion: {
+      payload: Prisma.$RubricCriterionPayload<ExtArgs>
+      fields: Prisma.RubricCriterionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RubricCriterionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RubricCriterionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        findFirst: {
+          args: Prisma.RubricCriterionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RubricCriterionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        findMany: {
+          args: Prisma.RubricCriterionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>[]
+        }
+        create: {
+          args: Prisma.RubricCriterionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        createMany: {
+          args: Prisma.RubricCriterionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RubricCriterionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>[]
+        }
+        delete: {
+          args: Prisma.RubricCriterionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        update: {
+          args: Prisma.RubricCriterionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        deleteMany: {
+          args: Prisma.RubricCriterionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RubricCriterionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RubricCriterionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>[]
+        }
+        upsert: {
+          args: Prisma.RubricCriterionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricCriterionPayload>
+        }
+        aggregate: {
+          args: Prisma.RubricCriterionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRubricCriterion>
+        }
+        groupBy: {
+          args: Prisma.RubricCriterionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubricCriterionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RubricCriterionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubricCriterionCountAggregateOutputType> | number
+        }
+      }
+    }
+    FinalAssessment: {
+      payload: Prisma.$FinalAssessmentPayload<ExtArgs>
+      fields: Prisma.FinalAssessmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FinalAssessmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FinalAssessmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        findFirst: {
+          args: Prisma.FinalAssessmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FinalAssessmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        findMany: {
+          args: Prisma.FinalAssessmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>[]
+        }
+        create: {
+          args: Prisma.FinalAssessmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        createMany: {
+          args: Prisma.FinalAssessmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FinalAssessmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>[]
+        }
+        delete: {
+          args: Prisma.FinalAssessmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        update: {
+          args: Prisma.FinalAssessmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.FinalAssessmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FinalAssessmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FinalAssessmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.FinalAssessmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FinalAssessmentPayload>
+        }
+        aggregate: {
+          args: Prisma.FinalAssessmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFinalAssessment>
+        }
+        groupBy: {
+          args: Prisma.FinalAssessmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinalAssessmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FinalAssessmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FinalAssessmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    RubricScore: {
+      payload: Prisma.$RubricScorePayload<ExtArgs>
+      fields: Prisma.RubricScoreFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RubricScoreFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RubricScoreFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        findFirst: {
+          args: Prisma.RubricScoreFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RubricScoreFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        findMany: {
+          args: Prisma.RubricScoreFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>[]
+        }
+        create: {
+          args: Prisma.RubricScoreCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        createMany: {
+          args: Prisma.RubricScoreCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RubricScoreCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>[]
+        }
+        delete: {
+          args: Prisma.RubricScoreDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        update: {
+          args: Prisma.RubricScoreUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        deleteMany: {
+          args: Prisma.RubricScoreDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RubricScoreUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RubricScoreUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>[]
+        }
+        upsert: {
+          args: Prisma.RubricScoreUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RubricScorePayload>
+        }
+        aggregate: {
+          args: Prisma.RubricScoreAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRubricScore>
+        }
+        groupBy: {
+          args: Prisma.RubricScoreGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubricScoreGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RubricScoreCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RubricScoreCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2557,6 +3082,7 @@ export const CourseScalarFieldEnum = {
   schwierigkeit: 'schwierigkeit',
   klassenstufe: 'klassenstufe',
   isPublished: 'isPublished',
+  journalEntryXp: 'journalEntryXp',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2834,6 +3360,102 @@ export const FaqEntryScalarFieldEnum = {
 export type FaqEntryScalarFieldEnum = (typeof FaqEntryScalarFieldEnum)[keyof typeof FaqEntryScalarFieldEnum]
 
 
+export const JournalEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  chapterId: 'chapterId',
+  title: 'title',
+  content: 'content',
+  status: 'status',
+  entryDate: 'entryDate',
+  submittedAt: 'submittedAt',
+  xpAwardedAt: 'xpAwardedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
+export const JournalAttachmentScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  url: 'url',
+  fileKey: 'fileKey',
+  name: 'name',
+  mimeType: 'mimeType',
+  size: 'size',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalAttachmentScalarFieldEnum = (typeof JournalAttachmentScalarFieldEnum)[keyof typeof JournalAttachmentScalarFieldEnum]
+
+
+export const JournalEntryVersionScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  version: 'version',
+  title: 'title',
+  content: 'content',
+  attachments: 'attachments',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalEntryVersionScalarFieldEnum = (typeof JournalEntryVersionScalarFieldEnum)[keyof typeof JournalEntryVersionScalarFieldEnum]
+
+
+export const JournalEventScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  authorId: 'authorId',
+  kind: 'kind',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalEventScalarFieldEnum = (typeof JournalEventScalarFieldEnum)[keyof typeof JournalEventScalarFieldEnum]
+
+
+export const RubricCriterionScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  label: 'label',
+  description: 'description',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RubricCriterionScalarFieldEnum = (typeof RubricCriterionScalarFieldEnum)[keyof typeof RubricCriterionScalarFieldEnum]
+
+
+export const FinalAssessmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  overallLevel: 'overallLevel',
+  comment: 'comment',
+  gradedById: 'gradedById',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinalAssessmentScalarFieldEnum = (typeof FinalAssessmentScalarFieldEnum)[keyof typeof FinalAssessmentScalarFieldEnum]
+
+
+export const RubricScoreScalarFieldEnum = {
+  id: 'id',
+  assessmentId: 'assessmentId',
+  criterionId: 'criterionId',
+  level: 'level'
+} as const
+
+export type RubricScoreScalarFieldEnum = (typeof RubricScoreScalarFieldEnum)[keyof typeof RubricScoreScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3008,6 +3630,48 @@ export type ListEnumLernpfadDifficultyFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'JournalEntryStatus'
+ */
+export type EnumJournalEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JournalEntryStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JournalEntryStatus[]'
+ */
+export type ListEnumJournalEntryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JournalEntryStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JournalEventKind'
+ */
+export type EnumJournalEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JournalEventKind'>
+    
+
+
+/**
+ * Reference to a field of type 'JournalEventKind[]'
+ */
+export type ListEnumJournalEventKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JournalEventKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'RubricLevel'
+ */
+export type EnumRubricLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RubricLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'RubricLevel[]'
+ */
+export type ListEnumRubricLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RubricLevel[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3142,6 +3806,13 @@ export type GlobalOmitConfig = {
   learningPathStepCompletion?: Prisma.LearningPathStepCompletionOmit
   learningPathCompletion?: Prisma.LearningPathCompletionOmit
   faqEntry?: Prisma.FaqEntryOmit
+  journalEntry?: Prisma.JournalEntryOmit
+  journalAttachment?: Prisma.JournalAttachmentOmit
+  journalEntryVersion?: Prisma.JournalEntryVersionOmit
+  journalEvent?: Prisma.JournalEventOmit
+  rubricCriterion?: Prisma.RubricCriterionOmit
+  finalAssessment?: Prisma.FinalAssessmentOmit
+  rubricScore?: Prisma.RubricScoreOmit
 }
 
 /* Types for Logging */

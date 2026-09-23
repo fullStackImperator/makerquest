@@ -30,6 +30,28 @@ enum QuestionKind {
   SHORT_TEXT
   MATH
   DRAG_DROP
+  H5P
+}
+
+enum JournalEntryStatus {
+  DRAFT
+  READY
+  REVISE
+  ACCEPTED
+}
+
+enum JournalEventKind {
+  COMMENT
+  SUBMITTED
+  REVISION_REQUESTED
+  ACCEPTED
+}
+
+enum RubricLevel {
+  NOT_MET
+  PARTIAL
+  MET
+  EXCEEDED
 }
 
 enum AttemptStatus {
@@ -80,6 +102,11 @@ model User {
   exerciseAttempts             ExerciseAttempt[]
 
   sharedCourses                Course[]                       @relation("CourseShares")
+
+  journalEntries               JournalEntry[]
+  journalEvents                JournalEvent[]
+  finalAssessments             FinalAssessment[]              @relation("FinalAssessmentStudent")
+  gradedAssessments            FinalAssessment[]              @relation("FinalAssessmentGrader")
 
   @@map("user")
 }
@@ -174,6 +201,11 @@ model Course {
 
   sharedWith User[] @relation("CourseShares")
 
+  journalEntryXp   Int               @default(10) // XP per accepted journal entry
+  journalEntries   JournalEntry[]
+  rubricCriteria   RubricCriterion[]
+  finalAssessments FinalAssessment[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -197,6 +229,7 @@ model Chapter {
   course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
+  journalEntries JournalEntry[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -530,4 +563,114 @@ model FaqEntry {
   updatedAt DateTime @updatedAt
 
   @@index([position])
+}
+
+model JournalEntry {
+  id          String                @id @default(uuid())
+  userId      String
+  user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String
+  course      Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  chapterId   String?
+  chapter     Chapter?              @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+  title       String?
+  content     Json                  @db.Json
+  status      JournalEntryStatus    @default(DRAFT)
+  entryDate   DateTime              @default(now()) // date shown in the timeline
+  submittedAt DateTime? // last time the student marked it ready
+  xpAwardedAt DateTime?
+  attachments JournalAttachment[]
+  versions    JournalEntryVersion[]
+  events      JournalEvent[]
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  @@index([courseId, userId, entryDate])
+  @@index([courseId, status])
+  @@index([userId])
+}
+
+model JournalAttachment {
+  id        String       @id @default(uuid())
+  entryId   String
+  entry     JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  url       String       @db.Text
+  fileKey   String?
+  name      String
+  mimeType  String?
+  size      Int?
+  position  Int          @default(0)
+  createdAt DateTime     @default(now())
+
+  @@index([entryId])
+}
+
+model JournalEntryVersion {
+  id          String       @id @default(uuid())
+  entryId     String
+  entry       JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  version     Int
+  title       String?
+  content     Json         @db.Json
+  attachments Json         @db.Json // snapshot of JournalAttachment rows
+  createdAt   DateTime     @default(now())
+
+  @@unique([entryId, version])
+}
+
+model JournalEvent {
+  id        String           @id @default(uuid())
+  entryId   String
+  entry     JournalEntry     @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User             @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  kind      JournalEventKind
+  body      String?          @db.Text
+  createdAt DateTime         @default(now())
+
+  @@index([entryId, createdAt])
+}
+
+model RubricCriterion {
+  id          String        @id @default(uuid())
+  courseId    String
+  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  label       String
+  description String?       @db.Text
+  position    Int
+  scores      RubricScore[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([courseId])
+}
+
+model FinalAssessment {
+  id           String        @id @default(uuid())
+  userId       String
+  user         User          @relation("FinalAssessmentStudent", fields: [userId], references: [id], onDelete: Cascade)
+  courseId     String
+  course       Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  overallLevel RubricLevel?
+  comment      String?       @db.Text
+  gradedById   String?
+  gradedBy     User?         @relation("FinalAssessmentGrader", fields: [gradedById], references: [id], onDelete: SetNull)
+  gradedAt     DateTime?
+  scores       RubricScore[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+}
+
+model RubricScore {
+  id           String          @id @default(uuid())
+  assessmentId String
+  assessment   FinalAssessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  criterionId  String
+  criterion    RubricCriterion @relation(fields: [criterionId], references: [id], onDelete: Cascade)
+  level        RubricLevel
+
+  @@unique([assessmentId, criterionId])
 }

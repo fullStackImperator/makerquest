@@ -18,7 +18,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Upload } from 'lucide-react'
+import { Loader2, Upload } from 'lucide-react'
+import { toast } from 'sonner'
+import {
+  compressImage,
+  useEditorVariant,
+} from '../../../context/EditorVariantContext'
 
 function ImageDialog({
   editor,
@@ -29,6 +34,8 @@ function ImageDialog({
   node: ImageNode | null
   open: boolean
 }) {
+  const { uploadImage } = useEditorVariant()
+  const [isUploading, setIsUploading] = useState(false)
   const [formData, setFormData] = useState<InsertImagePayload>({
     src: '',
     altText: '',
@@ -81,7 +88,30 @@ function ImageDialog({
     }
   }
 
+  const uploadAndLoadImage = async (file: File) => {
+    if (!uploadImage) return
+    setIsUploading(true)
+    try {
+      const url = await uploadImage(await compressImage(file))
+      const altText = file.name.replace(/\.[^/.]+$/, '')
+      try {
+        const dimensions = await getImageDimensions(url)
+        setFormData((prev) => ({ ...prev, src: url, altText, ...dimensions, showCaption: true }))
+      } catch {
+        setFormData((prev) => ({ ...prev, src: url, altText, showCaption: true }))
+      }
+    } catch {
+      toast.error('Bild konnte nicht hochgeladen werden')
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
   const loadImage = (files: FileList | null) => {
+    if (uploadImage) {
+      if (files?.[0]) uploadAndLoadImage(files[0])
+      return
+    }
     const reader = new FileReader()
     reader.onload = async function () {
       if (typeof reader.result === 'string') {
@@ -118,7 +148,7 @@ function ImageDialog({
     }
   }
 
-  const isDisabled = formData.src === ''
+  const isDisabled = formData.src === '' || isUploading
 
   const insertImage = (payload: InsertImagePayload) => {
     if (!node) editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload)
@@ -176,12 +206,17 @@ function ImageDialog({
             <Label className="text-sm font-semibold">From File</Label>
             <Button type="button" variant="outline" asChild>
               <label className="flex cursor-pointer items-center gap-2">
-                <Upload className="size-4" />
-                Upload File
+                {isUploading ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <Upload className="size-4" />
+                )}
+                {isUploading ? 'Wird hochgeladen…' : 'Upload File'}
                 <input
                   type="file"
                   className="hidden"
                   accept="image/*"
+                  disabled={isUploading}
                   onChange={(e) => loadImage(e.target.files)}
                 />
               </label>

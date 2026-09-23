@@ -34,10 +34,41 @@ export const QuestionKind = {
   FILL_BLANK: 'FILL_BLANK',
   SHORT_TEXT: 'SHORT_TEXT',
   MATH: 'MATH',
-  DRAG_DROP: 'DRAG_DROP'
+  DRAG_DROP: 'DRAG_DROP',
+  H5P: 'H5P'
 } as const
 
 export type QuestionKind = (typeof QuestionKind)[keyof typeof QuestionKind]
+
+
+export const JournalEntryStatus = {
+  DRAFT: 'DRAFT',
+  READY: 'READY',
+  REVISE: 'REVISE',
+  ACCEPTED: 'ACCEPTED'
+} as const
+
+export type JournalEntryStatus = (typeof JournalEntryStatus)[keyof typeof JournalEntryStatus]
+
+
+export const JournalEventKind = {
+  COMMENT: 'COMMENT',
+  SUBMITTED: 'SUBMITTED',
+  REVISION_REQUESTED: 'REVISION_REQUESTED',
+  ACCEPTED: 'ACCEPTED'
+} as const
+
+export type JournalEventKind = (typeof JournalEventKind)[keyof typeof JournalEventKind]
+
+
+export const RubricLevel = {
+  NOT_MET: 'NOT_MET',
+  PARTIAL: 'PARTIAL',
+  MET: 'MET',
+  EXCEEDED: 'EXCEEDED'
+} as const
+
+export type RubricLevel = (typeof RubricLevel)[keyof typeof RubricLevel]
 
 
 export const AttemptStatus = {

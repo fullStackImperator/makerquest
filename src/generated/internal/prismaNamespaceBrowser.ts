@@ -77,7 +77,14 @@ export const ModelName = {
   LearningPathEnrollment: 'LearningPathEnrollment',
   LearningPathStepCompletion: 'LearningPathStepCompletion',
   LearningPathCompletion: 'LearningPathCompletion',
-  FaqEntry: 'FaqEntry'
+  FaqEntry: 'FaqEntry',
+  JournalEntry: 'JournalEntry',
+  JournalAttachment: 'JournalAttachment',
+  JournalEntryVersion: 'JournalEntryVersion',
+  JournalEvent: 'JournalEvent',
+  RubricCriterion: 'RubricCriterion',
+  FinalAssessment: 'FinalAssessment',
+  RubricScore: 'RubricScore'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -186,6 +193,7 @@ export const CourseScalarFieldEnum = {
   schwierigkeit: 'schwierigkeit',
   klassenstufe: 'klassenstufe',
   isPublished: 'isPublished',
+  journalEntryXp: 'journalEntryXp',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -461,6 +469,102 @@ export const FaqEntryScalarFieldEnum = {
 } as const
 
 export type FaqEntryScalarFieldEnum = (typeof FaqEntryScalarFieldEnum)[keyof typeof FaqEntryScalarFieldEnum]
+
+
+export const JournalEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  chapterId: 'chapterId',
+  title: 'title',
+  content: 'content',
+  status: 'status',
+  entryDate: 'entryDate',
+  submittedAt: 'submittedAt',
+  xpAwardedAt: 'xpAwardedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JournalEntryScalarFieldEnum = (typeof JournalEntryScalarFieldEnum)[keyof typeof JournalEntryScalarFieldEnum]
+
+
+export const JournalAttachmentScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  url: 'url',
+  fileKey: 'fileKey',
+  name: 'name',
+  mimeType: 'mimeType',
+  size: 'size',
+  position: 'position',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalAttachmentScalarFieldEnum = (typeof JournalAttachmentScalarFieldEnum)[keyof typeof JournalAttachmentScalarFieldEnum]
+
+
+export const JournalEntryVersionScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  version: 'version',
+  title: 'title',
+  content: 'content',
+  attachments: 'attachments',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalEntryVersionScalarFieldEnum = (typeof JournalEntryVersionScalarFieldEnum)[keyof typeof JournalEntryVersionScalarFieldEnum]
+
+
+export const JournalEventScalarFieldEnum = {
+  id: 'id',
+  entryId: 'entryId',
+  authorId: 'authorId',
+  kind: 'kind',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type JournalEventScalarFieldEnum = (typeof JournalEventScalarFieldEnum)[keyof typeof JournalEventScalarFieldEnum]
+
+
+export const RubricCriterionScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  label: 'label',
+  description: 'description',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RubricCriterionScalarFieldEnum = (typeof RubricCriterionScalarFieldEnum)[keyof typeof RubricCriterionScalarFieldEnum]
+
+
+export const FinalAssessmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  courseId: 'courseId',
+  overallLevel: 'overallLevel',
+  comment: 'comment',
+  gradedById: 'gradedById',
+  gradedAt: 'gradedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FinalAssessmentScalarFieldEnum = (typeof FinalAssessmentScalarFieldEnum)[keyof typeof FinalAssessmentScalarFieldEnum]
+
+
+export const RubricScoreScalarFieldEnum = {
+  id: 'id',
+  assessmentId: 'assessmentId',
+  criterionId: 'criterionId',
+  level: 'level'
+} as const
+
+export type RubricScoreScalarFieldEnum = (typeof RubricScoreScalarFieldEnum)[keyof typeof RubricScoreScalarFieldEnum]
 
 
 export const SortOrder = {
