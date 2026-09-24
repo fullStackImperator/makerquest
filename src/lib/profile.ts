@@ -1,4 +1,5 @@
 import type { User } from '@/generated/client'
+import { isNameBlocked } from '@/lib/name-policy'
 
 export const KLASSENSTUFEN = [5, 6, 7, 8, 9, 10, 11, 12, 13] as const
 
@@ -12,7 +13,7 @@ type ProfileFields = Pick<User, 'name' | 'klasse' | 'isTeacher' | 'isAdmin' | 't
  * admins and users waiting for teacher approval don't.
  */
 export function needsProfileCompletion(user: ProfileFields) {
-  if (!user.name?.trim()) return true
+  if (!user.name?.trim() || isNameBlocked(user.name)) return true
   const exemptFromKlasse = user.isTeacher || user.isAdmin || !!user.teacherRequestedAt
   return !exemptFromKlasse && !user.klasse?.trim()
 }

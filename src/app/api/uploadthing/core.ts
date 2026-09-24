@@ -71,6 +71,14 @@ export const ourFileRouter = {
     .input(journalInput)
     .middleware(({ input }) => handleJournalAuth(input.courseId))
     .onUploadComplete(({ file }) => ({ url: file.ufsUrl })),
+  // Avatar on /profil; any logged-in user, one image.
+  profileImage: f({ image: { maxFileSize: '4MB', maxFileCount: 1 } })
+    .middleware(async () => {
+      const user = await getSessionUser()
+      if (!user?.id) throw new UploadThingError('Unauthorized')
+      return { userId: user.id }
+    })
+    .onUploadComplete(({ file }) => ({ url: file.ufsUrl })),
 } satisfies FileRouter
 
 export type OurFileRouter = typeof ourFileRouter

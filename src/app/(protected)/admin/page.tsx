@@ -1,5 +1,6 @@
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
+import { ProfileChangesCard } from './_components/profile-changes-card'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -19,6 +20,7 @@ import {
   NotebookPen,
   BarChart3,
   ChevronDown,
+  ShieldAlert,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -50,6 +52,7 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
     pendingExerciseReviews,
     pendingJournalEntries,
     pendingTeacherRequests,
+    blockedNameAttempts,
   ] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { isTeacher: true } }),
@@ -70,6 +73,9 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
     db.journalEntry.count({ where: { status: 'READY', ...journalScope } }),
     db.user.count({
       where: { teacherRequestedAt: { not: null }, NOT: { isTeacher: true } },
+    }),
+    db.profileChange.count({
+      where: { blocked: true, createdAt: { gte: sevenDaysAgo } },
     }),
   ])
 
@@ -92,6 +98,7 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
     pendingExerciseReviews,
     pendingJournalEntries,
     pendingTeacherRequests,
+    blockedNameAttempts,
   }
 }
 
@@ -256,6 +263,16 @@ export default async function AdminDashboardPage() {
           <p className="text-muted-foreground">Verwalte Quests, Lernpfade, Journale, Badges und Nutzer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          {stats.blockedNameAttempts > 0 && (
+            <Link
+              href="#profilaenderungen"
+              className="inline-flex items-center gap-2 rounded-full border border-destructive/50 bg-destructive/10 px-3 py-1.5 text-sm text-destructive transition-colors hover:bg-destructive/20"
+            >
+              <ShieldAlert className="size-4" />
+              <span className="font-semibold tabular-nums">{stats.blockedNameAttempts}</span>
+              gesperrte Namensversuche (7 Tage)
+            </Link>
+          )}
           {stats.pendingTeacherRequests > 0 && (
             <AttentionChip
               href="/admin/users"
@@ -328,6 +345,10 @@ export default async function AdminDashboardPage() {
           meta={`${stats.totalUsers} Nutzer · ${stats.totalTeachers} Lehrer`}
         />
       </nav>
+
+      <div id="profilaenderungen" className="scroll-mt-4">
+        <ProfileChangesCard />
+      </div>
 
       <details className="group bg-card/60 rounded-2xl border">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-5 py-4 [&::-webkit-details-marker]:hidden">

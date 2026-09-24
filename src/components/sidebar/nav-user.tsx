@@ -10,7 +10,9 @@ import {
   User,
 } from 'lucide-react'
 
+import Link from 'next/link'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useNotifications } from '@/components/notifications/notifications-provider'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,6 +37,7 @@ export function NavUser({
   }
 }) {
   const router = useRouter()
+  const notifications = useNotifications()
 
   const handleLogout = async () => {
     await authClient.signOut()
@@ -113,17 +116,26 @@ export function NavUser({
         </DropdownMenuGroup>
         <DropdownMenuSeparator /> */}
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User />
-            Account
+          <DropdownMenuItem asChild>
+            <Link href="/profil">
+              <User />
+              Mein Profil
+            </Link>
           </DropdownMenuItem>
           {/* <DropdownMenuItem>
             <CreditCard />
             Abrechnung
           </DropdownMenuItem> */}
-          <DropdownMenuItem>
-            <Bell />
-            Benachrichtigungen
+          <DropdownMenuItem asChild>
+            <Link href="/benachrichtigungen">
+              <Bell />
+              Benachrichtigungen
+              {!!notifications?.unread && (
+                <span className="ml-auto rounded-full bg-rose-500 px-1.5 text-[10px] font-bold leading-4 text-white tabular-nums">
+                  {notifications.unread > 99 ? '99+' : notifications.unread}
+                </span>
+              )}
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

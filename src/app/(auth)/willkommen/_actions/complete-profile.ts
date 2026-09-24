@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { db } from '@/lib/db'
+import { checkDisplayName, isNameBlocked } from '@/lib/name-policy'
+import { logBlockedName, logProfileChanges } from '@/lib/profile-log'
 import { getSessionUser } from '@/lib/get-session-user'
 import {
   formatKlasse,
@@ -12,12 +14,7 @@ import {
 } from '@/lib/profile'
 
 const schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'Bitte gib deinen Namen ein')
-    .max(80, 'Der Name ist zu lang')
-    .regex(/\p{L}/u, 'Bitte gib deinen Namen ein'),
+  name: z.string().max(200),
   requestTeacher: z.boolean(),
   stufe: z.number().int().nullable(),
   letter: z.string().trim().max(1),
@@ -34,7 +31,15 @@ export async function completeProfile(
   if (!parsed.success) {
     return { success: false, error: parsed.error.issues[0]?.message ?? 'Ungültige Eingabe' }
   }
-  const { name, requestTeacher, stufe, letter } = parsed.data
+  const { requestTeacher, stufe, letter } = parsed.data
+  const nameCheck = checkDisplayName(parsed.data.name)
+  if (!nameCheck.ok) {
+    if (isNameBlocked(parsed.data.name)) {
+      await logBlockedName(user.id, parsed.data.name, user.name, 'onboarding')
+    }
+    return { success: false, error: nameCheck.error }
+  }
+  const name = nameCheck.name
 
   const isStaff = user.isTeacher === true || user.isAdmin === true
   const data: { name: string; klasse?: string | null; teacherRequestedAt?: Date | null } = { name }
@@ -58,6 +63,18 @@ export async function completeProfile(
     }
   }
 
-  await db.user.update({ where: { id: user.id }, data })
+  await db.$transaction(async (tx) => {
+    await tx.user.update({ where: { id: user.id }, data })
+    await logProfileChanges(
+      {
+        userId: user.id,
+        actorId: user.id,
+        source: 'onboarding',
+        before: { name: user.name, klasse: user.klasse },
+        after: { name: data.name, ...(data.klasse !== undefined ? { klasse: data.klasse } : {}) },
+      },
+      tx,
+    )
+  })
   redirect(user.slug ? `/dashboard/${user.slug}` : '/')
 }

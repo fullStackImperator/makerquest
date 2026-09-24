@@ -1,7 +1,10 @@
 import { db } from '@/lib/db'
+import { getSessionUser } from '@/lib/get-session-user'
+import { isNameBlocked } from '@/lib/name-policy'
 import UsersClient from './_components/users-client'
 
 const UsersPage = async () => {
+  const viewer = await getSessionUser()
   const users = await db.user.findMany({
     orderBy: { createdAt: 'desc' },
     select: {
@@ -9,22 +12,29 @@ const UsersPage = async () => {
       name: true,
       email: true,
       isTeacher: true,
+      isAdmin: true,
       klasse: true,
+      image: true,
       teacherRequestedAt: true,
     },
   })
 
-  // Open teacher requests first, oldest request on top.
+  // Inappropriate names first, then open teacher requests (oldest on top).
+  const flagged = users.filter((u) => isNameBlocked(u.name))
   const pending = users
-    .filter((u) => u.teacherRequestedAt && !u.isTeacher)
+    .filter((u) => !isNameBlocked(u.name) && u.teacherRequestedAt && !u.isTeacher)
     .sort((a, b) => a.teacherRequestedAt!.getTime() - b.teacherRequestedAt!.getTime())
-  const rest = users.filter((u) => !(u.teacherRequestedAt && !u.isTeacher))
+  const rest = users.filter(
+    (u) => !isNameBlocked(u.name) && !(u.teacherRequestedAt && !u.isTeacher),
+  )
 
   return (
     <UsersClient
-      users={[...pending, ...rest].map((u) => ({
+      viewerIsAdmin={viewer?.isAdmin === true}
+      users={[...flagged, ...pending, ...rest].map(({ teacherRequestedAt, ...u }) => ({
         ...u,
-        teacherRequested: !!u.teacherRequestedAt && !u.isTeacher,
+        teacherRequested: !!teacherRequestedAt && !u.isTeacher,
+        nameBlocked: isNameBlocked(u.name),
       }))}
     />
   )

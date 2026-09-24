@@ -418,7 +418,8 @@ export const ModelName = {
   RubricCriterion: 'RubricCriterion',
   FinalAssessment: 'FinalAssessment',
   RubricScore: 'RubricScore',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  ProfileChange: 'ProfileChange'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "exercise" | "exerciseQuestion" | "exerciseAttempt" | "exerciseResponse" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion" | "faqEntry" | "journalEntry" | "journalAttachment" | "journalEntryVersion" | "journalEvent" | "rubricCriterion" | "finalAssessment" | "rubricScore" | "notification"
+    modelProps: "mathEditorDocument" | "user" | "session" | "account" | "verification" | "course" | "chapter" | "exercise" | "exerciseQuestion" | "exerciseAttempt" | "exerciseResponse" | "attachment" | "userProgress" | "fach" | "category" | "userFachExperience" | "awardedPoints" | "purchase" | "grading" | "badge" | "userBadge" | "learningPath" | "learningPathStep" | "learningPathEnrollment" | "learningPathStepCompletion" | "learningPathCompletion" | "faqEntry" | "journalEntry" | "journalAttachment" | "journalEntryVersion" | "journalEvent" | "rubricCriterion" | "finalAssessment" | "rubricScore" | "notification" | "profileChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3028,6 +3029,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProfileChange: {
+      payload: Prisma.$ProfileChangePayload<ExtArgs>
+      fields: Prisma.ProfileChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProfileChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProfileChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        findFirst: {
+          args: Prisma.ProfileChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProfileChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        findMany: {
+          args: Prisma.ProfileChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>[]
+        }
+        create: {
+          args: Prisma.ProfileChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        createMany: {
+          args: Prisma.ProfileChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProfileChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>[]
+        }
+        delete: {
+          args: Prisma.ProfileChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        update: {
+          args: Prisma.ProfileChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.ProfileChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProfileChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProfileChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.ProfileChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProfileChangePayload>
+        }
+        aggregate: {
+          args: Prisma.ProfileChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProfileChange>
+        }
+        groupBy: {
+          args: Prisma.ProfileChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProfileChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProfileChangeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3549,6 +3624,21 @@ export const NotificationScalarFieldEnum = {
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+export const ProfileChangeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  actorId: 'actorId',
+  field: 'field',
+  oldValue: 'oldValue',
+  newValue: 'newValue',
+  blocked: 'blocked',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type ProfileChangeScalarFieldEnum = (typeof ProfileChangeScalarFieldEnum)[keyof typeof ProfileChangeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3921,6 +4011,7 @@ export type GlobalOmitConfig = {
   finalAssessment?: Prisma.FinalAssessmentOmit
   rubricScore?: Prisma.RubricScoreOmit
   notification?: Prisma.NotificationOmit
+  profileChange?: Prisma.ProfileChangeOmit
 }
 
 /* Types for Logging */

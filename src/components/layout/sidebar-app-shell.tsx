@@ -17,6 +17,7 @@ import { needsProfileCompletion } from '@/lib/profile'
 import { getMyNotifications } from '@/actions/notifications'
 import { NotificationsProvider } from '@/components/notifications/notifications-provider'
 import { NotificationBell } from '@/components/notifications/notification-bell'
+import { AccountNotices } from '@/components/notifications/account-notices'
 
 export async function SidebarAppShell({
   children,
@@ -67,9 +68,15 @@ export async function SidebarAppShell({
           isAdminOrTeacher={isAdminOrTeacher}
         />
 
-        {/* !bg-transparent lets the body gradient show through the inset panel */}
-        {/* overflow-clip (not hidden) keeps rounded corners without breaking position: sticky */}
-        <SidebarInset className="!bg-transparent overflow-clip">
+        {/* Glass panel: blurs the body gradient behind it for an Apple-style frosted surface */}
+        <SidebarInset
+          className="overflow-clip"
+          style={{
+            background: 'linear-gradient(175deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.18) 100%)',
+            backdropFilter: 'blur(32px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(32px) saturate(160%)',
+          }}
+        >
 
           {/* Header — transparent so it blends with the main gradient */}
           <header className="flex h-14 shrink-0 items-center gap-2 justify-between border-b border-white/30 px-5">
@@ -106,7 +113,10 @@ export async function SidebarAppShell({
             </div>
           </header>
 
-          <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">{children}</div>
+          <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">
+            <AccountNotices />
+            {children}
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </NotificationsProvider>

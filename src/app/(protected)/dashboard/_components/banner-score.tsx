@@ -1,8 +1,13 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Zap, Shield, Trophy, BookOpen, ArrowUpRight, ArrowDown } from 'lucide-react'
+import { Zap, Shield, Trophy, BookOpen, ArrowUpRight, ArrowDown, Camera, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { useUploadThing } from '@/lib/uploadthing'
+import { updateMyAvatar } from '@/app/(protected)/profil/_actions/update-my-profile'
 import { getLevelName } from '@/lib/levelNames'
 import { CARD, CARD_INNER, FONT, NEON, NEON_CARD, TEXT, neonCard } from './glass-styles'
 
@@ -37,6 +42,27 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
   const displayName = usr.name ?? 'Anonym'
   const initial = displayName.charAt(0).toUpperCase()
 
+  const router = useRouter()
+  const fileRef = useRef<HTMLInputElement>(null)
+  const { startUpload, isUploading: avatarBusy } = useUploadThing('profileImage', {
+    onUploadError: (error) => {
+      toast.error(error.message || 'Upload fehlgeschlagen')
+    },
+  })
+
+  const onAvatarFile = async (files: FileList | null) => {
+    const file = files?.[0]
+    if (!file) return
+    const uploaded = await startUpload([file])
+    if (fileRef.current) fileRef.current.value = ''
+    const url = uploaded?.[0]?.serverData?.url ?? uploaded?.[0]?.ufsUrl
+    if (!url) return
+    const result = await updateMyAvatar(url)
+    if (!result.success) return void toast.error(result.error)
+    toast.success('Profilbild aktualisiert')
+    router.refresh()
+  }
+
   const scrollAndSwitch = (tab: string) => {
     window.dispatchEvent(new CustomEvent('dash-tab', { detail: tab }))
     document.getElementById('quests-section')?.scrollIntoView({ behavior: 'smooth' })
@@ -53,8 +79,16 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
       </p>
 
       <div className="flex flex-col items-center gap-4 text-center flex-1">
-        {/* Avatar */}
+        {/* Avatar — click to upload a new picture */}
         <div className="relative">
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            disabled={avatarBusy}
+            className="group/avatar relative block rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-fuchsia-300"
+            aria-label="Profilbild ändern"
+            title="Profilbild ändern"
+          >
           <Avatar
             className="w-32 h-32"
             style={{ background: '#1a2d3d', boxShadow: `0 0 0 4px ${NEON.fuchsia.solid}, 0 0 28px ${NEON.fuchsia.glow}` }}
@@ -67,6 +101,20 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
               {initial}
             </AvatarFallback>
           </Avatar>
+            <span
+              className={`absolute inset-0 flex items-center justify-center rounded-full bg-black/45 text-white transition-opacity ${avatarBusy ? 'opacity-100' : 'opacity-0 group-hover/avatar:opacity-100 group-focus-visible/avatar:opacity-100'}`}
+              aria-hidden
+            >
+              {avatarBusy ? <Loader2 className="size-7 animate-spin" /> : <Camera className="size-7" />}
+            </span>
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => onAvatarFile(e.target.files)}
+          />
           {/* LV chip */}
           <div
             className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold rounded-full px-2.5 py-0.5"

@@ -216,3 +216,8 @@ export type RubricScore = Prisma.RubricScoreModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model ProfileChange
+ * Audit log of name/Klasse/avatar changes, including rejected (blocked) name attempts.
+ */
+export type ProfileChange = Prisma.ProfileChangeModel

@@ -5,6 +5,8 @@ import { emailOTP } from 'better-auth/plugins'
 import { resend } from './resend'
 import slugify from 'slugify'
 import { env } from './env'
+import { APIError } from 'better-auth/api'
+import { checkDisplayName, isNameBlocked } from './name-policy'
 
 function makeSlug(name: string) {
   return slugify(name, { lower: true, strict: true })
@@ -50,10 +52,32 @@ export const auth = betterAuth({
   // Create slug on user creation
   databaseHooks: {
     user: {
+      update: {
+        before: async (data, ctx) => {
+          // Name and avatar only change through /profil, where every change is logged.
+          if (ctx?.path === '/update-user' && ('name' in data || 'image' in data)) {
+            throw new APIError('FORBIDDEN', {
+              message: 'Name und Profilbild können nur unter „Mein Profil“ geändert werden.',
+            })
+          }
+          if (typeof data.name === 'string') {
+            const check = checkDisplayName(data.name)
+            if (!check.ok) throw new APIError('BAD_REQUEST', { message: check.error })
+            return { data: { ...data, name: check.name } }
+          }
+          return { data }
+        },
+      },
       create: {
+        // e.g. a GitHub display name; an offensive one is dropped so the
+        // user has to enter a real name on /willkommen.
+        before: async (user) => {
+          if (isNameBlocked(user.name)) return { data: { ...user, name: '' } }
+          return { data: user }
+        },
         after: async (user) => {
           const base =
-            user.name && user.name.trim().length > 0
+            user.name && user.name.trim().length > 0 && !isNameBlocked(user.name)
               ? makeSlug(user.name)
               : makeSlug(user.email.split('@')[0])
 

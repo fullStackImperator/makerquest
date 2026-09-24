@@ -64,6 +64,27 @@ export async function getMyNotifications(): Promise<NotificationSummary> {
   }
 }
 
+/** Longer history for the notifications page. */
+export async function getMyNotificationHistory(): Promise<NotificationItem[]> {
+  const user = await getSessionUser()
+  if (!user) return []
+  const items = await db.notification.findMany({
+    where: { userId: user.id },
+    orderBy: { createdAt: 'desc' },
+    take: 100,
+    select: { id: true, kind: true, title: true, body: true, href: true, readAt: true, createdAt: true },
+  })
+  return items.map((n) => ({
+    id: n.id,
+    kind: n.kind,
+    title: n.title,
+    body: n.body,
+    href: n.href,
+    read: !!n.readAt,
+    createdAt: n.createdAt.toISOString(),
+  }))
+}
+
 export async function markNotificationRead(id: string): Promise<void> {
   const user = await getSessionUser()
   if (!user) return

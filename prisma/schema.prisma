@@ -54,6 +54,7 @@ enum NotificationKind {
   JOURNAL_REVISION_REQUESTED
   JOURNAL_COMMENT
   JOURNAL_FINAL_GRADE
+  ACCOUNT_NOTICE // message from a teacher about the student's account (e.g. name changed)
 }
 
 enum RubricLevel {
@@ -119,6 +120,8 @@ model User {
   gradedAssessments            FinalAssessment[]              @relation("FinalAssessmentGrader")
   notifications                Notification[]                 @relation("NotificationRecipient")
   triggeredNotifications       Notification[]                 @relation("NotificationActor")
+  profileChanges               ProfileChange[]                @relation("ProfileChangeSubject")
+  profileChangesMade           ProfileChange[]                @relation("ProfileChangeActor")
 
   @@map("user")
 }
@@ -709,4 +712,22 @@ model Notification {
   @@index([userId, readAt])
   @@index([userId, createdAt])
   @@index([entryId])
+}
+
+/// Audit log of name/Klasse/avatar changes, including rejected (blocked) name attempts.
+model ProfileChange {
+  id        String   @id @default(uuid())
+  userId    String // whose profile
+  user      User     @relation("ProfileChangeSubject", fields: [userId], references: [id], onDelete: Cascade)
+  actorId   String? // who changed it (the user themselves or a teacher)
+  actor     User?    @relation("ProfileChangeActor", fields: [actorId], references: [id], onDelete: SetNull)
+  field     String // "name" | "klasse" | "image"
+  oldValue  String?  @db.Text
+  newValue  String?  @db.Text
+  blocked   Boolean  @default(false) // attempt was rejected by the name rules
+  source    String // "onboarding" | "profile" | "teacher"
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId, createdAt])
 }

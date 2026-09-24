@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Loader2 } from 'lucide-react'
+import { Eye, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -33,9 +33,12 @@ export function ProfileForm({
   isStaff,
   initialStufe,
   initialLetter,
+  nameRejected = false,
 }: {
   email: string
   initialName: string
+  /** The stored name broke the name rules and was not pre-filled. */
+  nameRejected?: boolean
   /** Teachers and admins only need a name. */
   isStaff: boolean
   initialStufe: number | null
@@ -76,6 +79,13 @@ export function ProfileForm({
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {nameRejected && (
+          <p className="mb-5 rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+            Dein bisheriger Name ist bei MakerQuest nicht erlaubt. Beleidigende,
+            extremistische oder erfundene Namen verstoßen gegen die Regeln. Bitte
+            gib deinen echten Vor- und Nachnamen ein.
+          </p>
+        )}
         <form onSubmit={submit} className="space-y-5">
           <div className="space-y-1.5">
             <Label htmlFor="profile-name">Vor- und Nachname</Label>
@@ -89,9 +99,15 @@ export function ProfileForm({
               required
               autoFocus
             />
-            <p className="text-muted-foreground text-xs">
-              So sehen dich deine Lehrkräfte im Journal und bei Bewertungen.
-            </p>
+            <div className="flex gap-2 rounded-lg border border-amber-500/50 bg-amber-500/10 px-3 py-2.5 text-xs text-amber-950 dark:text-amber-100">
+              <Eye className="mt-0.5 size-4 shrink-0" aria-hidden />
+              <p>
+                <strong>Dein Name ist sichtbar</strong> – für deine Lehrkräfte (z. B. im
+                Journal und bei Bewertungen) und für andere Schüler in der Bestenliste.
+                Verwende deinen echten Namen. Jede Namensänderung wird protokolliert;
+                beleidigende oder erfundene Namen werden der Schulleitung gemeldet.
+              </p>
+            </div>
           </div>
 
           {!isStaff && (

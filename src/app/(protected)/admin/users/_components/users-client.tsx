@@ -7,21 +7,28 @@ import { Button } from '@/components/ui/button'
 import { DataTableUsers } from './data-table-users'
 import { columns } from './columns'
 import { updateUserRoles } from '../_actions/update-user-roles'
+import { EditUserDialog } from './edit-user-dialog'
 
 type User = {
   id: string
   name: string
   email: string
   isTeacher: boolean | null
+  isAdmin: boolean | null
   klasse: string | null
+  image: string | null
   teacherRequested: boolean
+  nameBlocked: boolean
 }
 
 interface UsersClientProps {
   users: User[]
+  viewerIsAdmin: boolean
 }
 
-const UsersClient = ({ users }: UsersClientProps) => {
+const UsersClient = ({ users, viewerIsAdmin }: UsersClientProps) => {
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const editing = users.find((u) => u.id === editingId) ?? null
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [userIsTeacher, setUserIsTeacher] = useState<Record<string, boolean>>(
@@ -59,11 +66,18 @@ const UsersClient = ({ users }: UsersClientProps) => {
     username: user.name || '',
     email: user.email,
     isTeacher: user.isTeacher ?? false,
+    isAdmin: user.isAdmin === true,
     klasse: user.klasse,
     teacherRequested: user.teacherRequested,
+    nameBlocked: user.nameBlocked,
   }))
 
-  const tableColumns = columns({ handleIsTeacherChange, userIsTeacher })
+  const tableColumns = columns({
+    handleIsTeacherChange,
+    userIsTeacher,
+    onEdit: setEditingId,
+    viewerIsAdmin,
+  })
 
   return (
     <div>
@@ -86,6 +100,14 @@ const UsersClient = ({ users }: UsersClientProps) => {
           userIsTeacher={userIsTeacher}
         />
       </div>
+      {editing && (
+        <EditUserDialog
+          key={editing.id}
+          user={editing}
+          open
+          onOpenChange={(open) => !open && setEditingId(null)}
+        />
+      )}
     </div>
   )
 }

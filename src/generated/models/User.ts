@@ -263,6 +263,8 @@ export type UserWhereInput = {
   gradedAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   triggeredNotifications?: Prisma.NotificationListRelationFilter
+  profileChanges?: Prisma.ProfileChangeListRelationFilter
+  profileChangesMade?: Prisma.ProfileChangeListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -296,6 +298,8 @@ export type UserOrderByWithRelationInput = {
   gradedAssessments?: Prisma.FinalAssessmentOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   triggeredNotifications?: Prisma.NotificationOrderByRelationAggregateInput
+  profileChanges?: Prisma.ProfileChangeOrderByRelationAggregateInput
+  profileChangesMade?: Prisma.ProfileChangeOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -332,6 +336,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   gradedAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   triggeredNotifications?: Prisma.NotificationListRelationFilter
+  profileChanges?: Prisma.ProfileChangeListRelationFilter
+  profileChangesMade?: Prisma.ProfileChangeListRelationFilter
 }, "id" | "slug" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -403,6 +409,8 @@ export type UserCreateInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -436,6 +444,8 @@ export type UserUncheckedCreateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -469,6 +479,8 @@ export type UserUpdateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -502,6 +514,8 @@ export type UserUncheckedUpdateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -900,6 +914,36 @@ export type UserUpdateOneWithoutTriggeredNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTriggeredNotificationsInput, Prisma.UserUpdateWithoutTriggeredNotificationsInput>, Prisma.UserUncheckedUpdateWithoutTriggeredNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutProfileChangesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesInput, Prisma.UserUncheckedCreateWithoutProfileChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutProfileChangesMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesMadeInput, Prisma.UserUncheckedCreateWithoutProfileChangesMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileChangesMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProfileChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesInput, Prisma.UserUncheckedCreateWithoutProfileChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileChangesInput
+  upsert?: Prisma.UserUpsertWithoutProfileChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileChangesInput, Prisma.UserUpdateWithoutProfileChangesInput>, Prisma.UserUncheckedUpdateWithoutProfileChangesInput>
+}
+
+export type UserUpdateOneWithoutProfileChangesMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesMadeInput, Prisma.UserUncheckedCreateWithoutProfileChangesMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileChangesMadeInput
+  upsert?: Prisma.UserUpsertWithoutProfileChangesMadeInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileChangesMadeInput, Prisma.UserUpdateWithoutProfileChangesMadeInput>, Prisma.UserUncheckedUpdateWithoutProfileChangesMadeInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -930,6 +974,8 @@ export type UserCreateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -962,6 +1008,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1010,6 +1058,8 @@ export type UserUpdateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1042,6 +1092,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1074,6 +1126,8 @@ export type UserCreateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1106,6 +1160,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1154,6 +1210,8 @@ export type UserUpdateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1186,6 +1244,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutSharedCoursesInput = {
@@ -1218,6 +1278,8 @@ export type UserCreateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSharedCoursesInput = {
@@ -1250,6 +1312,8 @@ export type UserUncheckedCreateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSharedCoursesInput = {
@@ -1322,6 +1386,8 @@ export type UserCreateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutExerciseAttemptsInput = {
@@ -1354,6 +1420,8 @@ export type UserUncheckedCreateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutExerciseAttemptsInput = {
@@ -1402,6 +1470,8 @@ export type UserUpdateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExerciseAttemptsInput = {
@@ -1434,6 +1504,8 @@ export type UserUncheckedUpdateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAttachmentsInput = {
@@ -1466,6 +1538,8 @@ export type UserCreateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAttachmentsInput = {
@@ -1498,6 +1572,8 @@ export type UserUncheckedCreateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAttachmentsInput = {
@@ -1546,6 +1622,8 @@ export type UserUpdateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttachmentsInput = {
@@ -1578,6 +1656,8 @@ export type UserUncheckedUpdateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutUserFachExperiencesInput = {
@@ -1610,6 +1690,8 @@ export type UserCreateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
@@ -1642,6 +1724,8 @@ export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutUserFachExperiencesInput = {
@@ -1690,6 +1774,8 @@ export type UserUpdateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
@@ -1722,6 +1808,8 @@ export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAwardedPointsInput = {
@@ -1754,6 +1842,8 @@ export type UserCreateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAwardedPointsInput = {
@@ -1786,6 +1876,8 @@ export type UserUncheckedCreateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAwardedPointsInput = {
@@ -1834,6 +1926,8 @@ export type UserUpdateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAwardedPointsInput = {
@@ -1866,6 +1960,8 @@ export type UserUncheckedUpdateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutOwnedLearningPathsInput = {
@@ -1898,6 +1994,8 @@ export type UserCreateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
@@ -1930,6 +2028,8 @@ export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOwnedLearningPathsInput = {
@@ -1978,6 +2078,8 @@ export type UserUpdateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
@@ -2010,6 +2112,8 @@ export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutLearningPathEnrollmentsInput = {
@@ -2042,6 +2146,8 @@ export type UserCreateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
@@ -2074,6 +2180,8 @@ export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutLearningPathEnrollmentsInput = {
@@ -2122,6 +2230,8 @@ export type UserUpdateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
@@ -2154,6 +2264,8 @@ export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutLearningPathStepCompletionsInput = {
@@ -2186,6 +2298,8 @@ export type UserCreateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
@@ -2218,6 +2332,8 @@ export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutLearningPathStepCompletionsInput = {
@@ -2266,6 +2382,8 @@ export type UserUpdateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
@@ -2298,6 +2416,8 @@ export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutLearningPathCompletionsInput = {
@@ -2330,6 +2450,8 @@ export type UserCreateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
@@ -2362,6 +2484,8 @@ export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutLearningPathCompletionsInput = {
@@ -2410,6 +2534,8 @@ export type UserUpdateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
@@ -2442,6 +2568,8 @@ export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutJournalEntriesInput = {
@@ -2474,6 +2602,8 @@ export type UserCreateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutJournalEntriesInput = {
@@ -2506,6 +2636,8 @@ export type UserUncheckedCreateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutJournalEntriesInput = {
@@ -2554,6 +2686,8 @@ export type UserUpdateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJournalEntriesInput = {
@@ -2586,6 +2720,8 @@ export type UserUncheckedUpdateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutJournalEventsInput = {
@@ -2618,6 +2754,8 @@ export type UserCreateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutJournalEventsInput = {
@@ -2650,6 +2788,8 @@ export type UserUncheckedCreateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutJournalEventsInput = {
@@ -2698,6 +2838,8 @@ export type UserUpdateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJournalEventsInput = {
@@ -2730,6 +2872,8 @@ export type UserUncheckedUpdateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFinalAssessmentsInput = {
@@ -2762,6 +2906,8 @@ export type UserCreateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFinalAssessmentsInput = {
@@ -2794,6 +2940,8 @@ export type UserUncheckedCreateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFinalAssessmentsInput = {
@@ -2831,6 +2979,8 @@ export type UserCreateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutGradedAssessmentsInput = {
@@ -2863,6 +3013,8 @@ export type UserUncheckedCreateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutGradedAssessmentsInput = {
@@ -2911,6 +3063,8 @@ export type UserUpdateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFinalAssessmentsInput = {
@@ -2943,6 +3097,8 @@ export type UserUncheckedUpdateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutGradedAssessmentsInput = {
@@ -2986,6 +3142,8 @@ export type UserUpdateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGradedAssessmentsInput = {
@@ -3018,6 +3176,8 @@ export type UserUncheckedUpdateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3050,6 +3210,8 @@ export type UserCreateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3082,6 +3244,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3119,6 +3283,8 @@ export type UserCreateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutTriggeredNotificationsInput = {
@@ -3151,6 +3317,8 @@ export type UserUncheckedCreateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutTriggeredNotificationsInput = {
@@ -3199,6 +3367,8 @@ export type UserUpdateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3231,6 +3401,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutTriggeredNotificationsInput = {
@@ -3274,6 +3446,8 @@ export type UserUpdateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTriggeredNotificationsInput = {
@@ -3306,6 +3480,312 @@ export type UserUncheckedUpdateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutProfileChangesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutProfileChangesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutProfileChangesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesInput, Prisma.UserUncheckedCreateWithoutProfileChangesInput>
+}
+
+export type UserCreateWithoutProfileChangesMadeInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProfileChangesMadeInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProfileChangesMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesMadeInput, Prisma.UserUncheckedCreateWithoutProfileChangesMadeInput>
+}
+
+export type UserUpsertWithoutProfileChangesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileChangesInput, Prisma.UserUncheckedUpdateWithoutProfileChangesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesInput, Prisma.UserUncheckedCreateWithoutProfileChangesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfileChangesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileChangesInput, Prisma.UserUncheckedUpdateWithoutProfileChangesInput>
+}
+
+export type UserUpdateWithoutProfileChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutProfileChangesMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileChangesMadeInput, Prisma.UserUncheckedUpdateWithoutProfileChangesMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileChangesMadeInput, Prisma.UserUncheckedCreateWithoutProfileChangesMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfileChangesMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileChangesMadeInput, Prisma.UserUncheckedUpdateWithoutProfileChangesMadeInput>
+}
+
+export type UserUpdateWithoutProfileChangesMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileChangesMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpdateWithoutSharedCoursesInput = {
@@ -3338,6 +3818,8 @@ export type UserUpdateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSharedCoursesInput = {
@@ -3370,6 +3852,8 @@ export type UserUncheckedUpdateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSharedCoursesInput = {
@@ -3411,6 +3895,8 @@ export type UserCountOutputType = {
   gradedAssessments: number
   notifications: number
   triggeredNotifications: number
+  profileChanges: number
+  profileChangesMade: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3431,6 +3917,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   gradedAssessments?: boolean | UserCountOutputTypeCountGradedAssessmentsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   triggeredNotifications?: boolean | UserCountOutputTypeCountTriggeredNotificationsArgs
+  profileChanges?: boolean | UserCountOutputTypeCountProfileChangesArgs
+  profileChangesMade?: boolean | UserCountOutputTypeCountProfileChangesMadeArgs
 }
 
 /**
@@ -3562,6 +4050,20 @@ export type UserCountOutputTypeCountTriggeredNotificationsArgs<ExtArgs extends r
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProfileChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProfileChangeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProfileChangesMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProfileChangeWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3594,6 +4096,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   gradedAssessments?: boolean | Prisma.User$gradedAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   triggeredNotifications?: boolean | Prisma.User$triggeredNotificationsArgs<ExtArgs>
+  profileChanges?: boolean | Prisma.User$profileChangesArgs<ExtArgs>
+  profileChangesMade?: boolean | Prisma.User$profileChangesMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3664,6 +4168,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   gradedAssessments?: boolean | Prisma.User$gradedAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   triggeredNotifications?: boolean | Prisma.User$triggeredNotificationsArgs<ExtArgs>
+  profileChanges?: boolean | Prisma.User$profileChangesArgs<ExtArgs>
+  profileChangesMade?: boolean | Prisma.User$profileChangesMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3689,6 +4195,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     gradedAssessments: Prisma.$FinalAssessmentPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     triggeredNotifications: Prisma.$NotificationPayload<ExtArgs>[]
+    profileChanges: Prisma.$ProfileChangePayload<ExtArgs>[]
+    profileChangesMade: Prisma.$ProfileChangePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4115,6 +4623,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   gradedAssessments<T extends Prisma.User$gradedAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gradedAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinalAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   triggeredNotifications<T extends Prisma.User$triggeredNotificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$triggeredNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileChanges<T extends Prisma.User$profileChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profileChangesMade<T extends Prisma.User$profileChangesMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileChangesMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4950,6 +5460,54 @@ export type User$triggeredNotificationsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.profileChanges
+ */
+export type User$profileChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProfileChange
+   */
+  select?: Prisma.ProfileChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProfileChange
+   */
+  omit?: Prisma.ProfileChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileChangeInclude<ExtArgs> | null
+  where?: Prisma.ProfileChangeWhereInput
+  orderBy?: Prisma.ProfileChangeOrderByWithRelationInput | Prisma.ProfileChangeOrderByWithRelationInput[]
+  cursor?: Prisma.ProfileChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProfileChangeScalarFieldEnum | Prisma.ProfileChangeScalarFieldEnum[]
+}
+
+/**
+ * User.profileChangesMade
+ */
+export type User$profileChangesMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProfileChange
+   */
+  select?: Prisma.ProfileChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProfileChange
+   */
+  omit?: Prisma.ProfileChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileChangeInclude<ExtArgs> | null
+  where?: Prisma.ProfileChangeWhereInput
+  orderBy?: Prisma.ProfileChangeOrderByWithRelationInput | Prisma.ProfileChangeOrderByWithRelationInput[]
+  cursor?: Prisma.ProfileChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProfileChangeScalarFieldEnum | Prisma.ProfileChangeScalarFieldEnum[]
 }
 
 /**
