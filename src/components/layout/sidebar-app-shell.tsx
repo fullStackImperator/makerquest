@@ -14,6 +14,9 @@ import { redirect } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/themeToggle'
 import { ClientOnly } from '@/components/ui/client-only'
 import { needsProfileCompletion } from '@/lib/profile'
+import { getMyNotifications } from '@/actions/notifications'
+import { NotificationsProvider } from '@/components/notifications/notifications-provider'
+import { NotificationBell } from '@/components/notifications/notification-bell'
 
 export async function SidebarAppShell({
   children,
@@ -47,6 +50,8 @@ export async function SidebarAppShell({
 
   const isAdminOrTeacher = user?.isTeacher === true || user?.isAdmin === true
 
+  const notifications = await getMyNotifications()
+
   const dateStr = new Date().toLocaleDateString('de-DE', {
     weekday: 'long',
     day: 'numeric',
@@ -55,51 +60,54 @@ export async function SidebarAppShell({
   })
 
   return (
-    <SidebarProvider>
-      <AppSidebar
-        userSlug={user?.slug ?? ''}
-        isAdminOrTeacher={isAdminOrTeacher}
-      />
+    <NotificationsProvider initial={notifications}>
+      <SidebarProvider>
+        <AppSidebar
+          userSlug={user?.slug ?? ''}
+          isAdminOrTeacher={isAdminOrTeacher}
+        />
 
-      {/* !bg-transparent lets the body gradient show through the inset panel */}
-      <SidebarInset className="!bg-transparent overflow-hidden">
+        {/* !bg-transparent lets the body gradient show through the inset panel */}
+        <SidebarInset className="!bg-transparent overflow-hidden">
 
-        {/* Header — transparent so it blends with the main gradient */}
-        <header className="flex h-14 shrink-0 items-center gap-2 justify-between border-b border-white/30 px-5">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <DynamicBreadcrumb
-              userEmail={session.user.email}
-              userSlug={user?.slug || undefined}
-            />
-          </div>
+          {/* Header — transparent so it blends with the main gradient */}
+          <header className="flex h-14 shrink-0 items-center gap-2 justify-between border-b border-white/30 px-5">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger className="-ml-1" />
+              <Separator
+                orientation="vertical"
+                className="mr-2 data-[orientation=vertical]:h-4"
+              />
+              <DynamicBreadcrumb
+                userEmail={session.user.email}
+                userSlug={user?.slug || undefined}
+              />
+            </div>
 
-          <div className="flex items-center gap-4">
-            {/* Date — right-aligned, capitalised */}
-            <span
-              className="hidden md:block text-[10px] font-semibold uppercase tracking-[0.2em]"
-              style={{ color: '#459ea1', fontFamily: 'var(--font-jakarta)' }}
-            >
-              {dateStr}
-            </span>
+            <div className="flex items-center gap-4">
+              {/* Date — right-aligned, capitalised */}
+              <span
+                className="hidden md:block text-[10px] font-semibold uppercase tracking-[0.2em]"
+                style={{ color: '#459ea1', fontFamily: 'var(--font-jakarta)' }}
+              >
+                {dateStr}
+              </span>
 
-            <ClientOnly
-              fallback={<div className="flex min-h-10 min-w-28 items-center gap-2" aria-hidden />}
-            >
-              <div className="flex items-center gap-2">
-                <ThemeToggle />
-                <NavUser user={session.user} />
-              </div>
-            </ClientOnly>
-          </div>
-        </header>
+              <ClientOnly
+                fallback={<div className="flex min-h-10 min-w-28 items-center gap-2" aria-hidden />}
+              >
+                <div className="flex items-center gap-2">
+                  <NotificationBell />
+                  <ThemeToggle />
+                  <NavUser user={session.user} />
+                </div>
+              </ClientOnly>
+            </div>
+          </header>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">{children}</div>
-      </SidebarInset>
-    </SidebarProvider>
+          <div className="flex min-h-0 flex-1 flex-col gap-4 p-6">{children}</div>
+        </SidebarInset>
+      </SidebarProvider>
+    </NotificationsProvider>
   )
 }

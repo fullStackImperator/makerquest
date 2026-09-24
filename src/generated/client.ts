@@ -211,3 +211,8 @@ export type FinalAssessment = Prisma.FinalAssessmentModel
  * 
  */
 export type RubricScore = Prisma.RubricScoreModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

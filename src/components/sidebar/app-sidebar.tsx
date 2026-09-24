@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 
 import { FEEDBACK_EMAIL } from '@/lib/contact'
+import { useNotifications } from '@/components/notifications/notifications-provider'
 
 import { NavMain } from '@/components/sidebar/nav-main'
 import { NavProjects } from '@/components/sidebar/nav-projects'
@@ -192,6 +193,7 @@ export function AppSidebar({
   userSlug: string
   isAdminOrTeacher?: boolean
 }) {
+  const notifications = useNotifications()
   const projects = [
     {
       name: 'Dashboard',
@@ -212,6 +214,7 @@ export function AppSidebar({
       name: 'Journal',
       url: '/journal',
       icon: NotebookPen,
+      badge: notifications?.unreadJournal,
     },
     {
       name: 'Badges',
@@ -230,7 +233,7 @@ export function AppSidebar({
     // },
     ...(isAdminOrTeacher
       ? [
-          { name: 'Admin', url: '/admin', icon: Wrench },
+          { name: 'Admin', url: '/admin', icon: Wrench, badge: notifications?.unreadReview },
           // {
           //   name: 'Lernpfade verwalten',
           //   url: '/admin/lernpfade',

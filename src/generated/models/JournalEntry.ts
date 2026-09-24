@@ -240,6 +240,7 @@ export type JournalEntryWhereInput = {
   attachments?: Prisma.JournalAttachmentListRelationFilter
   versions?: Prisma.JournalEntryVersionListRelationFilter
   events?: Prisma.JournalEventListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type JournalEntryOrderByWithRelationInput = {
@@ -261,6 +262,7 @@ export type JournalEntryOrderByWithRelationInput = {
   attachments?: Prisma.JournalAttachmentOrderByRelationAggregateInput
   versions?: Prisma.JournalEntryVersionOrderByRelationAggregateInput
   events?: Prisma.JournalEventOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
@@ -285,6 +287,7 @@ export type JournalEntryWhereUniqueInput = Prisma.AtLeast<{
   attachments?: Prisma.JournalAttachmentListRelationFilter
   versions?: Prisma.JournalEntryVersionListRelationFilter
   events?: Prisma.JournalEventListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id">
 
 export type JournalEntryOrderByWithAggregationInput = {
@@ -339,6 +342,7 @@ export type JournalEntryCreateInput = {
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateInput = {
@@ -357,6 +361,7 @@ export type JournalEntryUncheckedCreateInput = {
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUpdateInput = {
@@ -375,6 +380,7 @@ export type JournalEntryUpdateInput = {
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateInput = {
@@ -393,6 +399,7 @@ export type JournalEntryUncheckedUpdateInput = {
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryCreateManyInput = {
@@ -493,6 +500,11 @@ export type JournalEntryMinOrderByAggregateInput = {
 export type JournalEntryScalarRelationFilter = {
   is?: Prisma.JournalEntryWhereInput
   isNot?: Prisma.JournalEntryWhereInput
+}
+
+export type JournalEntryNullableScalarRelationFilter = {
+  is?: Prisma.JournalEntryWhereInput | null
+  isNot?: Prisma.JournalEntryWhereInput | null
 }
 
 export type JournalEntryCreateNestedManyWithoutUserInput = {
@@ -667,6 +679,22 @@ export type JournalEntryUpdateOneRequiredWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JournalEntryUpdateToOneWithWhereWithoutEventsInput, Prisma.JournalEntryUpdateWithoutEventsInput>, Prisma.JournalEntryUncheckedUpdateWithoutEventsInput>
 }
 
+export type JournalEntryCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutNotificationsInput, Prisma.JournalEntryUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.JournalEntryWhereUniqueInput
+}
+
+export type JournalEntryUpdateOneWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.JournalEntryCreateWithoutNotificationsInput, Prisma.JournalEntryUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.JournalEntryCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.JournalEntryUpsertWithoutNotificationsInput
+  disconnect?: Prisma.JournalEntryWhereInput | boolean
+  delete?: Prisma.JournalEntryWhereInput | boolean
+  connect?: Prisma.JournalEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JournalEntryUpdateToOneWithWhereWithoutNotificationsInput, Prisma.JournalEntryUpdateWithoutNotificationsInput>, Prisma.JournalEntryUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type JournalEntryCreateWithoutUserInput = {
   id?: string
   title?: string | null
@@ -682,6 +710,7 @@ export type JournalEntryCreateWithoutUserInput = {
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutUserInput = {
@@ -699,6 +728,7 @@ export type JournalEntryUncheckedCreateWithoutUserInput = {
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutUserInput = {
@@ -760,6 +790,7 @@ export type JournalEntryCreateWithoutCourseInput = {
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutCourseInput = {
@@ -777,6 +808,7 @@ export type JournalEntryUncheckedCreateWithoutCourseInput = {
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutCourseInput = {
@@ -820,6 +852,7 @@ export type JournalEntryCreateWithoutChapterInput = {
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutChapterInput = {
@@ -837,6 +870,7 @@ export type JournalEntryUncheckedCreateWithoutChapterInput = {
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutChapterInput = {
@@ -880,6 +914,7 @@ export type JournalEntryCreateWithoutAttachmentsInput = {
   chapter?: Prisma.ChapterCreateNestedOneWithoutJournalEntriesInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutAttachmentsInput = {
@@ -897,6 +932,7 @@ export type JournalEntryUncheckedCreateWithoutAttachmentsInput = {
   updatedAt?: Date | string
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutAttachmentsInput = {
@@ -930,6 +966,7 @@ export type JournalEntryUpdateWithoutAttachmentsInput = {
   chapter?: Prisma.ChapterUpdateOneWithoutJournalEntriesNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutAttachmentsInput = {
@@ -947,6 +984,7 @@ export type JournalEntryUncheckedUpdateWithoutAttachmentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryCreateWithoutVersionsInput = {
@@ -964,6 +1002,7 @@ export type JournalEntryCreateWithoutVersionsInput = {
   chapter?: Prisma.ChapterCreateNestedOneWithoutJournalEntriesInput
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutVersionsInput = {
@@ -981,6 +1020,7 @@ export type JournalEntryUncheckedCreateWithoutVersionsInput = {
   updatedAt?: Date | string
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutVersionsInput = {
@@ -1014,6 +1054,7 @@ export type JournalEntryUpdateWithoutVersionsInput = {
   chapter?: Prisma.ChapterUpdateOneWithoutJournalEntriesNestedInput
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutVersionsInput = {
@@ -1031,6 +1072,7 @@ export type JournalEntryUncheckedUpdateWithoutVersionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryCreateWithoutEventsInput = {
@@ -1048,6 +1090,7 @@ export type JournalEntryCreateWithoutEventsInput = {
   chapter?: Prisma.ChapterCreateNestedOneWithoutJournalEntriesInput
   attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryUncheckedCreateWithoutEventsInput = {
@@ -1065,6 +1108,7 @@ export type JournalEntryUncheckedCreateWithoutEventsInput = {
   updatedAt?: Date | string
   attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
   versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutEntryInput
 }
 
 export type JournalEntryCreateOrConnectWithoutEventsInput = {
@@ -1098,6 +1142,7 @@ export type JournalEntryUpdateWithoutEventsInput = {
   chapter?: Prisma.ChapterUpdateOneWithoutJournalEntriesNestedInput
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutEventsInput = {
@@ -1115,6 +1160,95 @@ export type JournalEntryUncheckedUpdateWithoutEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
+}
+
+export type JournalEntryCreateWithoutNotificationsInput = {
+  id?: string
+  title?: string | null
+  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.JournalEntryStatus
+  entryDate?: Date | string
+  submittedAt?: Date | string | null
+  xpAwardedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutJournalEntriesInput
+  course: Prisma.CourseCreateNestedOneWithoutJournalEntriesInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutJournalEntriesInput
+  attachments?: Prisma.JournalAttachmentCreateNestedManyWithoutEntryInput
+  versions?: Prisma.JournalEntryVersionCreateNestedManyWithoutEntryInput
+  events?: Prisma.JournalEventCreateNestedManyWithoutEntryInput
+}
+
+export type JournalEntryUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  userId: string
+  courseId: string
+  chapterId?: string | null
+  title?: string | null
+  content: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  status?: $Enums.JournalEntryStatus
+  entryDate?: Date | string
+  submittedAt?: Date | string | null
+  xpAwardedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attachments?: Prisma.JournalAttachmentUncheckedCreateNestedManyWithoutEntryInput
+  versions?: Prisma.JournalEntryVersionUncheckedCreateNestedManyWithoutEntryInput
+  events?: Prisma.JournalEventUncheckedCreateNestedManyWithoutEntryInput
+}
+
+export type JournalEntryCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.JournalEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutNotificationsInput, Prisma.JournalEntryUncheckedCreateWithoutNotificationsInput>
+}
+
+export type JournalEntryUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.JournalEntryUpdateWithoutNotificationsInput, Prisma.JournalEntryUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.JournalEntryCreateWithoutNotificationsInput, Prisma.JournalEntryUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.JournalEntryWhereInput
+}
+
+export type JournalEntryUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.JournalEntryWhereInput
+  data: Prisma.XOR<Prisma.JournalEntryUpdateWithoutNotificationsInput, Prisma.JournalEntryUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type JournalEntryUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumJournalEntryStatusFieldUpdateOperationsInput | $Enums.JournalEntryStatus
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutJournalEntriesNestedInput
+  course?: Prisma.CourseUpdateOneRequiredWithoutJournalEntriesNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutJournalEntriesNestedInput
+  attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
+  versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
+  events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+}
+
+export type JournalEntryUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  status?: Prisma.EnumJournalEntryStatusFieldUpdateOperationsInput | $Enums.JournalEntryStatus
+  entryDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
+  versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
+  events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryCreateManyUserInput = {
@@ -1146,6 +1280,7 @@ export type JournalEntryUpdateWithoutUserInput = {
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutUserInput = {
@@ -1163,6 +1298,7 @@ export type JournalEntryUncheckedUpdateWithoutUserInput = {
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateManyWithoutUserInput = {
@@ -1208,6 +1344,7 @@ export type JournalEntryUpdateWithoutCourseInput = {
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutCourseInput = {
@@ -1225,6 +1362,7 @@ export type JournalEntryUncheckedUpdateWithoutCourseInput = {
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateManyWithoutCourseInput = {
@@ -1270,6 +1408,7 @@ export type JournalEntryUpdateWithoutChapterInput = {
   attachments?: Prisma.JournalAttachmentUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateWithoutChapterInput = {
@@ -1287,6 +1426,7 @@ export type JournalEntryUncheckedUpdateWithoutChapterInput = {
   attachments?: Prisma.JournalAttachmentUncheckedUpdateManyWithoutEntryNestedInput
   versions?: Prisma.JournalEntryVersionUncheckedUpdateManyWithoutEntryNestedInput
   events?: Prisma.JournalEventUncheckedUpdateManyWithoutEntryNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutEntryNestedInput
 }
 
 export type JournalEntryUncheckedUpdateManyWithoutChapterInput = {
@@ -1312,12 +1452,14 @@ export type JournalEntryCountOutputType = {
   attachments: number
   versions: number
   events: number
+  notifications: number
 }
 
 export type JournalEntryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attachments?: boolean | JournalEntryCountOutputTypeCountAttachmentsArgs
   versions?: boolean | JournalEntryCountOutputTypeCountVersionsArgs
   events?: boolean | JournalEntryCountOutputTypeCountEventsArgs
+  notifications?: boolean | JournalEntryCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -1351,6 +1493,13 @@ export type JournalEntryCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
   where?: Prisma.JournalEventWhereInput
 }
 
+/**
+ * JournalEntryCountOutputType without action
+ */
+export type JournalEntryCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type JournalEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1371,6 +1520,7 @@ export type JournalEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   attachments?: boolean | Prisma.JournalEntry$attachmentsArgs<ExtArgs>
   versions?: boolean | Prisma.JournalEntry$versionsArgs<ExtArgs>
   events?: boolean | Prisma.JournalEntry$eventsArgs<ExtArgs>
+  notifications?: boolean | Prisma.JournalEntry$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["journalEntry"]>
 
@@ -1433,6 +1583,7 @@ export type JournalEntryInclude<ExtArgs extends runtime.Types.Extensions.Interna
   attachments?: boolean | Prisma.JournalEntry$attachmentsArgs<ExtArgs>
   versions?: boolean | Prisma.JournalEntry$versionsArgs<ExtArgs>
   events?: boolean | Prisma.JournalEntry$eventsArgs<ExtArgs>
+  notifications?: boolean | Prisma.JournalEntry$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.JournalEntryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type JournalEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1455,6 +1606,7 @@ export type $JournalEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     attachments: Prisma.$JournalAttachmentPayload<ExtArgs>[]
     versions: Prisma.$JournalEntryVersionPayload<ExtArgs>[]
     events: Prisma.$JournalEventPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1869,6 +2021,7 @@ export interface Prisma__JournalEntryClient<T, Null = never, ExtArgs extends run
   attachments<T extends Prisma.JournalEntry$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   versions<T extends Prisma.JournalEntry$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalEntryVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.JournalEntry$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JournalEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.JournalEntry$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JournalEntry$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2394,6 +2547,30 @@ export type JournalEntry$eventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.JournalEventScalarFieldEnum | Prisma.JournalEventScalarFieldEnum[]
+}
+
+/**
+ * JournalEntry.notifications
+ */
+export type JournalEntry$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

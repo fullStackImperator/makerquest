@@ -61,6 +61,18 @@ export const JournalEventKind = {
 export type JournalEventKind = (typeof JournalEventKind)[keyof typeof JournalEventKind]
 
 
+export const NotificationKind = {
+  JOURNAL_SUBMITTED: 'JOURNAL_SUBMITTED',
+  JOURNAL_RESUBMITTED: 'JOURNAL_RESUBMITTED',
+  JOURNAL_ACCEPTED: 'JOURNAL_ACCEPTED',
+  JOURNAL_REVISION_REQUESTED: 'JOURNAL_REVISION_REQUESTED',
+  JOURNAL_COMMENT: 'JOURNAL_COMMENT',
+  JOURNAL_FINAL_GRADE: 'JOURNAL_FINAL_GRADE'
+} as const
+
+export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]
+
+
 export const RubricLevel = {
   NOT_MET: 'NOT_MET',
   PARTIAL: 'PARTIAL',

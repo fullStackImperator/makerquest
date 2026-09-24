@@ -20,6 +20,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
@@ -32,6 +33,8 @@ export function NavProjects({
     name: string
     url: string
     icon: LucideIcon
+    /** Unread count shown next to the item. */
+    badge?: number
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -48,6 +51,11 @@ export function NavProjects({
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
+            {!!item.badge && (
+              <SidebarMenuBadge className="bg-rose-500 text-white peer-hover/menu-button:text-white">
+                {item.badge > 99 ? '99+' : item.badge}
+              </SidebarMenuBadge>
+            )}
             {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>

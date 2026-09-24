@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
 import { isEnrolledInCourse } from '@/lib/journal/queries'
+import { notifyTeachersOfSubmission } from '@/lib/notifications'
 import {
   isJournalEntryEditable,
   isUploadThingUrl,
@@ -92,7 +93,7 @@ export async function saveJournalEntry(
   }
 
   try {
-    const entryId = await db.$transaction(async (tx) => {
+    const { entryId, version } = await db.$transaction(async (tx) => {
       let id = data.id
       const fields = {
         courseId: data.courseId,
@@ -138,8 +139,9 @@ export async function saveJournalEntry(
         })
       }
 
+      let version = 0
       if (data.submit) {
-        const version = (await tx.journalEntryVersion.count({ where: { entryId: id } })) + 1
+        version = (await tx.journalEntryVersion.count({ where: { entryId: id } })) + 1
         await tx.journalEntryVersion.create({
           data: {
             entryId: id,
@@ -158,9 +160,10 @@ export async function saveJournalEntry(
         })
       }
 
-      return id
+      return { entryId: id, version }
     })
 
+    if (version > 0) await notifyTeachersOfSubmission(entryId, version > 1)
     revalidateJournal(data.courseId)
     return { success: true, entryId }
   } catch (error) {

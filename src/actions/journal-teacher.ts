@@ -10,6 +10,11 @@ import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
 import { RUBRIC_LEVELS } from '@/lib/journal/shared'
+import {
+  markSubmissionNotificationsRead,
+  notifyStudentAboutEntry,
+  notifyStudentAboutFinalGrade,
+} from '@/lib/notifications'
 
 type ActionResult = { success: true } | { success: false; error: string }
 
@@ -58,6 +63,7 @@ export async function commentOnJournalEntry(
   await db.journalEvent.create({
     data: { entryId, authorId: ctx.teacher.id, kind: 'COMMENT', body: text },
   })
+  await notifyStudentAboutEntry(entryId, 'JOURNAL_COMMENT', ctx.teacher.id, text)
   revalidateWorkspace(ctx.entry.courseId)
   return { success: true }
 }
@@ -138,6 +144,15 @@ export async function reviewJournalEntry(
       { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
     )
 
+    await Promise.all([
+      notifyStudentAboutEntry(
+        entryId,
+        decision === 'ACCEPTED' ? 'JOURNAL_ACCEPTED' : 'JOURNAL_REVISION_REQUESTED',
+        ctx.teacher.id,
+        text,
+      ),
+      markSubmissionNotificationsRead(entryId),
+    ])
     revalidateWorkspace(ctx.entry.courseId)
     return { success: true, xpAwarded }
   } catch (error) {
@@ -175,6 +190,11 @@ export async function saveFinalAssessment(
   const validIds = new Set(criteria.map((c) => c.id))
   const scores = data.scores.filter((s) => validIds.has(s.criterionId))
 
+  const previous = await db.finalAssessment.findUnique({
+    where: { userId_courseId: { userId: data.userId, courseId: data.courseId } },
+    select: { overallLevel: true },
+  })
+
   const fields = {
     overallLevel: data.overallLevel as Prisma.FinalAssessmentCreateInput['overallLevel'],
     comment: data.comment.trim() || null,
@@ -200,6 +220,11 @@ export async function saveFinalAssessment(
       })
     }
   })
+
+  // Tell the student when the overall level is set for the first time or changes.
+  if (data.overallLevel && data.overallLevel !== previous?.overallLevel) {
+    await notifyStudentAboutFinalGrade(data.userId, data.courseId, teacher.id)
+  }
 
   revalidateWorkspace(data.courseId)
   return { success: true }

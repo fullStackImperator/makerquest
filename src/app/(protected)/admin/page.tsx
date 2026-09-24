@@ -1,4 +1,6 @@
 import { db } from '@/lib/db'
+import { getSessionUser } from '@/lib/get-session-user'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import {
   Award,
@@ -20,7 +22,12 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-async function getAdminStats() {
+async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
+  // Teachers only count entries of quests they own or that are shared with them.
+  const journalScope = viewer.isAdmin
+    ? {}
+    : { course: { OR: [{ userId: viewer.id }, { sharedWith: { some: { id: viewer.id } } }] } }
+
   const sevenDaysAgo = new Date()
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
 
@@ -60,7 +67,7 @@ async function getAdminStats() {
     db.userProgress.count({ where: { isCompleted: true } }),
     db.learningPathCompletion.count(),
     db.exerciseResponse.count({ where: { needsReview: true } }),
-    db.journalEntry.count({ where: { status: 'READY' } }),
+    db.journalEntry.count({ where: { status: 'READY', ...journalScope } }),
     db.user.count({
       where: { teacherRequestedAt: { not: null }, NOT: { isTeacher: true } },
     }),
@@ -237,7 +244,9 @@ function AttentionChip({
 }
 
 export default async function AdminDashboardPage() {
-  const stats = await getAdminStats()
+  const viewer = await getSessionUser()
+  if (!viewer) redirect('/')
+  const stats = await getAdminStats(viewer)
 
   return (
     <div className="flex flex-1 flex-col gap-8">
