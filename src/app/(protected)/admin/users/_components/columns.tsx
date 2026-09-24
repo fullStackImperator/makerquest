@@ -11,6 +11,8 @@ type UserProps = {
   username: string
   email: string
   isTeacher?: boolean | null
+  klasse: string | null
+  teacherRequested: boolean
 }
 
 type ColumnsProps = {
@@ -57,8 +59,28 @@ export const columns = ({
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    cell: ({ row }) =>
+      row.original.teacherRequested ? (
+        <span className="inline-flex items-center rounded-full border border-amber-500/50 bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-800 dark:text-amber-200">
+          Möchte Lehrkraft werden
+        </span>
+      ) : (
+        <span>{row.original.isTeacher ? 'Lehrer' : 'Schüler'}</span>
+      ),
+  },
+  {
+    accessorKey: 'klasse',
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Klasse
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => (
-      <span>{row.original.isTeacher ? 'Lehrer' : 'Schüler'}</span>
+      <span className="tabular-nums">{row.original.klasse ?? '—'}</span>
     ),
   },
   {

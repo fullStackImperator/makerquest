@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Zap, Shield, Trophy, BookOpen, ArrowUpRight, ArrowDown } from 'lucide-react'
 import Link from 'next/link'
 import { getLevelName } from '@/lib/levelNames'
-import { CARD, CARD_INNER, FONT, TEXT } from './glass-styles'
+import { CARD, CARD_INNER, FONT, NEON, NEON_CARD, TEXT, neonCard } from './glass-styles'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -43,7 +43,7 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
   }
 
   return (
-    <div style={{ ...CARD, padding: '1.5rem' }} className="h-full flex flex-col">
+    <div style={{ ...neonCard('fuchsia'), padding: '1.5rem' }} className={`h-full flex flex-col ${NEON_CARD}`}>
 
       {/* Section label */}
       <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] mb-4"
@@ -55,7 +55,10 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
       <div className="flex flex-col items-center gap-4 text-center flex-1">
         {/* Avatar */}
         <div className="relative">
-          <Avatar className="w-32 h-32 ring-4 ring-white" style={{ background: '#1a2d3d' }}>
+          <Avatar
+            className="w-32 h-32"
+            style={{ background: '#1a2d3d', boxShadow: `0 0 0 4px ${NEON.fuchsia.solid}, 0 0 28px ${NEON.fuchsia.glow}` }}
+          >
             <AvatarImage src={usr.image ?? undefined} alt={displayName} />
             <AvatarFallback
               className="text-4xl font-bold"
@@ -67,7 +70,7 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
           {/* LV chip */}
           <div
             className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold rounded-full px-2.5 py-0.5"
-            style={{ background: '#459ea1', color: '#fff', fontFamily: FONT }}
+            style={{ background: NEON.fuchsia.solid, color: NEON.fuchsia.ink, boxShadow: `0 0 10px ${NEON.fuchsia.glow}`, fontFamily: FONT }}
           >
             LV. {playerLevel}
           </div>
@@ -97,10 +100,14 @@ export function PlayerProfile({ usr, totalXP, activeCount, completedCount }: Pla
             +{xpToNextLevel.toLocaleString('de-DE')} → Lv.{playerLevel + 1}
           </span>
         </div>
-        <div className="relative h-2 rounded-full overflow-hidden" style={{ background: 'rgba(201,124,24,0.10)' }}>
+        <div className="relative h-2 rounded-full" style={{ background: NEON.yellow.soft }}>
           <div
             className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
-            style={{ width: `${progressToNextLevel}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }}
+            style={{
+              width: `${progressToNextLevel}%`,
+              background: `linear-gradient(90deg, ${NEON.orange.solid}, ${NEON.yellow.solid})`,
+              boxShadow: `0 0 10px ${NEON.yellow.glow}`,
+            }}
           />
         </div>
       </div>

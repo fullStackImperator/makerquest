@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Zap, ArrowRight } from 'lucide-react'
-import { CARD, FONT, TEXT } from './glass-styles'
+import { FONT, NEON, NEON_CARD, TEXT, neonCard } from './glass-styles'
 
 type ProgressCardProps = {
   playerLevel: number
@@ -30,20 +30,20 @@ export function ProgressCard({
 
   return (
     <div
-      style={{ ...CARD, padding: '2rem' }}
-      className="relative overflow-hidden h-full flex flex-col justify-between"
+      style={{ ...neonCard('cyan'), padding: '2rem' }}
+      className={`relative overflow-hidden h-full flex flex-col justify-between ${NEON_CARD}`}
     >
       {/* Decorative dots */}
-      <span className="absolute top-8 right-[42%] w-2.5 h-2.5 rounded-full bg-violet-300/60" />
-      <span className="absolute bottom-14 right-[38%] w-2 h-2 rounded-full bg-amber-300/70" />
-      <span className="absolute top-1/2 right-[40%] w-1.5 h-1.5 rounded-full" style={{ background: '#459ea144' }} />
+      <span className="absolute top-8 right-[42%] w-2.5 h-2.5 rounded-full" style={{ background: NEON.fuchsia.solid, boxShadow: `0 0 10px ${NEON.fuchsia.glow}` }} />
+      <span className="absolute bottom-14 right-[38%] w-2 h-2 rounded-full" style={{ background: NEON.yellow.solid, boxShadow: `0 0 10px ${NEON.yellow.glow}` }} />
+      <span className="absolute top-1/2 right-[40%] w-1.5 h-1.5 rounded-full" style={{ background: NEON.lime.solid, boxShadow: `0 0 8px ${NEON.lime.glow}` }} />
 
       {/* Left: text content */}
       <div className="max-w-[52%]">
         {/* Section label pill */}
         <span
           className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] rounded-full px-3 py-1 mb-5"
-          style={{ color: '#5c5cc0', background: 'rgba(92,92,192,0.10)', border: '1px solid rgba(92,92,192,0.18)', fontFamily: FONT }}
+          style={{ color: NEON.fuchsia.ink, background: NEON.fuchsia.soft, border: `1px solid ${NEON.fuchsia.solid}`, fontFamily: FONT }}
         >
           Dein Fortschritt
         </span>
@@ -66,8 +66,8 @@ export function ProgressCard({
 
         <Link href="/quests">
           <button
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-150 hover:opacity-90 hover:shadow-md active:scale-95"
-            style={{ background: '#459ea1', fontFamily: FONT }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 hover:shadow-[0_0_24px_rgba(163,230,53,0.7)] active:scale-95"
+            style={{ background: NEON.lime.solid, color: NEON.lime.ink, boxShadow: `0 0 14px ${NEON.lime.soft}`, fontFamily: FONT }}
           >
             Weiterlernen
             <ArrowRight className="h-4 w-4" />
@@ -83,25 +83,25 @@ export function ProgressCard({
             <circle
               cx="88" cy="88" r={R}
               fill="none"
-              stroke="rgba(69,158,161,0.12)"
+              stroke={NEON.cyan.soft}
               strokeWidth="7"
             />
             {/* Progress */}
             <circle
               cx="88" cy="88" r={R}
               fill="none"
-              stroke="#459ea1"
+              stroke={NEON.cyan.solid}
               strokeWidth="7"
               strokeLinecap="round"
               strokeDasharray={CIRC}
               strokeDashoffset={offset}
-              style={{ transition: 'stroke-dashoffset 0.8s ease' }}
+              style={{ transition: 'stroke-dashoffset 0.8s ease', filter: `drop-shadow(0 0 6px ${NEON.cyan.glow})` }}
             />
           </svg>
 
           {/* Center content */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <Zap className="h-5 w-5 mb-1" style={{ color: '#459ea1' }} />
+            <Zap className="h-5 w-5 mb-1" style={{ color: '#0891b2' }} />
             <p
               className="text-2xl font-bold leading-tight tabular-nums"
               style={{ color: TEXT.primary, fontFamily: FONT }}
@@ -121,7 +121,7 @@ export function ProgressCard({
         <div className="flex justify-center mt-2">
           <span
             className="text-[10px] font-bold rounded-full px-3 py-0.5"
-            style={{ color: '#459ea1', background: 'rgba(69,158,161,0.10)', border: '1px solid rgba(69,158,161,0.20)', fontFamily: FONT }}
+            style={{ color: NEON.cyan.ink, background: NEON.cyan.solid, boxShadow: `0 0 12px ${NEON.cyan.glow}`, fontFamily: FONT }}
           >
             {playerLevelName} · Lv. {playerLevel}
           </span>

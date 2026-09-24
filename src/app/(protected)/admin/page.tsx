@@ -15,14 +15,9 @@ import {
   Trophy,
   CheckCircle2,
   NotebookPen,
+  BarChart3,
+  ChevronDown,
 } from 'lucide-react'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 async function getAdminStats() {
@@ -45,9 +40,9 @@ async function getAdminStats() {
     learningPathEnrollments,
     completedChapters,
     learningPathCompletions,
-    pendingGradings,
     pendingExerciseReviews,
     pendingJournalEntries,
+    pendingTeacherRequests,
   ] = await Promise.all([
     db.user.count(),
     db.user.count({ where: { isTeacher: true } }),
@@ -64,9 +59,11 @@ async function getAdminStats() {
     db.learningPathEnrollment.count(),
     db.userProgress.count({ where: { isCompleted: true } }),
     db.learningPathCompletion.count(),
-    db.grading.count({ where: { points_awarded: false } }),
     db.exerciseResponse.count({ where: { needsReview: true } }),
     db.journalEntry.count({ where: { status: 'READY' } }),
+    db.user.count({
+      where: { teacherRequestedAt: { not: null }, NOT: { isTeacher: true } },
+    }),
   ])
 
   return {
@@ -85,66 +82,99 @@ async function getAdminStats() {
     learningPathEnrollments,
     completedChapters,
     learningPathCompletions,
-    pendingGradings,
     pendingExerciseReviews,
     pendingJournalEntries,
+    pendingTeacherRequests,
   }
 }
 
-function ManagementCard({
+type Accent = 'cyan' | 'fuchsia' | 'lime' | 'yellow' | 'orange'
+
+// Neon palette: solid icon block, tinted surface, and a glow on hover.
+const ACCENT: Record<Accent, { icon: string; surface: string; glow: string }> = {
+  cyan: {
+    icon: 'bg-cyan-400 text-cyan-950',
+    surface: 'border-cyan-400/50 from-cyan-400/15',
+    glow: 'hover:border-cyan-400 hover:shadow-[0_0_28px_rgba(34,211,238,0.45)]',
+  },
+  fuchsia: {
+    icon: 'bg-fuchsia-400 text-fuchsia-950',
+    surface: 'border-fuchsia-400/50 from-fuchsia-400/15',
+    glow: 'hover:border-fuchsia-400 hover:shadow-[0_0_28px_rgba(232,121,249,0.45)]',
+  },
+  lime: {
+    icon: 'bg-lime-400 text-lime-950',
+    surface: 'border-lime-400/60 from-lime-400/20',
+    glow: 'hover:border-lime-400 hover:shadow-[0_0_28px_rgba(163,230,53,0.5)]',
+  },
+  yellow: {
+    icon: 'bg-yellow-300 text-yellow-950',
+    surface: 'border-yellow-300/60 from-yellow-300/20',
+    glow: 'hover:border-yellow-300 hover:shadow-[0_0_28px_rgba(253,224,71,0.5)]',
+  },
+  orange: {
+    icon: 'bg-orange-400 text-orange-950',
+    surface: 'border-orange-400/50 from-orange-400/15',
+    glow: 'hover:border-orange-400 hover:shadow-[0_0_28px_rgba(251,146,60,0.45)]',
+  },
+}
+
+/** A large navigation tile; the whole tile links to `href`, the create button sits above that link. */
+function NavTile({
   title,
   description,
   href,
   icon: Icon,
+  accent,
   meta,
+  highlight,
   createHref,
-  createLabel = 'Neu',
 }: {
   title: string
   description: string
   href: string
   icon: React.ComponentType<{ className?: string }>
+  accent: Accent
   meta?: string
+  /** Emphasized status line, e.g. items waiting for the teacher. */
+  highlight?: string
   createHref?: string
-  createLabel?: string
 }) {
+  const a = ACCENT[accent]
   return (
-    <Card className="h-full transition-colors hover:bg-muted/40">
-      <CardHeader>
-        <div className="flex items-start gap-4">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-            <Icon className="h-5 w-5 text-primary" />
-          </div>
-          <div className="flex-1 space-y-1">
-            <CardTitle className="text-base">{title}</CardTitle>
-            <CardDescription className="text-sm">
-              {description}
-            </CardDescription>
-            {meta ? (
-              <p className="pt-1 text-xs text-muted-foreground tabular-nums">
-                {meta}
-              </p>
-            ) : null}
-          </div>
+    <div
+      className={`group bg-card relative flex flex-col rounded-2xl border bg-linear-to-br to-transparent to-60% shadow-sm transition-all duration-200 hover:-translate-y-0.5 ${a.surface} ${a.glow}`}
+    >
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        <div className={`flex size-12 items-center justify-center rounded-xl shadow-sm ${a.icon}`}>
+          <Icon className="size-6" />
         </div>
-      </CardHeader>
-      <CardFooter className="mt-auto justify-between gap-2">
-        <Button asChild variant="ghost" size="sm" className="px-2">
-          <Link href={href}>
-            Verwalten
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </Button>
-        {createHref ? (
-          <Button asChild variant="outline" size="sm">
-            <Link href={createHref}>
-              <Plus className="h-4 w-4" />
-              {createLabel}
+        <div className="space-y-1">
+          <h3 className="text-lg font-semibold tracking-tight">
+            <Link href={href} className="after:absolute after:inset-0 after:rounded-2xl">
+              {title}
             </Link>
-          </Button>
-        ) : null}
-      </CardFooter>
-    </Card>
+          </h3>
+          <p className="text-muted-foreground text-sm leading-snug">{description}</p>
+        </div>
+        <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+          <div className="space-y-0.5">
+            {highlight ? <p className="text-sm font-semibold tabular-nums">{highlight}</p> : null}
+            {meta ? <p className="text-muted-foreground text-xs tabular-nums">{meta}</p> : null}
+          </div>
+          {createHref ? (
+            <Button asChild variant="outline" size="sm" className="relative z-10 h-7 gap-1 px-2">
+              <Link href={createHref}>
+                <Plus className="size-3.5" />
+                Neu
+              </Link>
+            </Button>
+          ) : (
+            <ArrowRight className="text-muted-foreground size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -160,22 +190,49 @@ function StatCard({
   icon?: React.ComponentType<{ className?: string }>
 }) {
   return (
-    <Card>
-      <CardHeader className="gap-1 pb-3">
-        <div className="flex items-center justify-between gap-2">
-          <CardDescription>{label}</CardDescription>
-          {Icon ? (
-            <Icon className="h-4 w-4 text-muted-foreground" />
-          ) : null}
-        </div>
-        <CardTitle className="text-2xl tabular-nums">
-          {typeof value === 'number' ? value.toLocaleString() : value}
-        </CardTitle>
-        {hint ? (
-          <p className="text-xs text-muted-foreground">{hint}</p>
-        ) : null}
-      </CardHeader>
-    </Card>
+    <div className="bg-card rounded-xl border px-4 py-3">
+      <div className="text-muted-foreground flex items-center justify-between gap-2 text-xs">
+        <span>{label}</span>
+        {Icon ? <Icon className="size-3.5" /> : null}
+      </div>
+      <p className="mt-1 text-xl font-semibold tabular-nums">
+        {typeof value === 'number' ? value.toLocaleString('de-DE') : value}
+      </p>
+      {hint ? <p className="text-muted-foreground text-[11px]">{hint}</p> : null}
+    </div>
+  )
+}
+
+function StatGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-2">
+      <h3 className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">{title}</h3>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">{children}</div>
+    </div>
+  )
+}
+
+function AttentionChip({
+  href,
+  count,
+  label,
+  icon: Icon,
+}: {
+  href: string
+  count: number
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+}) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1.5 text-sm transition-colors hover:bg-sky-500/20"
+    >
+      <Icon className="size-4 text-sky-700 dark:text-sky-300" />
+      <span className="font-semibold tabular-nums">{count}</span>
+      {label}
+      <ArrowRight className="size-3.5 opacity-60" />
+    </Link>
   )
 }
 
@@ -183,161 +240,126 @@ export default async function AdminDashboardPage() {
   const stats = await getAdminStats()
 
   return (
-    <div className="flex flex-1 flex-col gap-10">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Admin Dashboard
-        </h1>
-        <p className="text-muted-foreground">
-          Verwalte Quests, Lernpfade, Badges und Nutzer.
-        </p>
+    <div className="flex flex-1 flex-col gap-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Admin Dashboard</h1>
+          <p className="text-muted-foreground">Verwalte Quests, Lernpfade, Journale, Badges und Nutzer.</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {stats.pendingTeacherRequests > 0 && (
+            <AttentionChip
+              href="/admin/users"
+              count={stats.pendingTeacherRequests}
+              label={stats.pendingTeacherRequests === 1 ? 'Lehrkraft-Anfrage prüfen' : 'Lehrkraft-Anfragen prüfen'}
+              icon={UserPlus}
+            />
+          )}
+          {stats.pendingJournalEntries > 0 && (
+            <AttentionChip
+              href="/admin/journal"
+              count={stats.pendingJournalEntries}
+              label="Journal-Einträge warten"
+              icon={NotebookPen}
+            />
+          )}
+        </div>
       </div>
 
-      <section>
-        <h2 className="mb-4 text-lg font-medium">Verwaltung</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <ManagementCard
-            title="Quests"
-            description="Alle Quests bearbeiten und veröffentlichen"
-            href="/admin/quests"
-            createHref="/admin/quests/create"
-            icon={BookOpen}
-            meta={`${stats.publishedCourses} veröffentlicht · ${stats.totalCourses} gesamt`}
-          />
-          <ManagementCard
-            title="Lernpfade"
-            description="Lernpfade erstellen und verwalten"
-            href="/admin/lernpfade"
-            createHref="/admin/lernpfade/new"
-            icon={MapIcon}
-            meta={`${stats.publishedLearningPaths} veröffentlicht · ${stats.totalLearningPaths} gesamt`}
-          />
-          <ManagementCard
-            title="Badges"
-            description="Badges anlegen und vergeben"
-            href="/admin/create-badges"
-            icon={Award}
-            meta={`${stats.totalBadges} Badges · ${stats.awardedBadges} vergeben`}
-          />
-          <ManagementCard
-            title="Journale"
-            description="Einträge ansehen, Feedback geben, abschließend bewerten"
-            href="/admin/journal"
-            icon={NotebookPen}
-            meta={`${stats.pendingJournalEntries} eingereicht, noch offen`}
-          />
-          <ManagementCard
-            title="Nutzer"
-            description="Rollen und Konten verwalten"
-            href="/admin/users"
-            icon={Users}
-            meta={`${stats.totalUsers} Nutzer · ${stats.totalTeachers} Lehrer`}
-          />
-        </div>
-      </section>
+      <nav aria-label="Verwaltung" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <NavTile
+          title="Quests"
+          description="Quests erstellen, bearbeiten und veröffentlichen"
+          href="/admin/quests"
+          createHref="/admin/quests/create"
+          icon={BookOpen}
+          accent="cyan"
+          meta={`${stats.publishedCourses} veröffentlicht · ${stats.totalCourses} gesamt`}
+        />
+        <NavTile
+          title="Lernpfade"
+          description="Quests zu Lernpfaden verbinden"
+          href="/admin/lernpfade"
+          createHref="/admin/lernpfade/new"
+          icon={MapIcon}
+          accent="fuchsia"
+          meta={`${stats.publishedLearningPaths} veröffentlicht · ${stats.totalLearningPaths} gesamt`}
+        />
+        <NavTile
+          title="Journale"
+          description="Einträge ansehen, Feedback geben, abschließend bewerten"
+          href="/admin/journal"
+          icon={NotebookPen}
+          accent="lime"
+          highlight={
+            stats.pendingJournalEntries === 0
+              ? 'Keine offenen Einträge'
+              : `${stats.pendingJournalEntries} ${stats.pendingJournalEntries === 1 ? 'Eintrag wartet' : 'Einträge warten'} auf Feedback`
+          }
+        />
+        <NavTile
+          title="Badges"
+          description="Badges anlegen und vergeben"
+          href="/admin/create-badges"
+          icon={Award}
+          accent="yellow"
+          meta={`${stats.totalBadges} Badges · ${stats.awardedBadges} vergeben`}
+        />
+        <NavTile
+          title="Nutzer"
+          description="Rollen und Konten verwalten"
+          href="/admin/users"
+          icon={Users}
+          accent="orange"
+          highlight={
+            stats.pendingTeacherRequests > 0
+              ? `${stats.pendingTeacherRequests} ${stats.pendingTeacherRequests === 1 ? 'Lehrkraft-Anfrage' : 'Lehrkraft-Anfragen'} offen`
+              : undefined
+          }
+          meta={`${stats.totalUsers} Nutzer · ${stats.totalTeachers} Lehrer`}
+        />
+      </nav>
 
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-medium">Aktivität</h2>
-          {stats.pendingGradings + stats.pendingExerciseReviews > 0 ? (
-            <span className="text-xs text-muted-foreground">
-              {stats.pendingGradings} Bewertungen ·{' '}
-              {stats.pendingExerciseReviews} Aufgaben-Reviews
-            </span>
-          ) : null}
+      <details className="group bg-card/60 rounded-2xl border">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-5 py-4 [&::-webkit-details-marker]:hidden">
+          <span className="flex items-center gap-2 font-medium">
+            <BarChart3 className="text-muted-foreground size-4" />
+            Statistiken
+          </span>
+          <span className="text-muted-foreground flex items-center gap-1 text-sm">
+            <span className="group-open:hidden">anzeigen</span>
+            <span className="hidden group-open:inline">ausblenden</span>
+            <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
+          </span>
+        </summary>
+        <div className="space-y-6 border-t px-5 pt-4 pb-5">
+          <StatGroup title="Aktivität">
+            <StatCard label="Offene Journal-Einträge" value={stats.pendingJournalEntries} icon={NotebookPen} />
+            <StatCard
+              label="Aufgaben-Reviews"
+              value={stats.pendingExerciseReviews}
+              hint="KI/Kurzantwort prüfen"
+              icon={ClipboardCheck}
+            />
+            <StatCard label="Quest-Einschreibungen" value={stats.courseEnrollments} icon={GraduationCap} />
+            <StatCard label="Lernpfad-Einschreibungen" value={stats.learningPathEnrollments} icon={MapIcon} />
+            <StatCard label="Abgeschlossene Kapitel" value={stats.completedChapters} icon={CheckCircle2} />
+            <StatCard label="Abgeschlossene Lernpfade" value={stats.learningPathCompletions} icon={Trophy} />
+          </StatGroup>
+          <StatGroup title="Inhalte">
+            <StatCard label="Quests" value={stats.totalCourses} hint={`${stats.publishedCourses} veröffentlicht`} icon={BookOpen} />
+            <StatCard label="Kapitel" value={stats.totalChapters} hint={`${stats.publishedChapters} veröffentlicht`} icon={Layers} />
+            <StatCard label="Lernpfade" value={stats.totalLearningPaths} hint={`${stats.publishedLearningPaths} veröffentlicht`} icon={MapIcon} />
+            <StatCard label="Badges" value={stats.totalBadges} hint={`${stats.awardedBadges} vergeben`} icon={Award} />
+          </StatGroup>
+          <StatGroup title="Community">
+            <StatCard label="Nutzer gesamt" value={stats.totalUsers} icon={Users} />
+            <StatCard label="Lehrer" value={stats.totalTeachers} icon={GraduationCap} />
+            <StatCard label="Neu in 7 Tagen" value={stats.newUsers7d} hint="Neuregistrierungen" icon={UserPlus} />
+            <StatCard label="Vergebene Badges" value={stats.awardedBadges} icon={Sparkles} />
+          </StatGroup>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          <StatCard
-            label="Offene Bewertungen"
-            value={stats.pendingGradings}
-            hint="Quest-Noten noch nicht vergeben"
-            icon={ClipboardCheck}
-          />
-          <StatCard
-            label="Aufgaben-Reviews"
-            value={stats.pendingExerciseReviews}
-            hint="KI/Kurzantwort prüfen"
-            icon={ClipboardCheck}
-          />
-          <StatCard
-            label="Quest-Einschreibungen"
-            value={stats.courseEnrollments}
-            icon={GraduationCap}
-          />
-          <StatCard
-            label="Lernpfad-Einschreibungen"
-            value={stats.learningPathEnrollments}
-            icon={MapIcon}
-          />
-          <StatCard
-            label="Abgeschlossene Kapitel"
-            value={stats.completedChapters}
-            icon={CheckCircle2}
-          />
-          <StatCard
-            label="Abgeschlossene Lernpfade"
-            value={stats.learningPathCompletions}
-            icon={Trophy}
-          />
-        </div>
-      </section>
-
-      <section>
-        <h2 className="mb-4 text-lg font-medium">Inhalte</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            label="Quests"
-            value={stats.totalCourses}
-            hint={`${stats.publishedCourses} veröffentlicht`}
-            icon={BookOpen}
-          />
-          <StatCard
-            label="Kapitel"
-            value={stats.totalChapters}
-            hint={`${stats.publishedChapters} veröffentlicht`}
-            icon={Layers}
-          />
-          <StatCard
-            label="Lernpfade"
-            value={stats.totalLearningPaths}
-            hint={`${stats.publishedLearningPaths} veröffentlicht`}
-            icon={MapIcon}
-          />
-          <StatCard
-            label="Badges"
-            value={stats.totalBadges}
-            hint={`${stats.awardedBadges} vergeben`}
-            icon={Award}
-          />
-        </div>
-      </section>
-
-      <section>
-        <h2 className="mb-4 text-lg font-medium">Community</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            label="Nutzer gesamt"
-            value={stats.totalUsers}
-            icon={Users}
-          />
-          <StatCard
-            label="Lehrer"
-            value={stats.totalTeachers}
-            icon={GraduationCap}
-          />
-          <StatCard
-            label="Neu in 7 Tagen"
-            value={stats.newUsers7d}
-            hint="Neuregistrierungen"
-            icon={UserPlus}
-          />
-          <StatCard
-            label="Vergebene Badges"
-            value={stats.awardedBadges}
-            icon={Sparkles}
-          />
-        </div>
-      </section>
+      </details>
     </div>
   )
 }

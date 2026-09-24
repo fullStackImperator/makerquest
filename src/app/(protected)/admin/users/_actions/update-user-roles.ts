@@ -16,7 +16,8 @@ export async function updateUserRoles(
     for (const { userId, isTeacher } of updateData) {
       await db.user.update({
         where: { id: userId },
-        data: { isTeacher },
+        // Deciding on the role also settles an open "Ich bin Lehrkraft" request.
+        data: { isTeacher, teacherRequestedAt: null },
       })
     }
 

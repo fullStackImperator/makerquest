@@ -1,6 +1,8 @@
 'use server'
 
 import { awardCourseExperiencePoints } from '@/lib/award-course-xp'
+import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export const awardExperiencePoints = async ({
   userId,
@@ -9,6 +11,10 @@ export const awardExperiencePoints = async ({
   userId: string
   courseId: string
 }): Promise<{ success: boolean }> => {
+  const viewer = await getSessionUser()
+  if (!viewer || !(await getCourseIfTeachable(courseId, viewer))) {
+    return { success: false }
+  }
   try {
     const result = await awardCourseExperiencePoints(userId, courseId)
     if (!result.success) {

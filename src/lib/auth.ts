@@ -20,8 +20,10 @@ export const auth = betterAuth({
       clientSecret: env.AUTH_GITHUB_SECRET,
     }
   },
+  // Password signup is not offered in the UI; keeping it enabled exposed
+  // /api/auth/sign-up/email for unverified accounts.
   emailAndPassword: {
-    enabled: true,
+    enabled: false,
   },
   session: {
     expiresIn: 60 * 60 * 24 * 1, // 7 days

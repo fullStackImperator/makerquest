@@ -13,6 +13,8 @@ type User = {
   name: string
   email: string
   isTeacher: boolean | null
+  klasse: string | null
+  teacherRequested: boolean
 }
 
 interface UsersClientProps {
@@ -57,6 +59,8 @@ const UsersClient = ({ users }: UsersClientProps) => {
     username: user.name || '',
     email: user.email,
     isTeacher: user.isTeacher ?? false,
+    klasse: user.klasse,
+    teacherRequested: user.teacherRequested,
   }))
 
   const tableColumns = columns({ handleIsTeacherChange, userIsTeacher })

@@ -3016,7 +3016,8 @@ export const UserScalarFieldEnum = {
   isTeacher: 'isTeacher',
   isAdmin: 'isAdmin',
   jahrgang: 'jahrgang',
-  klasse: 'klasse'
+  klasse: 'klasse',
+  teacherRequestedAt: 'teacherRequestedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

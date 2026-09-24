@@ -1,4 +1,6 @@
-'use server'
+// Called from server components only; not a server action, so it can't be
+// invoked from the client with someone else's userId.
+import 'server-only'
 
 import { db } from '@/lib/db'
 import { Attachment, Chapter } from '@/generated/client'

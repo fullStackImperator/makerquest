@@ -90,6 +90,7 @@ model User {
 
   jahrgang    String?
   klasse      String?
+  teacherRequestedAt DateTime? // "Ich bin Lehrkraft" at profile completion; cleared when an admin sets the role
 
   userFachExperiences UserFachExperience[] // Add this relation
   awardedPoints AwardedPoints[] // Add this relation

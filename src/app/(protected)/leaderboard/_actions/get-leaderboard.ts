@@ -1,6 +1,7 @@
 'use server'
 
 import { db } from '@/lib/db'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export interface UserBadge {
   id: string
@@ -21,6 +22,7 @@ export interface LeaderboardUser {
 export const getLeaderboard = async (
   fachId?: string
 ): Promise<LeaderboardUser[]> => {
+  if (!(await getSessionUser())) return []
   try {
     const userExperiences = await db.userFachExperience.groupBy({
       by: ['userId'],

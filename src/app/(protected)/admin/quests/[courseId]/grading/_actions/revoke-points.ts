@@ -1,6 +1,8 @@
 'use server'
 
 import { db } from '@/lib/db'
+import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export const revokeExperiencePoints = async ({
   userId,
@@ -9,6 +11,10 @@ export const revokeExperiencePoints = async ({
   userId: string
   courseId: string
 }): Promise<{ success: boolean }> => {
+  const viewer = await getSessionUser()
+  if (!viewer || !(await getCourseIfTeachable(courseId, viewer))) {
+    return { success: false }
+  }
   try {
     // Fetch the course details to get klassenstufe and difficulty
     const course = await db.course.findUnique({

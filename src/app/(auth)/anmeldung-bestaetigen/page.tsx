@@ -61,7 +61,7 @@ function verifyOtp() {
           const session = await authClient.getSession()
           
           if (session?.data?.user) {
-            const slug = await getUserSlug(session.data.user.id)
+            const slug = await getUserSlug()
             
             if (slug) {
               router.push(`/dashboard/${slug}`)

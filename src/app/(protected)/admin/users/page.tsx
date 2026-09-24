@@ -9,10 +9,25 @@ const UsersPage = async () => {
       name: true,
       email: true,
       isTeacher: true,
+      klasse: true,
+      teacherRequestedAt: true,
     },
   })
 
-  return <UsersClient users={users} />
+  // Open teacher requests first, oldest request on top.
+  const pending = users
+    .filter((u) => u.teacherRequestedAt && !u.isTeacher)
+    .sort((a, b) => a.teacherRequestedAt!.getTime() - b.teacherRequestedAt!.getTime())
+  const rest = users.filter((u) => !(u.teacherRequestedAt && !u.isTeacher))
+
+  return (
+    <UsersClient
+      users={[...pending, ...rest].map((u) => ({
+        ...u,
+        teacherRequested: !!u.teacherRequestedAt && !u.isTeacher,
+      }))}
+    />
+  )
 }
 
 export default UsersPage

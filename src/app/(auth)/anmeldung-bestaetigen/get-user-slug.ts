@@ -1,12 +1,9 @@
 'use server'
 
-import { db } from '@/lib/db'
+import { getSessionUser } from '@/lib/get-session-user'
 
-export async function getUserSlug(userId: string) {
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { slug: true },
-  })
-
+/** Slug of the logged-in user (used right after the OTP login). */
+export async function getUserSlug() {
+  const user = await getSessionUser()
   return user?.slug || null
 }

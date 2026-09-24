@@ -37,6 +37,7 @@ export type UserMinAggregateOutputType = {
   isAdmin: boolean | null
   jahrgang: string | null
   klasse: string | null
+  teacherRequestedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type UserMaxAggregateOutputType = {
   isAdmin: boolean | null
   jahrgang: string | null
   klasse: string | null
+  teacherRequestedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -67,6 +69,7 @@ export type UserCountAggregateOutputType = {
   isAdmin: number
   jahrgang: number
   klasse: number
+  teacherRequestedAt: number
   _all: number
 }
 
@@ -84,6 +87,7 @@ export type UserMinAggregateInputType = {
   isAdmin?: true
   jahrgang?: true
   klasse?: true
+  teacherRequestedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -99,6 +103,7 @@ export type UserMaxAggregateInputType = {
   isAdmin?: true
   jahrgang?: true
   klasse?: true
+  teacherRequestedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -114,6 +119,7 @@ export type UserCountAggregateInputType = {
   isAdmin?: true
   jahrgang?: true
   klasse?: true
+  teacherRequestedAt?: true
   _all?: true
 }
 
@@ -202,6 +208,7 @@ export type UserGroupByOutputType = {
   isAdmin: boolean | null
   jahrgang: string | null
   klasse: string | null
+  teacherRequestedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -238,6 +245,7 @@ export type UserWhereInput = {
   isAdmin?: Prisma.BoolNullableFilter<"User"> | boolean | null
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
+  teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
@@ -268,6 +276,7 @@ export type UserOrderByWithRelationInput = {
   isAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
   klasse?: Prisma.SortOrderInput | Prisma.SortOrder
+  teacherRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   userFachExperiences?: Prisma.UserFachExperienceOrderByRelationAggregateInput
@@ -301,6 +310,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isAdmin?: Prisma.BoolNullableFilter<"User"> | boolean | null
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
+  teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
@@ -331,6 +341,7 @@ export type UserOrderByWithAggregationInput = {
   isAdmin?: Prisma.SortOrderInput | Prisma.SortOrder
   jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
   klasse?: Prisma.SortOrderInput | Prisma.SortOrder
+  teacherRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -352,6 +363,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isAdmin?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   jahrgang?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   klasse?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  teacherRequestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -367,6 +379,7 @@ export type UserCreateInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -397,6 +410,7 @@ export type UserUncheckedCreateInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -427,6 +441,7 @@ export type UserUpdateInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -457,6 +472,7 @@ export type UserUncheckedUpdateInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -487,6 +503,7 @@ export type UserCreateManyInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -502,6 +519,7 @@ export type UserUpdateManyMutationInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -517,6 +535,7 @@ export type UserUncheckedUpdateManyInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -532,6 +551,7 @@ export type UserCountOrderByAggregateInput = {
   isAdmin?: Prisma.SortOrder
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
+  teacherRequestedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -547,6 +567,7 @@ export type UserMaxOrderByAggregateInput = {
   isAdmin?: Prisma.SortOrder
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
+  teacherRequestedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -562,6 +583,7 @@ export type UserMinOrderByAggregateInput = {
   isAdmin?: Prisma.SortOrder
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
+  teacherRequestedAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -590,6 +612,10 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -843,6 +869,7 @@ export type UserCreateWithoutSessionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -872,6 +899,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -917,6 +945,7 @@ export type UserUpdateWithoutSessionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -946,6 +975,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -975,6 +1005,7 @@ export type UserCreateWithoutAccountsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -1004,6 +1035,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -1049,6 +1081,7 @@ export type UserUpdateWithoutAccountsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -1078,6 +1111,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -1107,6 +1141,7 @@ export type UserCreateWithoutSharedCoursesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1136,6 +1171,7 @@ export type UserUncheckedCreateWithoutSharedCoursesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1189,6 +1225,7 @@ export type UserScalarWhereInput = {
   isAdmin?: Prisma.BoolNullableFilter<"User"> | boolean | null
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
+  teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserCreateWithoutExerciseAttemptsInput = {
@@ -1204,6 +1241,7 @@ export type UserCreateWithoutExerciseAttemptsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1233,6 +1271,7 @@ export type UserUncheckedCreateWithoutExerciseAttemptsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1278,6 +1317,7 @@ export type UserUpdateWithoutExerciseAttemptsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1307,6 +1347,7 @@ export type UserUncheckedUpdateWithoutExerciseAttemptsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1336,6 +1377,7 @@ export type UserCreateWithoutAttachmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1365,6 +1407,7 @@ export type UserUncheckedCreateWithoutAttachmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1410,6 +1453,7 @@ export type UserUpdateWithoutAttachmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1439,6 +1483,7 @@ export type UserUncheckedUpdateWithoutAttachmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1468,6 +1513,7 @@ export type UserCreateWithoutUserFachExperiencesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -1497,6 +1543,7 @@ export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -1542,6 +1589,7 @@ export type UserUpdateWithoutUserFachExperiencesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -1571,6 +1619,7 @@ export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -1600,6 +1649,7 @@ export type UserCreateWithoutAwardedPointsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1629,6 +1679,7 @@ export type UserUncheckedCreateWithoutAwardedPointsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1674,6 +1725,7 @@ export type UserUpdateWithoutAwardedPointsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1703,6 +1755,7 @@ export type UserUncheckedUpdateWithoutAwardedPointsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1732,6 +1785,7 @@ export type UserCreateWithoutOwnedLearningPathsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1761,6 +1815,7 @@ export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1806,6 +1861,7 @@ export type UserUpdateWithoutOwnedLearningPathsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1835,6 +1891,7 @@ export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1864,6 +1921,7 @@ export type UserCreateWithoutLearningPathEnrollmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1893,6 +1951,7 @@ export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1938,6 +1997,7 @@ export type UserUpdateWithoutLearningPathEnrollmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1967,6 +2027,7 @@ export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1996,6 +2057,7 @@ export type UserCreateWithoutLearningPathStepCompletionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2025,6 +2087,7 @@ export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2070,6 +2133,7 @@ export type UserUpdateWithoutLearningPathStepCompletionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2099,6 +2163,7 @@ export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2128,6 +2193,7 @@ export type UserCreateWithoutLearningPathCompletionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2157,6 +2223,7 @@ export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2202,6 +2269,7 @@ export type UserUpdateWithoutLearningPathCompletionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2231,6 +2299,7 @@ export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2260,6 +2329,7 @@ export type UserCreateWithoutJournalEntriesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2289,6 +2359,7 @@ export type UserUncheckedCreateWithoutJournalEntriesInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2334,6 +2405,7 @@ export type UserUpdateWithoutJournalEntriesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2363,6 +2435,7 @@ export type UserUncheckedUpdateWithoutJournalEntriesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2392,6 +2465,7 @@ export type UserCreateWithoutJournalEventsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2421,6 +2495,7 @@ export type UserUncheckedCreateWithoutJournalEventsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2466,6 +2541,7 @@ export type UserUpdateWithoutJournalEventsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2495,6 +2571,7 @@ export type UserUncheckedUpdateWithoutJournalEventsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2524,6 +2601,7 @@ export type UserCreateWithoutFinalAssessmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2553,6 +2631,7 @@ export type UserUncheckedCreateWithoutFinalAssessmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2587,6 +2666,7 @@ export type UserCreateWithoutGradedAssessmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2616,6 +2696,7 @@ export type UserUncheckedCreateWithoutGradedAssessmentsInput = {
   isAdmin?: boolean | null
   jahrgang?: string | null
   klasse?: string | null
+  teacherRequestedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2661,6 +2742,7 @@ export type UserUpdateWithoutFinalAssessmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2690,6 +2772,7 @@ export type UserUncheckedUpdateWithoutFinalAssessmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2730,6 +2813,7 @@ export type UserUpdateWithoutGradedAssessmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2759,6 +2843,7 @@ export type UserUncheckedUpdateWithoutGradedAssessmentsInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2788,6 +2873,7 @@ export type UserUpdateWithoutSharedCoursesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2817,6 +2903,7 @@ export type UserUncheckedUpdateWithoutSharedCoursesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2846,6 +2933,7 @@ export type UserUncheckedUpdateManyWithoutSharedCoursesInput = {
   isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -3018,6 +3106,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isAdmin?: boolean
   jahrgang?: boolean
   klasse?: boolean
+  teacherRequestedAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
@@ -3049,6 +3138,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isAdmin?: boolean
   jahrgang?: boolean
   klasse?: boolean
+  teacherRequestedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -3064,6 +3154,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isAdmin?: boolean
   jahrgang?: boolean
   klasse?: boolean
+  teacherRequestedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -3079,9 +3170,10 @@ export type UserSelectScalar = {
   isAdmin?: boolean
   jahrgang?: boolean
   klasse?: boolean
+  teacherRequestedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "isTeacher" | "isAdmin" | "jahrgang" | "klasse", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "isTeacher" | "isAdmin" | "jahrgang" | "klasse" | "teacherRequestedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -3135,6 +3227,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isAdmin: boolean | null
     jahrgang: string | null
     klasse: string | null
+    teacherRequestedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -3585,6 +3678,7 @@ export interface UserFieldRefs {
   readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>
   readonly jahrgang: Prisma.FieldRef<"User", 'String'>
   readonly klasse: Prisma.FieldRef<"User", 'String'>
+  readonly teacherRequestedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

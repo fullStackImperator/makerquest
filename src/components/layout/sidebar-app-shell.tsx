@@ -13,6 +13,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/themeToggle'
 import { ClientOnly } from '@/components/ui/client-only'
+import { needsProfileCompletion } from '@/lib/profile'
 
 export async function SidebarAppShell({
   children,
@@ -29,8 +30,20 @@ export async function SidebarAppShell({
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { slug: true, isTeacher: true, isAdmin: true },
+    select: {
+      slug: true,
+      isTeacher: true,
+      isAdmin: true,
+      name: true,
+      klasse: true,
+      teacherRequestedAt: true,
+    },
   })
+
+  // Name (and Klasse for students) is required before using the app.
+  if (!user || needsProfileCompletion(user)) {
+    redirect('/willkommen')
+  }
 
   const isAdminOrTeacher = user?.isTeacher === true || user?.isAdmin === true
 
