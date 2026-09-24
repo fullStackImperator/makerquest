@@ -9,6 +9,7 @@ import { addFachExperience, awardCourseExperiencePoints } from '@/lib/award-cour
 import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
+import { logSecurityEvent } from '@/lib/security-log'
 import { RUBRIC_LEVELS } from '@/lib/journal/shared'
 import {
   markSubmissionNotificationsRead,
@@ -23,9 +24,16 @@ const levelSchema = z.enum(RUBRIC_LEVELS as [string, ...string[]])
 /** Session user, if they may teach the course (owner, shared teacher, admin). */
 async function getTeacherForCourse(courseId: string) {
   const user = await getSessionUser()
-  if (!user) return null
-  const teachable = await getCourseIfTeachable(courseId, user)
-  return teachable ? user : null
+  const teachable = user ? await getCourseIfTeachable(courseId, user) : null
+  if (!user || !teachable) {
+    await logSecurityEvent('unauthorized-action', {
+      action: 'journal-teacher',
+      userId: user?.id ?? null,
+      courseId,
+    })
+    return null
+  }
+  return user
 }
 
 async function getTeacherForEntry(entryId: string) {

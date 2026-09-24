@@ -1,0 +1,5 @@
+# Found a security issue in MakerQuest? Please report it responsibly
+# instead of testing further on production. Thank you!
+Contact: mailto:kontakt@lms.stuebi-makerspace.de
+Expires: 2027-09-24T00:00:00.000Z
+Preferred-Languages: de, en

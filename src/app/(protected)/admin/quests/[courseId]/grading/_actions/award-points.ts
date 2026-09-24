@@ -3,6 +3,7 @@
 import { awardCourseExperiencePoints } from '@/lib/award-course-xp'
 import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
 import { getSessionUser } from '@/lib/get-session-user'
+import { logSecurityEvent } from '@/lib/security-log'
 
 export const awardExperiencePoints = async ({
   userId,
@@ -13,6 +14,12 @@ export const awardExperiencePoints = async ({
 }): Promise<{ success: boolean }> => {
   const viewer = await getSessionUser()
   if (!viewer || !(await getCourseIfTeachable(courseId, viewer))) {
+    await logSecurityEvent('unauthorized-action', {
+      action: 'award-course-xp',
+      userId: viewer?.id ?? null,
+      courseId,
+      targetUserId: userId,
+    })
     return { success: false }
   }
   try {

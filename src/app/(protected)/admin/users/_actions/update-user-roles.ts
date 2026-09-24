@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
+import { logSecurityEvent } from '@/lib/security-log'
 
 export async function updateUserRoles(
   updateData: { userId: string; isTeacher: boolean }[],
@@ -10,6 +11,11 @@ export async function updateUserRoles(
     const user = await getSessionUser()
 
     if (!user?.isTeacher) {
+      await logSecurityEvent('unauthorized-action', {
+        action: 'update-user-roles',
+        userId: user?.id ?? null,
+        targets: updateData.map((u) => u.userId),
+      })
       return { success: false, error: 'Unauthorized' }
     }
 
