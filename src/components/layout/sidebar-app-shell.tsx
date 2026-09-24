@@ -68,7 +68,8 @@ export async function SidebarAppShell({
         />
 
         {/* !bg-transparent lets the body gradient show through the inset panel */}
-        <SidebarInset className="!bg-transparent overflow-hidden">
+        {/* overflow-clip (not hidden) keeps rounded corners without breaking position: sticky */}
+        <SidebarInset className="!bg-transparent overflow-clip">
 
           {/* Header — transparent so it blends with the main gradient */}
           <header className="flex h-14 shrink-0 items-center gap-2 justify-between border-b border-white/30 px-5">

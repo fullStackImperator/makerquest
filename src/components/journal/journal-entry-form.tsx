@@ -130,7 +130,7 @@ export function JournalEntryForm({
   const busy = pending || isUploading
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 pb-16">
       {entry?.status === 'REVISE' && (
         <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-900 dark:text-amber-100">
           Deine Lehrkraft möchte, dass du diesen Eintrag überarbeitest. Das
@@ -207,6 +207,7 @@ export function JournalEntryForm({
           onChange={(e) => setTitle(e.target.value)}
           placeholder="z. B. Schaltung gelötet"
           maxLength={200}
+          className="bg-background"
         />
       </div>
 

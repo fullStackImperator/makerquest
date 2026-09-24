@@ -82,6 +82,7 @@ import {
 } from '@/components/ui/select'
 import { Undo2, Redo2, Mic } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useEditorVariant } from '../../context/EditorVariantContext'
 
 const blockTypeToBlockName = {
   bullet: 'Bulleted List',
@@ -137,17 +138,22 @@ function ToolbarPlugin() {
     ocr: { open: false },
     youtube: { open: false },
   })
+  const { variant } = useEditorVariant()
+  // The full-page teacher editor pins its toolbar to the window; inside a form
+  // (student variant) it stays sticky within the editor box instead.
+  const pinToWindow = variant !== 'student'
   const [toolbarTrigger, setToolbarTrigger] = useState(false)
   const [isSpeechToText, setIsSpeechToText] = useState(false)
 
   useEffect(() => {
+    if (!pinToWindow) return
     const handleScroll = () => {
       setToolbarTrigger(window.scrollY > 32)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pinToWindow])
 
   const updateToolbar = useCallback(() => {
     if (!activeEditor) return
@@ -373,14 +379,23 @@ function ToolbarPlugin() {
       <header
         className={cn(
           'editor-toolbar border-b bg-background transition-shadow print:hidden',
-          toolbarTrigger
-            ? 'fixed top-0 left-0 right-0 z-50 shadow-md'
-            : 'sticky z-10'
+          !pinToWindow
+            ? 'rounded-t-lg'
+            : toolbarTrigger
+              ? 'fixed top-0 left-0 right-0 z-50 shadow-md'
+              : 'sticky z-10'
         )}
-        style={toolbarTrigger ? undefined : { top: '80px' }}
+        style={pinToWindow && !toolbarTrigger ? { top: '80px' } : undefined}
       >
-        <div className="relative flex flex-wrap items-start justify-between gap-2 px-2 py-2">
-          <div className="flex items-center gap-0.5">
+        {/* Student variant: one left-aligned row that only wraps when needed;
+            the groups dissolve (`contents`) so their items flow together. */}
+        <div
+          className={cn(
+            'relative flex flex-wrap gap-2 px-2 py-2',
+            pinToWindow ? 'items-start justify-between' : 'items-center gap-1',
+          )}
+        >
+          <div className={pinToWindow ? 'flex items-center gap-0.5' : 'contents'}>
             <Button
               type="button"
               variant="ghost"
@@ -408,7 +423,13 @@ function ToolbarPlugin() {
               <Redo2 className="size-4" />
             </Button>
           </div>
-          <div className="mx-auto flex flex-wrap items-center justify-center gap-0.5">
+          <div
+            className={
+              pinToWindow
+                ? 'mx-auto flex flex-wrap items-center justify-center gap-0.5'
+                : 'contents'
+            }
+          >
             {showMathTools && (
               <MathTools editor={activeEditor} node={selectedNode} />
             )}
@@ -486,7 +507,7 @@ function ToolbarPlugin() {
               </>
             )}
           </div>
-          <div className="flex items-center gap-0.5">
+          <div className={cn('flex items-center gap-0.5', !pinToWindow && 'ml-auto')}>
             <InsertToolMenu editor={activeEditor} />
             <AlignTextMenu editor={activeEditor} isRTL={isRTL} />
           </div>
