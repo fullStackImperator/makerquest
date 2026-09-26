@@ -23,7 +23,8 @@ export async function updateUserRoles(
       await db.user.update({
         where: { id: userId },
         // Deciding on the role also settles an open "Ich bin Lehrkraft" request.
-        data: { isTeacher, teacherRequestedAt: null },
+        // A role assigned by staff also counts as approval.
+        data: { isTeacher, teacherRequestedAt: null, approvedAt: new Date() },
       })
     }
 

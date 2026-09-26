@@ -42,7 +42,7 @@ export const CourseCard = ({
   faecher,
 }: CourseCardProps) => {
   return (
-    <Link href={`/courses/${id}`}>
+    <Link href={`/quests/${id}`}>
       <div
         className="group relative h-full flex flex-col overflow-hidden transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
         style={CARD_INNER}

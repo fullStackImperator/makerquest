@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import { getCourseIfTeachableBySession } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
 import { getNextCourseItemPosition } from '@/lib/exercises/course-items'
+import { suggestExerciseXp } from '@/lib/exercises/xp'
 import { headers } from 'next/headers'
 
 export type CreateExerciseResult =
@@ -33,13 +34,21 @@ export async function createExercise(
       return { success: false, error: 'Kurs nicht gefunden' }
     }
 
-    const position = await getNextCourseItemPosition(courseId)
+    const [position, course] = await Promise.all([
+      getNextCourseItemPosition(courseId),
+      db.course.findUnique({
+        where: { id: courseId },
+        select: { klassenstufe: true, schwierigkeit: true },
+      }),
+    ])
 
     const exercise = await db.exercise.create({
       data: {
         title: title.trim(),
         courseId,
         position,
+        // Suggested reward; the teacher can change it in the Aufgabe settings.
+        xpReward: course ? suggestExerciseXp(course) : 0,
       },
     })
 

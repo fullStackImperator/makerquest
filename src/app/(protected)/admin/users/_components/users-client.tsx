@@ -8,6 +8,7 @@ import { DataTableUsers } from './data-table-users'
 import { columns } from './columns'
 import { updateUserRoles } from '../_actions/update-user-roles'
 import { EditUserDialog } from './edit-user-dialog'
+import { DeleteUserDialog } from './delete-user-dialog'
 
 type User = {
   id: string
@@ -19,16 +20,23 @@ type User = {
   image: string | null
   teacherRequested: boolean
   nameBlocked: boolean
+  isOwner: boolean
+  awaitingApproval: boolean
+  ownedCourses: number
+  ownedLearningPaths: number
 }
 
 interface UsersClientProps {
   users: User[]
   viewerIsAdmin: boolean
+  viewerIsOwner: boolean
 }
 
-const UsersClient = ({ users, viewerIsAdmin }: UsersClientProps) => {
+const UsersClient = ({ users, viewerIsAdmin, viewerIsOwner }: UsersClientProps) => {
   const [editingId, setEditingId] = useState<string | null>(null)
   const editing = users.find((u) => u.id === editingId) ?? null
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const deleting = users.find((u) => u.id === deletingId) ?? null
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [userIsTeacher, setUserIsTeacher] = useState<Record<string, boolean>>(
@@ -70,13 +78,17 @@ const UsersClient = ({ users, viewerIsAdmin }: UsersClientProps) => {
     klasse: user.klasse,
     teacherRequested: user.teacherRequested,
     nameBlocked: user.nameBlocked,
+    isOwner: user.isOwner,
+    awaitingApproval: user.awaitingApproval,
   }))
 
   const tableColumns = columns({
     handleIsTeacherChange,
     userIsTeacher,
     onEdit: setEditingId,
+    onDelete: setDeletingId,
     viewerIsAdmin,
+    viewerIsOwner,
   })
 
   return (
@@ -106,6 +118,14 @@ const UsersClient = ({ users, viewerIsAdmin }: UsersClientProps) => {
           user={editing}
           open
           onOpenChange={(open) => !open && setEditingId(null)}
+        />
+      )}
+      {deleting && (
+        <DeleteUserDialog
+          key={deleting.id}
+          user={deleting}
+          open
+          onOpenChange={(open) => !open && setDeletingId(null)}
         />
       )}
     </div>

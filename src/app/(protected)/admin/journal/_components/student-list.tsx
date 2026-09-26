@@ -18,6 +18,8 @@ import { formatJournalDate, RUBRIC_LEVEL_CLASS, RUBRIC_LEVEL_LABEL } from '@/lib
 import type { WorkspaceCourse, WorkspaceStudentRow } from '@/lib/journal/teacher-queries'
 
 const ALL = '__all'
+// Anything waiting for the teacher: journal entries and short answers.
+const open = (s: WorkspaceStudentRow) => s.readyCount + s.reviewCount
 type SortKey = 'ready' | 'name' | 'activity' | 'progress'
 
 export function StudentList({
@@ -25,11 +27,14 @@ export function StudentList({
   courseId,
   students,
   selectedUserId,
+  tab,
 }: {
   courses: WorkspaceCourse[]
   courseId: string | null
   students: WorkspaceStudentRow[]
   selectedUserId: string | null
+  /** Kept when switching students. */
+  tab: 'journal' | 'aufgaben'
 }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
@@ -53,7 +58,7 @@ export function StudentList({
       .filter((s) => !q || s.name.toLowerCase().includes(q))
       .filter((s) => !field || (field === 'klasse' ? s.klasse : s.jahrgang) === value)
       .sort((a, b) => {
-        if (sort === 'ready') return b.readyCount - a.readyCount || a.name.localeCompare(b.name, 'de')
+        if (sort === 'ready') return open(b) - open(a) || a.name.localeCompare(b.name, 'de')
         if (sort === 'activity') return (b.lastActivity ?? '').localeCompare(a.lastActivity ?? '')
         if (sort === 'progress') {
           return b.chaptersCompleted - a.chaptersCompleted || a.name.localeCompare(b.name, 'de')
@@ -79,6 +84,11 @@ export function StudentList({
                 {c.readyCount > 0 && (
                   <span className="ml-2 rounded-full bg-sky-500/15 px-1.5 text-[11px] text-sky-700 dark:text-sky-300">
                     {c.readyCount}
+                  </span>
+                )}
+                {c.reviewCount > 0 && (
+                  <span className="ml-1 rounded-full bg-amber-500/15 px-1.5 text-[11px] text-amber-800 dark:text-amber-200">
+                    {c.reviewCount}
                   </span>
                 )}
               </SelectItem>
@@ -143,7 +153,7 @@ export function StudentList({
               <li key={s.userId}>
                 <StudentRow
                   student={s}
-                  href={`/admin/journal?course=${courseId}&student=${s.userId}`}
+                  href={`/admin/journal?course=${courseId}&student=${s.userId}${tab === 'aufgaben' ? '&tab=aufgaben' : ''}`}
                   selected={s.userId === selectedUserId}
                 />
               </li>
@@ -184,6 +194,14 @@ function StudentRow({
             title={`${s.readyCount} eingereicht, noch nicht bewertet`}
           >
             {s.readyCount}
+          </span>
+        )}
+        {s.reviewCount > 0 && (
+          <span
+            className="rounded-full bg-amber-500 px-1.5 text-[11px] font-semibold text-white tabular-nums"
+            title={`${s.reviewCount} ${s.reviewCount === 1 ? 'Antwort wartet' : 'Antworten warten'} auf Prüfung`}
+          >
+            {s.reviewCount}
           </span>
         )}
       </div>

@@ -54,6 +54,8 @@ import { IFrameNode } from '../../nodes/IFrameNode/IFrameNode'
 import { LayoutContainerNode } from '../../nodes/LayoutNode'
 import { AlertNode } from '../../nodes/AlertNode/AlertNode'
 import { YouTubeNode } from '../../nodes/YouTubeNode'
+import { useExerciseQuestions } from '../../context/ExerciseQuestionContext'
+import { OPEN_EXERCISE_QUESTION_PICKER } from '../ExerciseQuestionPlugin'
 import { INSERT_ALERT_COMMAND } from '../AlertPlugin'
 import {
   Heading1,
@@ -81,6 +83,7 @@ import {
   AlignJustify,
   LineChart,
   Youtube,
+  ClipboardList,
 } from 'lucide-react'
 
 const Heading = (level: number) =>
@@ -188,6 +191,7 @@ class ComponentPickerOption extends MenuOption {
 
 export default function ComponentPickerMenuPlugin(): React.ReactElement {
   const [editor] = useLexicalComposerContext()
+  const canInsertQuestion = useExerciseQuestions()?.mode === 'teacher'
   const [queryString, setQueryString] = useState<string | null>(null)
   const openImageDialog = useCallback(
     () =>
@@ -537,6 +541,17 @@ export default function ComponentPickerMenuPlugin(): React.ReactElement {
       )
     }
 
+    if (canInsertQuestion) {
+      baseOptions.unshift(
+        new ComponentPickerOption('Aufgabe', {
+          icon: <ClipboardList className="size-4" />,
+          keywords: ['aufgabe', 'frage', 'quiz', 'test', 'question'],
+          keyboardShortcut: '/aufgabe',
+          onSelect: () => editor.dispatchCommand(OPEN_EXERCISE_QUESTION_PICKER, undefined),
+        })
+      )
+    }
+
     const dynamicOptions = getDynamicOptions()
 
     return queryString
@@ -553,6 +568,7 @@ export default function ComponentPickerMenuPlugin(): React.ReactElement {
         ]
       : baseOptions
   }, [
+    canInsertQuestion,
     editor,
     getDynamicOptions,
     queryString,

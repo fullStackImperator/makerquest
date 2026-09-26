@@ -33,14 +33,8 @@ export const getChapter = async ({
       throw new Error('Chapter or course not found')
     }
 
-    let attachments: Attachment[] = []
+    const attachments: Attachment[] = []
     let nextChapter: Chapter | null = null
-
-    if (purchase) {
-      attachments = await db.attachment.findMany({
-        where: { courseId },
-      })
-    }
 
     if (chapter.isFree || purchase) {
       nextChapter = await db.chapter.findFirst({

@@ -9,7 +9,7 @@ export function ShortTextInput({
   onChange,
   disabled,
 }: {
-  spec: ShortTextSpec
+  spec: Pick<ShortTextSpec, 'maxLength'>
   value: string
   onChange: (text: string) => void
   disabled?: boolean

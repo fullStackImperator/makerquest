@@ -42,6 +42,7 @@ export type ExerciseQuestionMinAggregateOutputType = {
   kind: $Enums.QuestionKind | null
   points: number | null
   position: number | null
+  archivedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -52,6 +53,7 @@ export type ExerciseQuestionMaxAggregateOutputType = {
   kind: $Enums.QuestionKind | null
   points: number | null
   position: number | null
+  archivedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +68,7 @@ export type ExerciseQuestionCountAggregateOutputType = {
   explanation: number
   points: number
   position: number
+  archivedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,6 +91,7 @@ export type ExerciseQuestionMinAggregateInputType = {
   kind?: true
   points?: true
   position?: true
+  archivedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -98,6 +102,7 @@ export type ExerciseQuestionMaxAggregateInputType = {
   kind?: true
   points?: true
   position?: true
+  archivedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +117,7 @@ export type ExerciseQuestionCountAggregateInputType = {
   explanation?: true
   points?: true
   position?: true
+  archivedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -213,6 +219,7 @@ export type ExerciseQuestionGroupByOutputType = {
   explanation: runtime.JsonValue | null
   points: number
   position: number
+  archivedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ExerciseQuestionCountAggregateOutputType | null
@@ -250,6 +257,7 @@ export type ExerciseQuestionWhereInput = {
   explanation?: Prisma.JsonNullableFilter<"ExerciseQuestion">
   points?: Prisma.IntFilter<"ExerciseQuestion"> | number
   position?: Prisma.IntFilter<"ExerciseQuestion"> | number
+  archivedAt?: Prisma.DateTimeNullableFilter<"ExerciseQuestion"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.ExerciseWhereInput>
@@ -266,6 +274,7 @@ export type ExerciseQuestionOrderByWithRelationInput = {
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   points?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   exercise?: Prisma.ExerciseOrderByWithRelationInput
@@ -285,6 +294,7 @@ export type ExerciseQuestionWhereUniqueInput = Prisma.AtLeast<{
   explanation?: Prisma.JsonNullableFilter<"ExerciseQuestion">
   points?: Prisma.IntFilter<"ExerciseQuestion"> | number
   position?: Prisma.IntFilter<"ExerciseQuestion"> | number
+  archivedAt?: Prisma.DateTimeNullableFilter<"ExerciseQuestion"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.ExerciseWhereInput>
@@ -301,6 +311,7 @@ export type ExerciseQuestionOrderByWithAggregationInput = {
   explanation?: Prisma.SortOrderInput | Prisma.SortOrder
   points?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExerciseQuestionCountOrderByAggregateInput
@@ -323,6 +334,7 @@ export type ExerciseQuestionScalarWhereWithAggregatesInput = {
   explanation?: Prisma.JsonNullableWithAggregatesFilter<"ExerciseQuestion">
   points?: Prisma.IntWithAggregatesFilter<"ExerciseQuestion"> | number
   position?: Prisma.IntWithAggregatesFilter<"ExerciseQuestion"> | number
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExerciseQuestion"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ExerciseQuestion"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ExerciseQuestion"> | Date | string
 }
@@ -336,6 +348,7 @@ export type ExerciseQuestionCreateInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   exercise: Prisma.ExerciseCreateNestedOneWithoutQuestionsInput
@@ -352,6 +365,7 @@ export type ExerciseQuestionUncheckedCreateInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   responses?: Prisma.ExerciseResponseUncheckedCreateNestedManyWithoutQuestionInput
@@ -366,6 +380,7 @@ export type ExerciseQuestionUpdateInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutQuestionsNestedInput
@@ -382,6 +397,7 @@ export type ExerciseQuestionUncheckedUpdateInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   responses?: Prisma.ExerciseResponseUncheckedUpdateManyWithoutQuestionNestedInput
@@ -397,6 +413,7 @@ export type ExerciseQuestionCreateManyInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -410,6 +427,7 @@ export type ExerciseQuestionUpdateManyMutationInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,6 +442,7 @@ export type ExerciseQuestionUncheckedUpdateManyInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -448,6 +467,7 @@ export type ExerciseQuestionCountOrderByAggregateInput = {
   explanation?: Prisma.SortOrder
   points?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -463,6 +483,7 @@ export type ExerciseQuestionMaxOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   points?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -473,6 +494,7 @@ export type ExerciseQuestionMinOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   points?: Prisma.SortOrder
   position?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -556,6 +578,7 @@ export type ExerciseQuestionCreateWithoutExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   responses?: Prisma.ExerciseResponseCreateNestedManyWithoutQuestionInput
@@ -570,6 +593,7 @@ export type ExerciseQuestionUncheckedCreateWithoutExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   responses?: Prisma.ExerciseResponseUncheckedCreateNestedManyWithoutQuestionInput
@@ -614,6 +638,7 @@ export type ExerciseQuestionScalarWhereInput = {
   explanation?: Prisma.JsonNullableFilter<"ExerciseQuestion">
   points?: Prisma.IntFilter<"ExerciseQuestion"> | number
   position?: Prisma.IntFilter<"ExerciseQuestion"> | number
+  archivedAt?: Prisma.DateTimeNullableFilter<"ExerciseQuestion"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ExerciseQuestion"> | Date | string
 }
@@ -627,6 +652,7 @@ export type ExerciseQuestionCreateWithoutResponsesInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   exercise: Prisma.ExerciseCreateNestedOneWithoutQuestionsInput
@@ -642,6 +668,7 @@ export type ExerciseQuestionUncheckedCreateWithoutResponsesInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -671,6 +698,7 @@ export type ExerciseQuestionUpdateWithoutResponsesInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutQuestionsNestedInput
@@ -686,6 +714,7 @@ export type ExerciseQuestionUncheckedUpdateWithoutResponsesInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -699,6 +728,7 @@ export type ExerciseQuestionCreateManyExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: number
   position: number
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -712,6 +742,7 @@ export type ExerciseQuestionUpdateWithoutExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   responses?: Prisma.ExerciseResponseUpdateManyWithoutQuestionNestedInput
@@ -726,6 +757,7 @@ export type ExerciseQuestionUncheckedUpdateWithoutExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   responses?: Prisma.ExerciseResponseUncheckedUpdateManyWithoutQuestionNestedInput
@@ -740,6 +772,7 @@ export type ExerciseQuestionUncheckedUpdateManyWithoutExerciseInput = {
   explanation?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   points?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.IntFieldUpdateOperationsInput | number
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -785,6 +818,7 @@ export type ExerciseQuestionSelect<ExtArgs extends runtime.Types.Extensions.Inte
   explanation?: boolean
   points?: boolean
   position?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
@@ -802,6 +836,7 @@ export type ExerciseQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   explanation?: boolean
   points?: boolean
   position?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
@@ -817,6 +852,7 @@ export type ExerciseQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   explanation?: boolean
   points?: boolean
   position?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
@@ -832,11 +868,12 @@ export type ExerciseQuestionSelectScalar = {
   explanation?: boolean
   points?: boolean
   position?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExerciseQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exerciseId" | "kind" | "prompt" | "spec" | "solution" | "explanation" | "points" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["exerciseQuestion"]>
+export type ExerciseQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exerciseId" | "kind" | "prompt" | "spec" | "solution" | "explanation" | "points" | "position" | "archivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["exerciseQuestion"]>
 export type ExerciseQuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
   responses?: boolean | Prisma.ExerciseQuestion$responsesArgs<ExtArgs>
@@ -865,6 +902,7 @@ export type $ExerciseQuestionPayload<ExtArgs extends runtime.Types.Extensions.In
     explanation: runtime.JsonValue | null
     points: number
     position: number
+    archivedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["exerciseQuestion"]>
@@ -1301,6 +1339,7 @@ export interface ExerciseQuestionFieldRefs {
   readonly explanation: Prisma.FieldRef<"ExerciseQuestion", 'Json'>
   readonly points: Prisma.FieldRef<"ExerciseQuestion", 'Int'>
   readonly position: Prisma.FieldRef<"ExerciseQuestion", 'Int'>
+  readonly archivedAt: Prisma.FieldRef<"ExerciseQuestion", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ExerciseQuestion", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ExerciseQuestion", 'DateTime'>
 }

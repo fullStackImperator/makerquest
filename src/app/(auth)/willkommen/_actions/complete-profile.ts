@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { db } from '@/lib/db'
 import { checkDisplayName, isNameBlocked } from '@/lib/name-policy'
 import { logBlockedName, logProfileChanges } from '@/lib/profile-log'
-import { getSessionUser } from '@/lib/get-session-user'
+import { getSessionUserIncludingUnapproved } from '@/lib/get-session-user'
 import {
   formatKlasse,
   KLASSE_LETTER_OPTIONAL_FROM,
@@ -24,7 +24,7 @@ const schema = z.object({
 export async function completeProfile(
   input: z.input<typeof schema>,
 ): Promise<{ success: false; error: string }> {
-  const user = await getSessionUser()
+  const user = await getSessionUserIncludingUnapproved()
   if (!user) return { success: false, error: 'Nicht angemeldet' }
 
   const parsed = schema.safeParse(input)

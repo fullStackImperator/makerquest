@@ -1,6 +1,6 @@
 'use client'
 
-import { Bell, CheckCircle2, MessageSquare, RotateCcw, Award, Send, ShieldAlert } from 'lucide-react'
+import { Bell, CheckCircle2, ClipboardCheck, ClipboardList, MessageSquare, RotateCcw, Award, Send, ShieldAlert } from 'lucide-react'
 
 import type { NotificationItem } from '@/actions/notifications'
 import { cn } from '@/lib/utils'
@@ -12,6 +12,8 @@ export const KIND_ICON: Record<NotificationItem['kind'], { icon: typeof Bell; cl
   JOURNAL_REVISION_REQUESTED: { icon: RotateCcw, className: 'bg-amber-500/15 text-amber-700 dark:text-amber-300' },
   JOURNAL_COMMENT: { icon: MessageSquare, className: 'bg-muted text-muted-foreground' },
   JOURNAL_FINAL_GRADE: { icon: Award, className: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300' },
+  EXERCISE_REVIEW_NEEDED: { icon: ClipboardList, className: 'bg-amber-500/15 text-amber-700 dark:text-amber-300' },
+  EXERCISE_REVIEWED: { icon: ClipboardCheck, className: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300' },
   ACCOUNT_NOTICE: { icon: ShieldAlert, className: 'bg-rose-500/15 text-rose-700 dark:text-rose-300' },
 }
 

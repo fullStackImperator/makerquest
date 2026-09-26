@@ -1,6 +1,5 @@
 'use client'
 
-import type { FillBlankSpec } from '@/lib/exercises/types'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
@@ -10,7 +9,7 @@ export function FillBlankInput({
   onChange,
   disabled,
 }: {
-  spec: FillBlankSpec
+  spec: { blanks: { id: string }[] }
   values: Record<string, string>
   onChange: (values: Record<string, string>) => void
   disabled?: boolean

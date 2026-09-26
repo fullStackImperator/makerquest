@@ -3,7 +3,7 @@ import type { Prisma } from '@/generated/client'
 
 const LEVEL_SCALE = 12
 
-function getDifficultyMultiplier(level: string): number {
+export function getDifficultyMultiplier(level: string): number {
   switch (level) {
     case 'VERY_EASY':
       return 1

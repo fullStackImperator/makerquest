@@ -19,10 +19,12 @@ export function H5pEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as H5pSpec
   const [embedUrl, setEmbedUrl] = useState(spec.embedUrl ?? '')
@@ -52,6 +54,7 @@ export function H5pEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <div className="space-y-4">
         <div className="space-y-1">

@@ -40,7 +40,11 @@ export const getLeaderboard = async (
 
     const [users, userBadgesList] = await Promise.all([
       db.user.findMany({
-        where: { id: { in: userIds } },
+        where: {
+          id: { in: userIds },
+          isTeacher: { not: true },
+          isAdmin: { not: true },
+        },
         select: {
           id: true,
           name: true,
@@ -71,7 +75,7 @@ export const getLeaderboard = async (
       badgesByUser.set(ub.userId, list)
     }
 
-    const leaderboard: LeaderboardUser[] = userExperiences.map((ux) => {
+    const leaderboard: LeaderboardUser[] = userExperiences.filter((ux) => userMap.has(ux.userId)).map((ux) => {
       const user = userMap.get(ux.userId)
       const totalXP = fachId ? 0 : ux._sum.experience ?? 0
       const fachXP = fachId ? ux._sum.experience ?? 0 : 0

@@ -13,10 +13,12 @@ export function MathQuestionEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as MathSpec
   const solution = question.solution as MathSolution
@@ -36,6 +38,7 @@ export function MathQuestionEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <div className="space-y-3">
         <Label>Zulässige Ausdrücke (LaTeX)</Label>

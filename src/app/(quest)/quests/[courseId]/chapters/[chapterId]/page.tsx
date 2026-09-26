@@ -1,4 +1,8 @@
 import { getChapter } from './_actions/get-chapter'
+import { LockedByExercise } from '@/components/exercises/locked-by-exercise'
+import { getCourseProgressionForPage } from '@/lib/exercises/progression'
+import { getInlineQuestionsForStudent } from '@/lib/exercises/inline'
+import { ChapterQuestionsProvider } from '@/components/exercises/chapter-questions-provider'
 import { Banner } from '@/components/banner'
 import { getSessionUser } from '@/lib/get-session-user'
 import { redirect } from 'next/navigation'
@@ -43,6 +47,17 @@ const ChapterIdPage = async ({
   }
 
   const isLocked = !chapter.isFree && !purchase
+  const inlineQuestions = isLocked ? [] : await getInlineQuestionsForStudent(user.id, chapterId)
+
+  const { items } = await getCourseProgressionForPage(user.id, courseId)
+  const lockedBy = items.find((i) => i.id === chapterId)?.lockedBy
+  if (lockedBy) {
+    return (
+      <div className="px-4 py-10">
+        <LockedByExercise courseId={courseId} exercise={lockedBy} />
+      </div>
+    )
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 pb-12">
@@ -60,11 +75,14 @@ const ChapterIdPage = async ({
       )}
 
       <div className="min-w-0">
-        <Editor
-          key="readonly-editor"
-          editorData={parseEditorData(chapter.mathEditor)}
-          editorEditable={false}
-        />
+        {/* Public question data for the chapter's "Aufgabe" blocks (no solutions). */}
+        <ChapterQuestionsProvider items={inlineQuestions}>
+          <Editor
+            key="readonly-editor"
+            editorData={parseEditorData(chapter.mathEditor)}
+            editorEditable={false}
+          />
+        </ChapterQuestionsProvider>
       </div>
     </div>
   )

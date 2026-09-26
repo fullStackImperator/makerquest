@@ -13,10 +13,12 @@ export function ShortTextEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as ShortTextSpec
   const [rubric, setRubric] = useState(spec.rubric ?? '')
@@ -42,6 +44,7 @@ export function ShortTextEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <div className="space-y-3">
         <div>

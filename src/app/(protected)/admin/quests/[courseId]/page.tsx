@@ -123,6 +123,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
         orderBy: { position: 'asc' },
       },
       exercises: {
+        where: { chapterId: null }, // chapter question containers aren't course items
         orderBy: { position: 'asc' },
       },
       categories: true,
@@ -149,6 +150,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   const pendingExerciseReviews = await db.exerciseResponse.count({
     where: {
       needsReview: true,
+      question: { archivedAt: null },
       attempt: { exercise: { courseId } },
     },
   })
@@ -280,7 +282,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             )}
             {pendingExerciseReviews > 0 && (
               <Link
-                href={`/admin/quests/${courseId}/reviews`}
+                href={`/admin/journal?course=${courseId}`}
                 className="border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/15 flex items-center gap-3 rounded-lg border px-4 py-3 text-sm transition-colors"
               >
                 <ClipboardCheck className="size-5 shrink-0 text-amber-700" />

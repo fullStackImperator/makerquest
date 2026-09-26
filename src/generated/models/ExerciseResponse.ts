@@ -27,11 +27,15 @@ export type AggregateExerciseResponse = {
 }
 
 export type ExerciseResponseAvgAggregateOutputType = {
+  tries: number | null
+  firstTryScore: number | null
   autoScore: number | null
   finalScore: number | null
 }
 
 export type ExerciseResponseSumAggregateOutputType = {
+  tries: number | null
+  firstTryScore: number | null
   autoScore: number | null
   finalScore: number | null
 }
@@ -40,6 +44,10 @@ export type ExerciseResponseMinAggregateOutputType = {
   id: string | null
   attemptId: string | null
   questionId: string | null
+  tries: number | null
+  firstTryScore: number | null
+  correct: boolean | null
+  checkedAt: Date | null
   autoScore: number | null
   finalScore: number | null
   needsReview: boolean | null
@@ -53,6 +61,10 @@ export type ExerciseResponseMaxAggregateOutputType = {
   id: string | null
   attemptId: string | null
   questionId: string | null
+  tries: number | null
+  firstTryScore: number | null
+  correct: boolean | null
+  checkedAt: Date | null
   autoScore: number | null
   finalScore: number | null
   needsReview: boolean | null
@@ -67,6 +79,10 @@ export type ExerciseResponseCountAggregateOutputType = {
   attemptId: number
   questionId: number
   answer: number
+  tries: number
+  firstTryScore: number
+  correct: number
+  checkedAt: number
   autoScore: number
   finalScore: number
   feedback: number
@@ -80,11 +96,15 @@ export type ExerciseResponseCountAggregateOutputType = {
 
 
 export type ExerciseResponseAvgAggregateInputType = {
+  tries?: true
+  firstTryScore?: true
   autoScore?: true
   finalScore?: true
 }
 
 export type ExerciseResponseSumAggregateInputType = {
+  tries?: true
+  firstTryScore?: true
   autoScore?: true
   finalScore?: true
 }
@@ -93,6 +113,10 @@ export type ExerciseResponseMinAggregateInputType = {
   id?: true
   attemptId?: true
   questionId?: true
+  tries?: true
+  firstTryScore?: true
+  correct?: true
+  checkedAt?: true
   autoScore?: true
   finalScore?: true
   needsReview?: true
@@ -106,6 +130,10 @@ export type ExerciseResponseMaxAggregateInputType = {
   id?: true
   attemptId?: true
   questionId?: true
+  tries?: true
+  firstTryScore?: true
+  correct?: true
+  checkedAt?: true
   autoScore?: true
   finalScore?: true
   needsReview?: true
@@ -120,6 +148,10 @@ export type ExerciseResponseCountAggregateInputType = {
   attemptId?: true
   questionId?: true
   answer?: true
+  tries?: true
+  firstTryScore?: true
+  correct?: true
+  checkedAt?: true
   autoScore?: true
   finalScore?: true
   feedback?: true
@@ -222,6 +254,10 @@ export type ExerciseResponseGroupByOutputType = {
   attemptId: string
   questionId: string
   answer: runtime.JsonValue
+  tries: number
+  firstTryScore: number | null
+  correct: boolean | null
+  checkedAt: Date | null
   autoScore: number | null
   finalScore: number | null
   feedback: runtime.JsonValue | null
@@ -260,6 +296,10 @@ export type ExerciseResponseWhereInput = {
   attemptId?: Prisma.StringFilter<"ExerciseResponse"> | string
   questionId?: Prisma.StringFilter<"ExerciseResponse"> | string
   answer?: Prisma.JsonFilter<"ExerciseResponse">
+  tries?: Prisma.IntFilter<"ExerciseResponse"> | number
+  firstTryScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
+  correct?: Prisma.BoolNullableFilter<"ExerciseResponse"> | boolean | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"ExerciseResponse"> | Date | string | null
   autoScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   finalScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   feedback?: Prisma.JsonNullableFilter<"ExerciseResponse">
@@ -277,6 +317,10 @@ export type ExerciseResponseOrderByWithRelationInput = {
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  correct?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   autoScore?: Prisma.SortOrderInput | Prisma.SortOrder
   finalScore?: Prisma.SortOrderInput | Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -298,6 +342,10 @@ export type ExerciseResponseWhereUniqueInput = Prisma.AtLeast<{
   attemptId?: Prisma.StringFilter<"ExerciseResponse"> | string
   questionId?: Prisma.StringFilter<"ExerciseResponse"> | string
   answer?: Prisma.JsonFilter<"ExerciseResponse">
+  tries?: Prisma.IntFilter<"ExerciseResponse"> | number
+  firstTryScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
+  correct?: Prisma.BoolNullableFilter<"ExerciseResponse"> | boolean | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"ExerciseResponse"> | Date | string | null
   autoScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   finalScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   feedback?: Prisma.JsonNullableFilter<"ExerciseResponse">
@@ -315,6 +363,10 @@ export type ExerciseResponseOrderByWithAggregationInput = {
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  correct?: Prisma.SortOrderInput | Prisma.SortOrder
+  checkedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   autoScore?: Prisma.SortOrderInput | Prisma.SortOrder
   finalScore?: Prisma.SortOrderInput | Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -338,6 +390,10 @@ export type ExerciseResponseScalarWhereWithAggregatesInput = {
   attemptId?: Prisma.StringWithAggregatesFilter<"ExerciseResponse"> | string
   questionId?: Prisma.StringWithAggregatesFilter<"ExerciseResponse"> | string
   answer?: Prisma.JsonWithAggregatesFilter<"ExerciseResponse">
+  tries?: Prisma.IntWithAggregatesFilter<"ExerciseResponse"> | number
+  firstTryScore?: Prisma.IntNullableWithAggregatesFilter<"ExerciseResponse"> | number | null
+  correct?: Prisma.BoolNullableWithAggregatesFilter<"ExerciseResponse"> | boolean | null
+  checkedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExerciseResponse"> | Date | string | null
   autoScore?: Prisma.IntNullableWithAggregatesFilter<"ExerciseResponse"> | number | null
   finalScore?: Prisma.IntNullableWithAggregatesFilter<"ExerciseResponse"> | number | null
   feedback?: Prisma.JsonNullableWithAggregatesFilter<"ExerciseResponse">
@@ -351,6 +407,10 @@ export type ExerciseResponseScalarWhereWithAggregatesInput = {
 export type ExerciseResponseCreateInput = {
   id?: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -368,6 +428,10 @@ export type ExerciseResponseUncheckedCreateInput = {
   attemptId: string
   questionId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -381,6 +445,10 @@ export type ExerciseResponseUncheckedCreateInput = {
 export type ExerciseResponseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -398,6 +466,10 @@ export type ExerciseResponseUncheckedUpdateInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -413,6 +485,10 @@ export type ExerciseResponseCreateManyInput = {
   attemptId: string
   questionId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -426,6 +502,10 @@ export type ExerciseResponseCreateManyInput = {
 export type ExerciseResponseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -441,6 +521,10 @@ export type ExerciseResponseUncheckedUpdateManyInput = {
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -471,6 +555,10 @@ export type ExerciseResponseCountOrderByAggregateInput = {
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrder
+  correct?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
   autoScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
   feedback?: Prisma.SortOrder
@@ -482,6 +570,8 @@ export type ExerciseResponseCountOrderByAggregateInput = {
 }
 
 export type ExerciseResponseAvgOrderByAggregateInput = {
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrder
   autoScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
 }
@@ -490,6 +580,10 @@ export type ExerciseResponseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrder
+  correct?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
   autoScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
   needsReview?: Prisma.SortOrder
@@ -503,6 +597,10 @@ export type ExerciseResponseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   attemptId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrder
+  correct?: Prisma.SortOrder
+  checkedAt?: Prisma.SortOrder
   autoScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
   needsReview?: Prisma.SortOrder
@@ -513,6 +611,8 @@ export type ExerciseResponseMinOrderByAggregateInput = {
 }
 
 export type ExerciseResponseSumOrderByAggregateInput = {
+  tries?: Prisma.SortOrder
+  firstTryScore?: Prisma.SortOrder
   autoScore?: Prisma.SortOrder
   finalScore?: Prisma.SortOrder
 }
@@ -604,6 +704,10 @@ export type ExerciseResponseUncheckedUpdateManyWithoutAttemptNestedInput = {
 export type ExerciseResponseCreateWithoutQuestionInput = {
   id?: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -619,6 +723,10 @@ export type ExerciseResponseUncheckedCreateWithoutQuestionInput = {
   id?: string
   attemptId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -663,6 +771,10 @@ export type ExerciseResponseScalarWhereInput = {
   attemptId?: Prisma.StringFilter<"ExerciseResponse"> | string
   questionId?: Prisma.StringFilter<"ExerciseResponse"> | string
   answer?: Prisma.JsonFilter<"ExerciseResponse">
+  tries?: Prisma.IntFilter<"ExerciseResponse"> | number
+  firstTryScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
+  correct?: Prisma.BoolNullableFilter<"ExerciseResponse"> | boolean | null
+  checkedAt?: Prisma.DateTimeNullableFilter<"ExerciseResponse"> | Date | string | null
   autoScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   finalScore?: Prisma.IntNullableFilter<"ExerciseResponse"> | number | null
   feedback?: Prisma.JsonNullableFilter<"ExerciseResponse">
@@ -676,6 +788,10 @@ export type ExerciseResponseScalarWhereInput = {
 export type ExerciseResponseCreateWithoutAttemptInput = {
   id?: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -691,6 +807,10 @@ export type ExerciseResponseUncheckedCreateWithoutAttemptInput = {
   id?: string
   questionId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -731,6 +851,10 @@ export type ExerciseResponseCreateManyQuestionInput = {
   id?: string
   attemptId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -744,6 +868,10 @@ export type ExerciseResponseCreateManyQuestionInput = {
 export type ExerciseResponseUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -759,6 +887,10 @@ export type ExerciseResponseUncheckedUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -773,6 +905,10 @@ export type ExerciseResponseUncheckedUpdateManyWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   attemptId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -787,6 +923,10 @@ export type ExerciseResponseCreateManyAttemptInput = {
   id?: string
   questionId: string
   answer: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: number
+  firstTryScore?: number | null
+  correct?: boolean | null
+  checkedAt?: Date | string | null
   autoScore?: number | null
   finalScore?: number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -800,6 +940,10 @@ export type ExerciseResponseCreateManyAttemptInput = {
 export type ExerciseResponseUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -815,6 +959,10 @@ export type ExerciseResponseUncheckedUpdateWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -829,6 +977,10 @@ export type ExerciseResponseUncheckedUpdateManyWithoutAttemptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  tries?: Prisma.IntFieldUpdateOperationsInput | number
+  firstTryScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  correct?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  checkedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   autoScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   finalScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   feedback?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -846,6 +998,10 @@ export type ExerciseResponseSelect<ExtArgs extends runtime.Types.Extensions.Inte
   attemptId?: boolean
   questionId?: boolean
   answer?: boolean
+  tries?: boolean
+  firstTryScore?: boolean
+  correct?: boolean
+  checkedAt?: boolean
   autoScore?: boolean
   finalScore?: boolean
   feedback?: boolean
@@ -863,6 +1019,10 @@ export type ExerciseResponseSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   attemptId?: boolean
   questionId?: boolean
   answer?: boolean
+  tries?: boolean
+  firstTryScore?: boolean
+  correct?: boolean
+  checkedAt?: boolean
   autoScore?: boolean
   finalScore?: boolean
   feedback?: boolean
@@ -880,6 +1040,10 @@ export type ExerciseResponseSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   attemptId?: boolean
   questionId?: boolean
   answer?: boolean
+  tries?: boolean
+  firstTryScore?: boolean
+  correct?: boolean
+  checkedAt?: boolean
   autoScore?: boolean
   finalScore?: boolean
   feedback?: boolean
@@ -897,6 +1061,10 @@ export type ExerciseResponseSelectScalar = {
   attemptId?: boolean
   questionId?: boolean
   answer?: boolean
+  tries?: boolean
+  firstTryScore?: boolean
+  correct?: boolean
+  checkedAt?: boolean
   autoScore?: boolean
   finalScore?: boolean
   feedback?: boolean
@@ -907,7 +1075,7 @@ export type ExerciseResponseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ExerciseResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "answer" | "autoScore" | "finalScore" | "feedback" | "needsReview" | "reviewedBy" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["exerciseResponse"]>
+export type ExerciseResponseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "answer" | "tries" | "firstTryScore" | "correct" | "checkedAt" | "autoScore" | "finalScore" | "feedback" | "needsReview" | "reviewedBy" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["exerciseResponse"]>
 export type ExerciseResponseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.ExerciseAttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.ExerciseQuestionDefaultArgs<ExtArgs>
@@ -932,6 +1100,10 @@ export type $ExerciseResponsePayload<ExtArgs extends runtime.Types.Extensions.In
     attemptId: string
     questionId: string
     answer: runtime.JsonValue
+    tries: number
+    firstTryScore: number | null
+    correct: boolean | null
+    checkedAt: Date | null
     autoScore: number | null
     finalScore: number | null
     feedback: runtime.JsonValue | null
@@ -1369,6 +1541,10 @@ export interface ExerciseResponseFieldRefs {
   readonly attemptId: Prisma.FieldRef<"ExerciseResponse", 'String'>
   readonly questionId: Prisma.FieldRef<"ExerciseResponse", 'String'>
   readonly answer: Prisma.FieldRef<"ExerciseResponse", 'Json'>
+  readonly tries: Prisma.FieldRef<"ExerciseResponse", 'Int'>
+  readonly firstTryScore: Prisma.FieldRef<"ExerciseResponse", 'Int'>
+  readonly correct: Prisma.FieldRef<"ExerciseResponse", 'Boolean'>
+  readonly checkedAt: Prisma.FieldRef<"ExerciseResponse", 'DateTime'>
   readonly autoScore: Prisma.FieldRef<"ExerciseResponse", 'Int'>
   readonly finalScore: Prisma.FieldRef<"ExerciseResponse", 'Int'>
   readonly feedback: Prisma.FieldRef<"ExerciseResponse", 'Json'>

@@ -7,6 +7,7 @@ import slugify from 'slugify'
 import { env } from './env'
 import { APIError } from 'better-auth/api'
 import { checkDisplayName, isNameBlocked } from './name-policy'
+import { isAutoApprovedEmail } from './approval'
 
 function makeSlug(name: string) {
   return slugify(name, { lower: true, strict: true })
@@ -95,10 +96,11 @@ export const auth = betterAuth({
 
           // console.log('FINAL SLUG:', slug, 'typeof:', typeof slug)
 
-          // Update the user with the slug
+          // School addresses are approved right away; everyone else waits
+          // for a teacher or admin (see /admin/users).
           await db.user.update({
             where: { id: user.id },
-            data: { slug },
+            data: { slug, ...(isAutoApprovedEmail(user.email) ? { approvedAt: new Date() } : {}) },
           })
 
           // console.log('✅ User created with slug:', updatedUser.slug)

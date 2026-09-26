@@ -24,12 +24,14 @@ export function QuestionEditorShell({
   exerciseId,
   children,
   onSaveSpec,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
   children: React.ReactNode
   onSaveSpec: () => Promise<{ spec: string; solution: string }>
+  onSaved?: () => void
 }) {
   const router = useRouter()
   const promptRef = useRef<string | null>(null)
@@ -57,6 +59,7 @@ export function QuestionEditorShell({
     if (result.success) {
       toast.success('Frage gespeichert')
       router.refresh()
+      onSaved?.()
     } else {
       toast.error(result.error)
     }

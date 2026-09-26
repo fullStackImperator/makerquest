@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation'
 
-import { getSessionUser } from '@/lib/get-session-user'
+import { getSessionUserIncludingUnapproved } from '@/lib/get-session-user'
 import { isNameBlocked } from '@/lib/name-policy'
 import { needsProfileCompletion, parseKlasse } from '@/lib/profile'
 import { ProfileForm } from './_components/profile-form'
 
 export default async function WillkommenPage() {
-  const user = await getSessionUser()
+  const user = await getSessionUserIncludingUnapproved()
   if (!user) redirect('/login')
 
   if (!needsProfileCompletion(user)) {

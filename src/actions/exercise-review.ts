@@ -1,0 +1,96 @@
+'use server'
+
+import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
+
+import { Prisma } from '@/generated/client'
+import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
+import { db } from '@/lib/db'
+import { recomputeAttempt } from '@/lib/exercises/attempt'
+import { getSessionUser } from '@/lib/get-session-user'
+import {
+  markExerciseReviewNotificationsRead,
+  notifyStudentOfExerciseReview,
+} from '@/lib/notifications'
+import { logSecurityEvent } from '@/lib/security-log'
+
+type ActionResult = { success: true } | { success: false; error: string }
+
+const reviewSchema = z.object({
+  courseId: z.string().min(1),
+  responseId: z.string().min(1),
+  score: z.number().int().min(0),
+  feedback: z.string().max(2000),
+})
+
+/**
+ * Grades a short answer waiting for review. The teacher's points are the
+ * points that count; the attempt is recomputed and may pay its XP.
+ */
+export async function reviewExerciseResponse(input: z.input<typeof reviewSchema>): Promise<ActionResult> {
+  const parsed = reviewSchema.safeParse(input)
+  if (!parsed.success) return { success: false, error: 'Ungültige Eingabe' }
+  const { courseId, responseId, score, feedback } = parsed.data
+
+  const user = await getSessionUser()
+  const teachable = user ? await getCourseIfTeachable(courseId, user) : null
+  if (!user || !teachable) {
+    await logSecurityEvent('unauthorized-action', {
+      action: 'exercise-review',
+      userId: user?.id ?? null,
+      courseId,
+    })
+    return { success: false, error: 'Keine Berechtigung' }
+  }
+
+  const response = await db.exerciseResponse.findUnique({
+    where: { id: responseId },
+    select: {
+      attemptId: true,
+      needsReview: true,
+      question: { select: { points: true } },
+      attempt: { select: { userId: true, exercise: { select: { courseId: true } } } },
+    },
+  })
+  if (!response || response.attempt.exercise.courseId !== courseId) {
+    return { success: false, error: 'Antwort nicht gefunden' }
+  }
+  if (!response.needsReview) return { success: false, error: 'Diese Antwort ist schon bewertet' }
+  if (score > response.question.points) {
+    return { success: false, error: `Höchstens ${response.question.points} Punkte` }
+  }
+
+  // Only the first review counts; a concurrent second one finds nothing to update.
+  const updated = await db.exerciseResponse.updateMany({
+    where: { id: responseId, needsReview: true },
+    data: {
+      finalScore: score,
+      firstTryScore: score,
+      correct: score >= response.question.points,
+      // Empty clears the AI text, so a fallback like "nicht verfügbar" never reaches the student.
+      feedback: feedback.trim() || Prisma.JsonNull,
+      needsReview: false,
+      reviewedBy: user.id,
+      reviewedAt: new Date(),
+    },
+  })
+  if (updated.count === 0) return { success: false, error: 'Diese Antwort ist schon bewertet' }
+
+  await recomputeAttempt(response.attemptId)
+
+  const studentId = response.attempt.userId
+  await notifyStudentOfExerciseReview(studentId, courseId, user.id)
+  const stillPending = await db.exerciseResponse.count({
+    where: {
+      needsReview: true,
+      question: { archivedAt: null },
+      attempt: { userId: studentId, exercise: { courseId } },
+    },
+  })
+  if (stillPending === 0) await markExerciseReviewNotificationsRead(studentId, courseId)
+
+  revalidatePath('/admin/journal')
+  revalidatePath(`/admin/quests/${courseId}`)
+  revalidatePath(`/quests/${courseId}`, 'layout')
+  return { success: true }
+}

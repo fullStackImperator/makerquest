@@ -19,7 +19,7 @@ export function DragDropInput({
   onChange,
   disabled,
 }: {
-  spec: DragDropSpec
+  spec: Pick<DragDropSpec, 'mode' | 'items' | 'targets'>
   value: { order?: string[]; pairs?: Record<string, string> }
   onChange: (v: { order?: string[]; pairs?: Record<string, string> }) => void
   disabled?: boolean

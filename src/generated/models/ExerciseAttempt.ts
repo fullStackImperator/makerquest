@@ -29,11 +29,13 @@ export type AggregateExerciseAttempt = {
 export type ExerciseAttemptAvgAggregateOutputType = {
   totalScore: number | null
   maxScore: number | null
+  xpAwarded: number | null
 }
 
 export type ExerciseAttemptSumAggregateOutputType = {
   totalScore: number | null
   maxScore: number | null
+  xpAwarded: number | null
 }
 
 export type ExerciseAttemptMinAggregateOutputType = {
@@ -45,6 +47,8 @@ export type ExerciseAttemptMinAggregateOutputType = {
   totalScore: number | null
   maxScore: number | null
   status: $Enums.AttemptStatus | null
+  xpAwarded: number | null
+  xpAwardedAt: Date | null
 }
 
 export type ExerciseAttemptMaxAggregateOutputType = {
@@ -56,6 +60,8 @@ export type ExerciseAttemptMaxAggregateOutputType = {
   totalScore: number | null
   maxScore: number | null
   status: $Enums.AttemptStatus | null
+  xpAwarded: number | null
+  xpAwardedAt: Date | null
 }
 
 export type ExerciseAttemptCountAggregateOutputType = {
@@ -67,6 +73,8 @@ export type ExerciseAttemptCountAggregateOutputType = {
   totalScore: number
   maxScore: number
   status: number
+  xpAwarded: number
+  xpAwardedAt: number
   _all: number
 }
 
@@ -74,11 +82,13 @@ export type ExerciseAttemptCountAggregateOutputType = {
 export type ExerciseAttemptAvgAggregateInputType = {
   totalScore?: true
   maxScore?: true
+  xpAwarded?: true
 }
 
 export type ExerciseAttemptSumAggregateInputType = {
   totalScore?: true
   maxScore?: true
+  xpAwarded?: true
 }
 
 export type ExerciseAttemptMinAggregateInputType = {
@@ -90,6 +100,8 @@ export type ExerciseAttemptMinAggregateInputType = {
   totalScore?: true
   maxScore?: true
   status?: true
+  xpAwarded?: true
+  xpAwardedAt?: true
 }
 
 export type ExerciseAttemptMaxAggregateInputType = {
@@ -101,6 +113,8 @@ export type ExerciseAttemptMaxAggregateInputType = {
   totalScore?: true
   maxScore?: true
   status?: true
+  xpAwarded?: true
+  xpAwardedAt?: true
 }
 
 export type ExerciseAttemptCountAggregateInputType = {
@@ -112,6 +126,8 @@ export type ExerciseAttemptCountAggregateInputType = {
   totalScore?: true
   maxScore?: true
   status?: true
+  xpAwarded?: true
+  xpAwardedAt?: true
   _all?: true
 }
 
@@ -210,6 +226,8 @@ export type ExerciseAttemptGroupByOutputType = {
   totalScore: number
   maxScore: number
   status: $Enums.AttemptStatus
+  xpAwarded: number
+  xpAwardedAt: Date | null
   _count: ExerciseAttemptCountAggregateOutputType | null
   _avg: ExerciseAttemptAvgAggregateOutputType | null
   _sum: ExerciseAttemptSumAggregateOutputType | null
@@ -244,6 +262,8 @@ export type ExerciseAttemptWhereInput = {
   totalScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   maxScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   status?: Prisma.EnumAttemptStatusFilter<"ExerciseAttempt"> | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFilter<"ExerciseAttempt"> | number
+  xpAwardedAt?: Prisma.DateTimeNullableFilter<"ExerciseAttempt"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.ExerciseWhereInput>
   responses?: Prisma.ExerciseResponseListRelationFilter
@@ -258,6 +278,8 @@ export type ExerciseAttemptOrderByWithRelationInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
+  xpAwardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   exercise?: Prisma.ExerciseOrderByWithRelationInput
   responses?: Prisma.ExerciseResponseOrderByRelationAggregateInput
@@ -276,6 +298,8 @@ export type ExerciseAttemptWhereUniqueInput = Prisma.AtLeast<{
   totalScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   maxScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   status?: Prisma.EnumAttemptStatusFilter<"ExerciseAttempt"> | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFilter<"ExerciseAttempt"> | number
+  xpAwardedAt?: Prisma.DateTimeNullableFilter<"ExerciseAttempt"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.ExerciseWhereInput>
   responses?: Prisma.ExerciseResponseListRelationFilter
@@ -290,6 +314,8 @@ export type ExerciseAttemptOrderByWithAggregationInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
+  xpAwardedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ExerciseAttemptCountOrderByAggregateInput
   _avg?: Prisma.ExerciseAttemptAvgOrderByAggregateInput
   _max?: Prisma.ExerciseAttemptMaxOrderByAggregateInput
@@ -309,6 +335,8 @@ export type ExerciseAttemptScalarWhereWithAggregatesInput = {
   totalScore?: Prisma.IntWithAggregatesFilter<"ExerciseAttempt"> | number
   maxScore?: Prisma.IntWithAggregatesFilter<"ExerciseAttempt"> | number
   status?: Prisma.EnumAttemptStatusWithAggregatesFilter<"ExerciseAttempt"> | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntWithAggregatesFilter<"ExerciseAttempt"> | number
+  xpAwardedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ExerciseAttempt"> | Date | string | null
 }
 
 export type ExerciseAttemptCreateInput = {
@@ -318,6 +346,8 @@ export type ExerciseAttemptCreateInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutExerciseAttemptsInput
   exercise: Prisma.ExerciseCreateNestedOneWithoutAttemptsInput
   responses?: Prisma.ExerciseResponseCreateNestedManyWithoutAttemptInput
@@ -332,6 +362,8 @@ export type ExerciseAttemptUncheckedCreateInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedCreateNestedManyWithoutAttemptInput
 }
 
@@ -342,6 +374,8 @@ export type ExerciseAttemptUpdateInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutExerciseAttemptsNestedInput
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutAttemptsNestedInput
   responses?: Prisma.ExerciseResponseUpdateManyWithoutAttemptNestedInput
@@ -356,6 +390,8 @@ export type ExerciseAttemptUncheckedUpdateInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
@@ -368,6 +404,8 @@ export type ExerciseAttemptCreateManyInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
 }
 
 export type ExerciseAttemptUpdateManyMutationInput = {
@@ -377,6 +415,8 @@ export type ExerciseAttemptUpdateManyMutationInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExerciseAttemptUncheckedUpdateManyInput = {
@@ -388,6 +428,8 @@ export type ExerciseAttemptUncheckedUpdateManyInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExerciseAttemptListRelationFilter = {
@@ -414,11 +456,14 @@ export type ExerciseAttemptCountOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
+  xpAwardedAt?: Prisma.SortOrder
 }
 
 export type ExerciseAttemptAvgOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
 }
 
 export type ExerciseAttemptMaxOrderByAggregateInput = {
@@ -430,6 +475,8 @@ export type ExerciseAttemptMaxOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
+  xpAwardedAt?: Prisma.SortOrder
 }
 
 export type ExerciseAttemptMinOrderByAggregateInput = {
@@ -441,11 +488,14 @@ export type ExerciseAttemptMinOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
+  xpAwardedAt?: Prisma.SortOrder
 }
 
 export type ExerciseAttemptSumOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
   maxScore?: Prisma.SortOrder
+  xpAwarded?: Prisma.SortOrder
 }
 
 export type ExerciseAttemptScalarRelationFilter = {
@@ -562,6 +612,8 @@ export type ExerciseAttemptCreateWithoutUserInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   exercise: Prisma.ExerciseCreateNestedOneWithoutAttemptsInput
   responses?: Prisma.ExerciseResponseCreateNestedManyWithoutAttemptInput
 }
@@ -574,6 +626,8 @@ export type ExerciseAttemptUncheckedCreateWithoutUserInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedCreateNestedManyWithoutAttemptInput
 }
 
@@ -615,6 +669,8 @@ export type ExerciseAttemptScalarWhereInput = {
   totalScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   maxScore?: Prisma.IntFilter<"ExerciseAttempt"> | number
   status?: Prisma.EnumAttemptStatusFilter<"ExerciseAttempt"> | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFilter<"ExerciseAttempt"> | number
+  xpAwardedAt?: Prisma.DateTimeNullableFilter<"ExerciseAttempt"> | Date | string | null
 }
 
 export type ExerciseAttemptCreateWithoutExerciseInput = {
@@ -624,6 +680,8 @@ export type ExerciseAttemptCreateWithoutExerciseInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutExerciseAttemptsInput
   responses?: Prisma.ExerciseResponseCreateNestedManyWithoutAttemptInput
 }
@@ -636,6 +694,8 @@ export type ExerciseAttemptUncheckedCreateWithoutExerciseInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedCreateNestedManyWithoutAttemptInput
 }
 
@@ -672,6 +732,8 @@ export type ExerciseAttemptCreateWithoutResponsesInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutExerciseAttemptsInput
   exercise: Prisma.ExerciseCreateNestedOneWithoutAttemptsInput
 }
@@ -685,6 +747,8 @@ export type ExerciseAttemptUncheckedCreateWithoutResponsesInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
 }
 
 export type ExerciseAttemptCreateOrConnectWithoutResponsesInput = {
@@ -710,6 +774,8 @@ export type ExerciseAttemptUpdateWithoutResponsesInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutExerciseAttemptsNestedInput
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutAttemptsNestedInput
 }
@@ -723,6 +789,8 @@ export type ExerciseAttemptUncheckedUpdateWithoutResponsesInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExerciseAttemptCreateManyUserInput = {
@@ -733,6 +801,8 @@ export type ExerciseAttemptCreateManyUserInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
 }
 
 export type ExerciseAttemptUpdateWithoutUserInput = {
@@ -742,6 +812,8 @@ export type ExerciseAttemptUpdateWithoutUserInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   exercise?: Prisma.ExerciseUpdateOneRequiredWithoutAttemptsNestedInput
   responses?: Prisma.ExerciseResponseUpdateManyWithoutAttemptNestedInput
 }
@@ -754,6 +826,8 @@ export type ExerciseAttemptUncheckedUpdateWithoutUserInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
@@ -765,6 +839,8 @@ export type ExerciseAttemptUncheckedUpdateManyWithoutUserInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ExerciseAttemptCreateManyExerciseInput = {
@@ -775,6 +851,8 @@ export type ExerciseAttemptCreateManyExerciseInput = {
   totalScore?: number
   maxScore?: number
   status?: $Enums.AttemptStatus
+  xpAwarded?: number
+  xpAwardedAt?: Date | string | null
 }
 
 export type ExerciseAttemptUpdateWithoutExerciseInput = {
@@ -784,6 +862,8 @@ export type ExerciseAttemptUpdateWithoutExerciseInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutExerciseAttemptsNestedInput
   responses?: Prisma.ExerciseResponseUpdateManyWithoutAttemptNestedInput
 }
@@ -796,6 +876,8 @@ export type ExerciseAttemptUncheckedUpdateWithoutExerciseInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   responses?: Prisma.ExerciseResponseUncheckedUpdateManyWithoutAttemptNestedInput
 }
 
@@ -807,6 +889,8 @@ export type ExerciseAttemptUncheckedUpdateManyWithoutExerciseInput = {
   totalScore?: Prisma.IntFieldUpdateOperationsInput | number
   maxScore?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumAttemptStatusFieldUpdateOperationsInput | $Enums.AttemptStatus
+  xpAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  xpAwardedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -849,6 +933,8 @@ export type ExerciseAttemptSelect<ExtArgs extends runtime.Types.Extensions.Inter
   totalScore?: boolean
   maxScore?: boolean
   status?: boolean
+  xpAwarded?: boolean
+  xpAwardedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
   responses?: boolean | Prisma.ExerciseAttempt$responsesArgs<ExtArgs>
@@ -864,6 +950,8 @@ export type ExerciseAttemptSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   totalScore?: boolean
   maxScore?: boolean
   status?: boolean
+  xpAwarded?: boolean
+  xpAwardedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exerciseAttempt"]>
@@ -877,6 +965,8 @@ export type ExerciseAttemptSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   totalScore?: boolean
   maxScore?: boolean
   status?: boolean
+  xpAwarded?: boolean
+  xpAwardedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exerciseAttempt"]>
@@ -890,9 +980,11 @@ export type ExerciseAttemptSelectScalar = {
   totalScore?: boolean
   maxScore?: boolean
   status?: boolean
+  xpAwarded?: boolean
+  xpAwardedAt?: boolean
 }
 
-export type ExerciseAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "exerciseId" | "startedAt" | "submittedAt" | "totalScore" | "maxScore" | "status", ExtArgs["result"]["exerciseAttempt"]>
+export type ExerciseAttemptOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "exerciseId" | "startedAt" | "submittedAt" | "totalScore" | "maxScore" | "status" | "xpAwarded" | "xpAwardedAt", ExtArgs["result"]["exerciseAttempt"]>
 export type ExerciseAttemptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   exercise?: boolean | Prisma.ExerciseDefaultArgs<ExtArgs>
@@ -924,6 +1016,8 @@ export type $ExerciseAttemptPayload<ExtArgs extends runtime.Types.Extensions.Int
     totalScore: number
     maxScore: number
     status: $Enums.AttemptStatus
+    xpAwarded: number
+    xpAwardedAt: Date | null
   }, ExtArgs["result"]["exerciseAttempt"]>
   composites: {}
 }
@@ -1358,6 +1452,8 @@ export interface ExerciseAttemptFieldRefs {
   readonly totalScore: Prisma.FieldRef<"ExerciseAttempt", 'Int'>
   readonly maxScore: Prisma.FieldRef<"ExerciseAttempt", 'Int'>
   readonly status: Prisma.FieldRef<"ExerciseAttempt", 'AttemptStatus'>
+  readonly xpAwarded: Prisma.FieldRef<"ExerciseAttempt", 'Int'>
+  readonly xpAwardedAt: Prisma.FieldRef<"ExerciseAttempt", 'DateTime'>
 }
     
 

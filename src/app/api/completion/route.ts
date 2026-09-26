@@ -1,3 +1,6 @@
+import { getSessionUser } from '@/lib/get-session-user'
+import { logSecurityEvent } from '@/lib/security-log'
+
 type CompletionOption = 'continue' | 'improve' | 'shorter' | 'longer' | 'zap'
 
 function buildPrompt(
@@ -19,13 +22,26 @@ function buildPrompt(
   }
 }
 
+// Keeps a single request (and its cost) bounded.
+const MAX_PROMPT_CHARS = 20_000
+
 export async function POST(req: Request) {
+  // Editor AI (teachers and students in the journal) — only for logged-in users.
+  const user = await getSessionUser()
+  if (!user) {
+    await logSecurityEvent('unauthorized-ai-request', { path: '/api/completion' })
+    return new Response('Unauthorized', { status: 401 })
+  }
+
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
     return new Response('OPENAI_API_KEY not configured', { status: 503 })
   }
 
   const body = await req.json()
+  if (typeof body.prompt === 'string' && body.prompt.length > MAX_PROMPT_CHARS) {
+    return new Response('Text zu lang', { status: 413 })
+  }
   const prompt = body.prompt as string | undefined
   const option = (body.option as CompletionOption | undefined) ?? 'continue'
   const command = body.command as string | undefined

@@ -2,6 +2,7 @@ import { ChapterTitleForm } from './_components/chapter-title-form'
 import { ChapterEditorForm } from './_components/chapter-editor-form'
 import { Banner } from '@/components/banner'
 import { ChapterActions } from './_components/chapter-actions'
+import { ChapterXpForm } from './_components/chapter-xp-form'
 import {
   Card,
   CardContent,
@@ -12,8 +13,9 @@ import {
 import { auth } from '@/lib/auth'
 import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
+import { suggestExerciseXp } from '@/lib/exercises/xp'
 import { headers } from 'next/headers'
-import { ArrowLeft, Type } from 'lucide-react'
+import { ArrowLeft, Sparkles, Type } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
@@ -56,6 +58,15 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
   if (!chapter) {
     return redirect('/')
   }
+
+  const [questionContainer, course] = await Promise.all([
+    db.exercise.findUnique({
+      where: { chapterId },
+      select: { xpReward: true, questions: { where: { archivedAt: null }, select: { points: true } } },
+    }),
+    db.course.findUnique({ where: { id: courseId }, select: { klassenstufe: true, schwierigkeit: true } }),
+  ])
+  const questions = questionContainer?.questions ?? []
 
   const requiredFields = [chapter.title, chapter.mathEditor]
   const isComplete = requiredFields.every(Boolean)
@@ -118,6 +129,30 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
             />
           </CardContent>
         </Card>
+
+        {questionContainer && questions.length > 0 && (
+          <Card className="shadow-sm">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <Sparkles className="text-muted-foreground size-5" />
+                <CardTitle className="text-lg">XP für Aufgaben</CardTitle>
+              </div>
+              <CardDescription>
+                Belohnung für die „Aufgabe“-Blöcke in diesem Kapitel
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ChapterXpForm
+                courseId={courseId}
+                chapterId={chapterId}
+                xpReward={questionContainer.xpReward}
+                suggestedXp={course ? suggestExerciseXp(course) : 0}
+                questionCount={questions.length}
+                maxPoints={questions.reduce((sum, q) => sum + q.points, 0)}
+              />
+            </CardContent>
+          </Card>
+        )}
 
         <Card className="shadow-sm">
           <ChapterEditorForm

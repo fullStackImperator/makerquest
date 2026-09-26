@@ -69,7 +69,13 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
     db.learningPathEnrollment.count(),
     db.userProgress.count({ where: { isCompleted: true } }),
     db.learningPathCompletion.count(),
-    db.exerciseResponse.count({ where: { needsReview: true } }),
+    db.exerciseResponse.count({
+      where: {
+        needsReview: true,
+        question: { archivedAt: null },
+        attempt: { exercise: journalScope },
+      },
+    }),
     db.journalEntry.count({ where: { status: 'READY', ...journalScope } }),
     db.user.count({
       where: { teacherRequestedAt: { not: null }, NOT: { isTeacher: true } },
@@ -100,6 +106,16 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
     pendingTeacherRequests,
     blockedNameAttempts,
   }
+}
+
+/** "3 Einträge · 5 Antworten warten" for the Journale tile. */
+function journalHighlight(entries: number, answers: number) {
+  const parts = [
+    entries > 0 && `${entries} ${entries === 1 ? 'Eintrag' : 'Einträge'}`,
+    answers > 0 && `${answers} ${answers === 1 ? 'Antwort' : 'Antworten'}`,
+  ].filter(Boolean)
+  if (parts.length === 0) return 'Nichts offen'
+  return `${parts.join(' · ')} ${entries + answers === 1 ? 'wartet' : 'warten'}`
 }
 
 type Accent = 'cyan' | 'fuchsia' | 'lime' | 'yellow' | 'orange'
@@ -289,6 +305,14 @@ export default async function AdminDashboardPage() {
               icon={NotebookPen}
             />
           )}
+          {stats.pendingExerciseReviews > 0 && (
+            <AttentionChip
+              href="/admin/journal"
+              count={stats.pendingExerciseReviews}
+              label={stats.pendingExerciseReviews === 1 ? 'Antwort zu prüfen' : 'Antworten zu prüfen'}
+              icon={ClipboardCheck}
+            />
+          )}
         </div>
       </div>
 
@@ -313,14 +337,12 @@ export default async function AdminDashboardPage() {
         />
         <NavTile
           title="Journale"
-          description="Einträge ansehen, Feedback geben, abschließend bewerten"
+          description="Einträge und Aufgaben ansehen, Feedback geben, abschließend bewerten"
           href="/admin/journal"
           icon={NotebookPen}
           accent="lime"
           highlight={
-            stats.pendingJournalEntries === 0
-              ? 'Keine offenen Einträge'
-              : `${stats.pendingJournalEntries} ${stats.pendingJournalEntries === 1 ? 'Eintrag wartet' : 'Einträge warten'} auf Feedback`
+            journalHighlight(stats.pendingJournalEntries, stats.pendingExerciseReviews)
           }
         />
         <NavTile

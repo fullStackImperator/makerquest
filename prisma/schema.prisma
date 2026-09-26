@@ -54,6 +54,8 @@ enum NotificationKind {
   JOURNAL_REVISION_REQUESTED
   JOURNAL_COMMENT
   JOURNAL_FINAL_GRADE
+  EXERCISE_REVIEW_NEEDED // teacher: a student has short answers waiting for review
+  EXERCISE_REVIEWED // student: the teacher graded their short answers
   ACCOUNT_NOTICE // message from a teacher about the student's account (e.g. name changed)
 }
 
@@ -101,6 +103,7 @@ model User {
   jahrgang    String?
   klasse      String?
   teacherRequestedAt DateTime? // "Ich bin Lehrkraft" at profile completion; cleared when an admin sets the role
+  approvedAt  DateTime? // set on signup for school emails, otherwise by a teacher/admin; null = waiting for approval
 
   userFachExperiences UserFachExperience[] // Add this relation
   awardedPoints AwardedPoints[] // Add this relation
@@ -246,6 +249,7 @@ model Chapter {
 
   userProgress UserProgress[]
   journalEntries JournalEntry[]
+  exercise       Exercise? // container for inline questions in this chapter
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -265,7 +269,11 @@ model Exercise {
   isPublished  Boolean  @default(false)
   isFree       Boolean  @default(false)
   passingScore Int?
-  awardXp      Boolean  @default(false)
+  awardXp      Boolean  @default(false) // deprecated: replaced by xpReward
+  xpReward     Int      @default(0) // XP per Fach when completed, scaled by the share of points
+  /// Set for the hidden container that holds a chapter's inline questions.
+  chapterId    String?  @unique
+  chapter      Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   questions    ExerciseQuestion[]
   attempts     ExerciseAttempt[]
   createdAt    DateTime @default(now())
@@ -285,6 +293,7 @@ model ExerciseQuestion {
   explanation Json?        @db.Json
   points      Int          @default(1)
   position    Int
+  archivedAt  DateTime? // removed from its chapter; kept for existing answers
   responses   ExerciseResponse[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -303,6 +312,8 @@ model ExerciseAttempt {
   totalScore  Int           @default(0)
   maxScore    Int           @default(0)
   status      AttemptStatus @default(IN_PROGRESS)
+  xpAwarded   Int           @default(0)
+  xpAwardedAt DateTime?
   responses   ExerciseResponse[]
 
   @@unique([userId, exerciseId])
@@ -317,6 +328,10 @@ model ExerciseResponse {
   questionId  String
   question    ExerciseQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
   answer      Json             @db.Json
+  tries       Int              @default(0) // how often "Prüfen" was used
+  firstTryScore Int? // points of the first check; only these count
+  correct     Boolean? // result of the latest check
+  checkedAt   DateTime? // first check
   autoScore   Int?
   finalScore  Int?
   feedback    Json?

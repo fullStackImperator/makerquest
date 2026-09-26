@@ -14,10 +14,12 @@ export function McSingleEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as McSingleSpec
   const solution = question.solution as McSingleSolution
@@ -47,6 +49,7 @@ export function McSingleEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <div className="space-y-3">
         <Label>Antwortoptionen</Label>

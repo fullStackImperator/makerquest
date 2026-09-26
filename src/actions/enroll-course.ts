@@ -1,8 +1,7 @@
 'use server'
 
-import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { headers } from 'next/headers'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export type EnrollResult =
   | { success: true }
@@ -10,15 +9,13 @@ export type EnrollResult =
 
 export async function enrollInCourse(courseId: string): Promise<EnrollResult> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    })
+    const user = await getSessionUser()
 
-    if (!session?.user?.id) {
+    if (!user) {
       return { success: false, error: 'Unauthorized' }
     }
 
-    const userId = session.user.id
+    const userId = user.id
 
     const course = await db.course.findUnique({
       where: {
@@ -62,15 +59,13 @@ export async function unenrollFromCourse(
   courseId: string
 ): Promise<EnrollResult> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    })
+    const user = await getSessionUser()
 
-    if (!session?.user?.id) {
+    if (!user) {
       return { success: false, error: 'Unauthorized' }
     }
 
-    const userId = session.user.id
+    const userId = user.id
 
     await db.purchase.deleteMany({
       where: {

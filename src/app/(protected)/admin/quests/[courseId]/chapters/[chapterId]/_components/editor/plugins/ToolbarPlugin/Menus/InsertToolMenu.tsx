@@ -32,6 +32,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { useExerciseQuestions } from '../../../context/ExerciseQuestionContext'
+import { OPEN_EXERCISE_QUESTION_PICKER } from '../../ExerciseQuestionPlugin'
 import { Label } from '@/components/ui/label'
 import {
   Plus,
@@ -49,6 +51,7 @@ import {
   Youtube,
   ListChecks,
   LineChart,
+  ClipboardList,
 } from 'lucide-react'
 
 export default function InsertToolMenu({
@@ -73,6 +76,9 @@ export default function InsertToolMenu({
 
   const openYouTubeDialog = () =>
     editor.dispatchCommand(SET_DIALOGS_COMMAND, { youtube: { open: true } })
+
+  // Only the chapter editor provides question data (not the Aufgabe/journal editors).
+  const canInsertQuestion = useExerciseQuestions()?.mode === 'teacher'
 
   const menuItem = (
     icon: React.ReactNode,
@@ -103,6 +109,10 @@ export default function InsertToolMenu({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
+        {canInsertQuestion &&
+          menuItem(<ClipboardList className="size-4 text-sky-600" />, 'Aufgabe', '/aufgabe', () =>
+            editor.dispatchCommand(OPEN_EXERCISE_QUESTION_PICKER, undefined),
+          )}
         {editor.hasNode(HorizontalRuleNode) &&
           menuItem(<Minus className="size-4" />, 'Divider', '---', () =>
             editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined),

@@ -13,7 +13,7 @@ export async function updateExercise(
     intro?: string | null
     description?: string | null
     passingScore?: number | null
-    awardXp?: boolean
+    xpReward?: number
     isFree?: boolean
   },
 ): Promise<{ success: true } | { success: false; error: string }> {
@@ -32,7 +32,9 @@ export async function updateExercise(
     if (data.title !== undefined) updateData.title = data.title
     if (data.description !== undefined) updateData.description = data.description
     if (data.passingScore !== undefined) updateData.passingScore = data.passingScore
-    if (data.awardXp !== undefined) updateData.awardXp = data.awardXp
+    if (data.xpReward !== undefined) {
+      updateData.xpReward = Math.max(0, Math.min(10_000, Math.round(data.xpReward)))
+    }
     if (data.isFree !== undefined) updateData.isFree = data.isFree
     if (data.intro !== undefined) {
       updateData.intro =

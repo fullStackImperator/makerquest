@@ -1,12 +1,5 @@
 import { Menu } from 'lucide-react'
-import {
-  Attachment,
-  Chapter,
-  Course,
-  Exercise,
-  ExerciseAttempt,
-  UserProgress,
-} from '@/generated/client'
+import type { Course } from '@/generated/client'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
   CourseSidebar,
@@ -14,13 +7,7 @@ import {
 } from './course-sidebar'
 
 type CourseMobileSidebarProps = {
-  course: Course & {
-    chapters: (Chapter & {
-      userProgress: UserProgress[] | null
-    })[]
-    exercises?: (Exercise & { attempts: ExerciseAttempt[] })[]
-    attachments: Attachment[]
-  }
+  course: Pick<Course, 'id' | 'title' | 'schwierigkeit'>
   progressCount: number
   chapterPanel?: CourseChapterPanelProps | null
 }

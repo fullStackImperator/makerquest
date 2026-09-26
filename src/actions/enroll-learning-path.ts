@@ -1,8 +1,7 @@
 'use server'
 
-import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { headers } from 'next/headers'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export type EnrollPathResult =
   | { success: true }
@@ -15,11 +14,11 @@ export async function enrollInLearningPath(
   learningPathId: string,
 ): Promise<EnrollPathResult> {
   try {
-    const session = await auth.api.getSession({ headers: await headers() })
-    if (!session?.user?.id) {
+    const user = await getSessionUser()
+    if (!user) {
       return { success: false, error: 'Unauthorized' }
     }
-    const userId = session.user.id
+    const userId = user.id
 
     const path = await db.learningPath.findFirst({
       where: { id: learningPathId, isPublished: true },

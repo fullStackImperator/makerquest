@@ -38,6 +38,7 @@ export type UserMinAggregateOutputType = {
   jahrgang: string | null
   klasse: string | null
   teacherRequestedAt: Date | null
+  approvedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type UserMaxAggregateOutputType = {
   jahrgang: string | null
   klasse: string | null
   teacherRequestedAt: Date | null
+  approvedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -70,6 +72,7 @@ export type UserCountAggregateOutputType = {
   jahrgang: number
   klasse: number
   teacherRequestedAt: number
+  approvedAt: number
   _all: number
 }
 
@@ -88,6 +91,7 @@ export type UserMinAggregateInputType = {
   jahrgang?: true
   klasse?: true
   teacherRequestedAt?: true
+  approvedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -104,6 +108,7 @@ export type UserMaxAggregateInputType = {
   jahrgang?: true
   klasse?: true
   teacherRequestedAt?: true
+  approvedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type UserCountAggregateInputType = {
   jahrgang?: true
   klasse?: true
   teacherRequestedAt?: true
+  approvedAt?: true
   _all?: true
 }
 
@@ -209,6 +215,7 @@ export type UserGroupByOutputType = {
   jahrgang: string | null
   klasse: string | null
   teacherRequestedAt: Date | null
+  approvedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -246,6 +253,7 @@ export type UserWhereInput = {
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
   teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
@@ -281,6 +289,7 @@ export type UserOrderByWithRelationInput = {
   jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
   klasse?: Prisma.SortOrderInput | Prisma.SortOrder
   teacherRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   userFachExperiences?: Prisma.UserFachExperienceOrderByRelationAggregateInput
@@ -319,6 +328,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
   teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   userFachExperiences?: Prisma.UserFachExperienceListRelationFilter
@@ -354,6 +364,7 @@ export type UserOrderByWithAggregationInput = {
   jahrgang?: Prisma.SortOrderInput | Prisma.SortOrder
   klasse?: Prisma.SortOrderInput | Prisma.SortOrder
   teacherRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -376,6 +387,7 @@ export type UserScalarWhereWithAggregatesInput = {
   jahrgang?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   klasse?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   teacherRequestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
@@ -392,6 +404,7 @@ export type UserCreateInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -427,6 +440,7 @@ export type UserUncheckedCreateInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -462,6 +476,7 @@ export type UserUpdateInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -497,6 +512,7 @@ export type UserUncheckedUpdateInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -532,6 +548,7 @@ export type UserCreateManyInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -548,6 +565,7 @@ export type UserUpdateManyMutationInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -564,6 +582,7 @@ export type UserUncheckedUpdateManyInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -580,6 +599,7 @@ export type UserCountOrderByAggregateInput = {
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
   teacherRequestedAt?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -596,6 +616,7 @@ export type UserMaxOrderByAggregateInput = {
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
   teacherRequestedAt?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -612,6 +633,7 @@ export type UserMinOrderByAggregateInput = {
   jahrgang?: Prisma.SortOrder
   klasse?: Prisma.SortOrder
   teacherRequestedAt?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -958,6 +980,7 @@ export type UserCreateWithoutSessionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -992,6 +1015,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -1042,6 +1066,7 @@ export type UserUpdateWithoutSessionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -1076,6 +1101,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -1110,6 +1136,7 @@ export type UserCreateWithoutAccountsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -1144,6 +1171,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -1194,6 +1222,7 @@ export type UserUpdateWithoutAccountsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -1228,6 +1257,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -1262,6 +1292,7 @@ export type UserCreateWithoutSharedCoursesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1296,6 +1327,7 @@ export type UserUncheckedCreateWithoutSharedCoursesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1354,6 +1386,7 @@ export type UserScalarWhereInput = {
   jahrgang?: Prisma.StringNullableFilter<"User"> | string | null
   klasse?: Prisma.StringNullableFilter<"User"> | string | null
   teacherRequestedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserCreateWithoutExerciseAttemptsInput = {
@@ -1370,6 +1403,7 @@ export type UserCreateWithoutExerciseAttemptsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1404,6 +1438,7 @@ export type UserUncheckedCreateWithoutExerciseAttemptsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1454,6 +1489,7 @@ export type UserUpdateWithoutExerciseAttemptsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1488,6 +1524,7 @@ export type UserUncheckedUpdateWithoutExerciseAttemptsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1522,6 +1559,7 @@ export type UserCreateWithoutAttachmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1556,6 +1594,7 @@ export type UserUncheckedCreateWithoutAttachmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1606,6 +1645,7 @@ export type UserUpdateWithoutAttachmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1640,6 +1680,7 @@ export type UserUncheckedUpdateWithoutAttachmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1674,6 +1715,7 @@ export type UserCreateWithoutUserFachExperiencesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
@@ -1708,6 +1750,7 @@ export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
@@ -1758,6 +1801,7 @@ export type UserUpdateWithoutUserFachExperiencesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
@@ -1792,6 +1836,7 @@ export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
@@ -1826,6 +1871,7 @@ export type UserCreateWithoutAwardedPointsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -1860,6 +1906,7 @@ export type UserUncheckedCreateWithoutAwardedPointsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -1910,6 +1957,7 @@ export type UserUpdateWithoutAwardedPointsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -1944,6 +1992,7 @@ export type UserUncheckedUpdateWithoutAwardedPointsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -1978,6 +2027,7 @@ export type UserCreateWithoutOwnedLearningPathsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2012,6 +2062,7 @@ export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2062,6 +2113,7 @@ export type UserUpdateWithoutOwnedLearningPathsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2096,6 +2148,7 @@ export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2130,6 +2183,7 @@ export type UserCreateWithoutLearningPathEnrollmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2164,6 +2218,7 @@ export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2214,6 +2269,7 @@ export type UserUpdateWithoutLearningPathEnrollmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2248,6 +2304,7 @@ export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2282,6 +2339,7 @@ export type UserCreateWithoutLearningPathStepCompletionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2316,6 +2374,7 @@ export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2366,6 +2425,7 @@ export type UserUpdateWithoutLearningPathStepCompletionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2400,6 +2460,7 @@ export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2434,6 +2495,7 @@ export type UserCreateWithoutLearningPathCompletionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2468,6 +2530,7 @@ export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2518,6 +2581,7 @@ export type UserUpdateWithoutLearningPathCompletionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2552,6 +2616,7 @@ export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2586,6 +2651,7 @@ export type UserCreateWithoutJournalEntriesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2620,6 +2686,7 @@ export type UserUncheckedCreateWithoutJournalEntriesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2670,6 +2737,7 @@ export type UserUpdateWithoutJournalEntriesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2704,6 +2772,7 @@ export type UserUncheckedUpdateWithoutJournalEntriesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2738,6 +2807,7 @@ export type UserCreateWithoutJournalEventsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2772,6 +2842,7 @@ export type UserUncheckedCreateWithoutJournalEventsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2822,6 +2893,7 @@ export type UserUpdateWithoutJournalEventsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -2856,6 +2928,7 @@ export type UserUncheckedUpdateWithoutJournalEventsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -2890,6 +2963,7 @@ export type UserCreateWithoutFinalAssessmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2924,6 +2998,7 @@ export type UserUncheckedCreateWithoutFinalAssessmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -2963,6 +3038,7 @@ export type UserCreateWithoutGradedAssessmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -2997,6 +3073,7 @@ export type UserUncheckedCreateWithoutGradedAssessmentsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3047,6 +3124,7 @@ export type UserUpdateWithoutFinalAssessmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3081,6 +3159,7 @@ export type UserUncheckedUpdateWithoutFinalAssessmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3126,6 +3205,7 @@ export type UserUpdateWithoutGradedAssessmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3160,6 +3240,7 @@ export type UserUncheckedUpdateWithoutGradedAssessmentsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3194,6 +3275,7 @@ export type UserCreateWithoutNotificationsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -3228,6 +3310,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3267,6 +3350,7 @@ export type UserCreateWithoutTriggeredNotificationsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -3301,6 +3385,7 @@ export type UserUncheckedCreateWithoutTriggeredNotificationsInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3351,6 +3436,7 @@ export type UserUpdateWithoutNotificationsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3385,6 +3471,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3430,6 +3517,7 @@ export type UserUpdateWithoutTriggeredNotificationsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3464,6 +3552,7 @@ export type UserUncheckedUpdateWithoutTriggeredNotificationsInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3498,6 +3587,7 @@ export type UserCreateWithoutProfileChangesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -3532,6 +3622,7 @@ export type UserUncheckedCreateWithoutProfileChangesInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3571,6 +3662,7 @@ export type UserCreateWithoutProfileChangesMadeInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
@@ -3605,6 +3697,7 @@ export type UserUncheckedCreateWithoutProfileChangesMadeInput = {
   jahrgang?: string | null
   klasse?: string | null
   teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
@@ -3655,6 +3748,7 @@ export type UserUpdateWithoutProfileChangesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3689,6 +3783,7 @@ export type UserUncheckedUpdateWithoutProfileChangesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3734,6 +3829,7 @@ export type UserUpdateWithoutProfileChangesMadeInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3768,6 +3864,7 @@ export type UserUncheckedUpdateWithoutProfileChangesMadeInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3802,6 +3899,7 @@ export type UserUpdateWithoutSharedCoursesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
@@ -3836,6 +3934,7 @@ export type UserUncheckedUpdateWithoutSharedCoursesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
@@ -3870,6 +3969,7 @@ export type UserUncheckedUpdateManyWithoutSharedCoursesInput = {
   jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -4079,6 +4179,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   jahrgang?: boolean
   klasse?: boolean
   teacherRequestedAt?: boolean
+  approvedAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   userFachExperiences?: boolean | Prisma.User$userFachExperiencesArgs<ExtArgs>
@@ -4115,6 +4216,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   jahrgang?: boolean
   klasse?: boolean
   teacherRequestedAt?: boolean
+  approvedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -4131,6 +4233,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   jahrgang?: boolean
   klasse?: boolean
   teacherRequestedAt?: boolean
+  approvedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -4147,9 +4250,10 @@ export type UserSelectScalar = {
   jahrgang?: boolean
   klasse?: boolean
   teacherRequestedAt?: boolean
+  approvedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "isTeacher" | "isAdmin" | "jahrgang" | "klasse" | "teacherRequestedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "isTeacher" | "isAdmin" | "jahrgang" | "klasse" | "teacherRequestedAt" | "approvedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -4212,6 +4316,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     jahrgang: string | null
     klasse: string | null
     teacherRequestedAt: Date | null
+    approvedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -4667,6 +4772,7 @@ export interface UserFieldRefs {
   readonly jahrgang: Prisma.FieldRef<"User", 'String'>
   readonly klasse: Prisma.FieldRef<"User", 'String'>
   readonly teacherRequestedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly approvedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

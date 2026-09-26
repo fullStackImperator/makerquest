@@ -1,42 +1,14 @@
-import { db } from "@/lib/db"
+import { getCourseProgression } from '@/lib/exercises/progression'
 
-
-export const getProgress = async (
-    userId: string,
-    courseId: string,
-): Promise<number> => {
-    try {
-        const publishedChapters = await db.chapter.findMany({
-            where: {
-                courseId: courseId,
-                isPublished: true,
-            },
-            select: {
-                id: true,
-            }
-        })
-
-        const publishedChaptersIds = publishedChapters.map((chapter) => (
-            chapter.id
-        ))
-
-        // console.log('publishedChaptersIds ', publishedChaptersIds)
-
-        const validCompletedChapters = await db.userProgress.count({
-            where: {
-                userId: userId,
-                chapterId: {
-                    in: publishedChaptersIds,
-                },
-                isCompleted: true,
-            }
-        })
-
-        const progressPercentage = (validCompletedChapters/publishedChaptersIds.length) * 100;
-
-        return progressPercentage;
-    } catch (error) {
-        console.log("[Get Progress]", error)
-        return 0
-    }
+/**
+ * Quest progress in percent: chapters marked as done plus passed Aufgaben,
+ * out of all published chapters and Aufgaben.
+ */
+export const getProgress = async (userId: string, courseId: string): Promise<number> => {
+  try {
+    return (await getCourseProgression(userId, courseId)).progress
+  } catch (error) {
+    console.log('[Get Progress]', error)
+    return 0
+  }
 }

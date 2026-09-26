@@ -1,4 +1,4 @@
-import { getProgress } from '@/actions/get-progress'
+import { getCourseProgressionForPage } from '@/lib/exercises/progression'
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
 import { redirect } from 'next/navigation'
@@ -18,31 +18,12 @@ export default async function QuestJournalLayout({
 
   const course = await db.course.findUnique({
     where: { id: courseId },
-    include: {
-      chapters: {
-        where: { isPublished: true },
-        include: {
-          userProgress: { where: { userId: user.id } },
-        },
-        orderBy: { position: 'asc' },
-      },
-      exercises: {
-        where: { isPublished: true },
-        orderBy: { position: 'asc' },
-        include: {
-          attempts: {
-            where: { userId: user.id },
-            take: 1,
-          },
-        },
-      },
-      attachments: true,
-    },
+    select: { id: true, title: true, schwierigkeit: true },
   })
 
   if (!course) redirect('/')
 
-  const progressCount = await getProgress(user.id, course.id)
+  const { progress: progressCount } = await getCourseProgressionForPage(user.id, course.id)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-4">

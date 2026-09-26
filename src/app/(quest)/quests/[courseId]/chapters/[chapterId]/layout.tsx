@@ -1,4 +1,5 @@
-import { getProgress } from '@/actions/get-progress'
+import { getCourseProgressionForPage } from '@/lib/exercises/progression'
+import { countOpenInlineQuestions } from '@/lib/exercises/inline'
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
 import { redirect } from 'next/navigation'
@@ -24,51 +25,33 @@ const ChapterCourseLayout = async ({
 
   const course = await db.course.findUnique({
     where: { id: courseId },
-    include: {
-      chapters: {
-        where: { isPublished: true },
-        include: {
-          userProgress: { where: { userId: user.id } },
-        },
-        orderBy: { position: 'asc' },
-      },
-      exercises: {
-        where: { isPublished: true },
-        orderBy: { position: 'asc' },
-        include: {
-          attempts: {
-            where: { userId: user.id },
-            take: 1,
-          },
-        },
-      },
-      attachments: true,
-    },
+    select: { id: true, title: true, schwierigkeit: true },
   })
 
   if (!course) {
     return redirect('/')
   }
 
-  const progressCount = await getProgress(user.id, course.id)
+  // One cached progression for layout, sidebar and page: order, done, locks.
+  const { items, progress: progressCount } = await getCourseProgressionForPage(user.id, course.id)
+  const index = items.findIndex((i) => i.kind === 'chapter' && i.id === chapterId)
+  const currentChapter = index >= 0 ? items[index] : undefined
+  const next = index >= 0 ? items[index + 1] : undefined
 
-  const chapterIdx = course.chapters.findIndex((c) => c.id === chapterId)
-  const currentChapter =
-    chapterIdx >= 0 ? course.chapters[chapterIdx] : undefined
-  const nextChapter =
-    chapterIdx >= 0 && chapterIdx < course.chapters.length - 1
-      ? course.chapters[chapterIdx + 1]
-      : undefined
+  const openQuestions = currentChapter ? await countOpenInlineQuestions(user.id, currentChapter.id) : 0
 
   const chapterPanel: CourseChapterPanelProps | null = currentChapter
     ? {
         chapterId: currentChapter.id,
         courseId: course.id,
         chapterTitle: currentChapter.title,
-        chapterIndex: chapterIdx + 1,
-        nextChapterId: nextChapter?.id,
-        isChapterCompleted:
-          !!currentChapter.userProgress?.[0]?.isCompleted,
+        chapterIndex: index + 1,
+        // The next item can be an Aufgabe too.
+        nextHref: next
+          ? `/quests/${course.id}/${next.kind === 'chapter' ? 'chapters' : 'exercises'}/${next.id}`
+          : undefined,
+        isChapterCompleted: currentChapter.done,
+        openQuestions,
       }
     : null
 

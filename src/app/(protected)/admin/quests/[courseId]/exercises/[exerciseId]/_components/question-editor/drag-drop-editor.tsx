@@ -100,10 +100,12 @@ export function DragDropEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as DragDropSpec
   const solution = question.solution as DragDropSolution
@@ -218,6 +220,7 @@ export function DragDropEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <div className="space-y-5">
         <div className="space-y-2">

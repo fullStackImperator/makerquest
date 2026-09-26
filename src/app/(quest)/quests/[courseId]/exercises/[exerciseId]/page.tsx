@@ -2,7 +2,10 @@ import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
 import { redirect } from 'next/navigation'
 import { ExerciseRunner } from './_components/exercise-runner'
-import { startOrGetAttempt } from './_actions/start-attempt'
+import { toQuestionState } from '@/lib/exercises/attempt'
+import { toPublicQuestion } from '@/lib/exercises/public-question'
+import { getCourseProgressionForPage } from '@/lib/exercises/progression'
+import { LockedByExercise } from '@/components/exercises/locked-by-exercise'
 import { Banner } from '@/components/banner'
 
 interface ExercisePageProps {
@@ -21,9 +24,10 @@ export default async function StudentExercisePage({
       id: exerciseId,
       courseId,
       isPublished: true,
+      chapterId: null, // a chapter's inline questions are answered in the chapter
     },
     include: {
-      questions: { orderBy: { position: 'asc' } },
+      questions: { where: { archivedAt: null }, orderBy: { position: 'asc' } },
     },
   })
 
@@ -46,21 +50,33 @@ export default async function StudentExercisePage({
     )
   }
 
-  const startResult = await startOrGetAttempt(exerciseId)
-  if (!startResult.success) {
+  const { items } = await getCourseProgressionForPage(user.id, courseId)
+  const lockedBy = items.find((i) => i.id === exerciseId)?.lockedBy
+  const next = items[items.findIndex((i) => i.id === exerciseId) + 1]
+  const nextHref = next
+    ? `/quests/${courseId}/${next.kind === 'chapter' ? 'chapters' : 'exercises'}/${next.id}`
+    : undefined
+  if (lockedBy) {
     return (
-      <div className="p-6">
-        <Banner variant="warning" label={startResult.error} />
+      <div className="px-4 py-10">
+        <LockedByExercise courseId={courseId} exercise={lockedBy} />
       </div>
     )
   }
 
+  // The attempt is created with the first "Prüfen".
   const attempt = await db.exerciseAttempt.findUnique({
-    where: { id: startResult.attemptId },
+    where: { userId_exerciseId: { userId: user.id, exerciseId } },
     include: { responses: true },
   })
+  const responses = new Map(attempt?.responses.map((r) => [r.questionId, r]) ?? [])
 
-  if (!attempt) redirect(`/quests/${courseId}`)
+  // Only public data goes to the browser: no solutions, accepted answers or model answers.
+  const maxPoints = exercise.questions.reduce((s, q) => s + q.points, 0)
+  const questions = exercise.questions.map((q) => ({
+    question: toPublicQuestion(q, { xpReward: exercise.xpReward, maxPoints }),
+    state: toQuestionState(q, responses.get(q.id)),
+  }))
 
   return (
     <div className="space-y-4 p-4 lg:p-6">
@@ -75,9 +91,22 @@ export default async function StudentExercisePage({
         )}
       </div>
       <ExerciseRunner
-        exercise={exercise}
-        attempt={attempt}
-        courseId={courseId}
+        intro={exercise.intro}
+        xpReward={exercise.xpReward}
+        questions={questions}
+        initialProgress={
+          attempt
+            ? {
+                checked: questions.filter((q) => q.state.tries > 0).length,
+                total: questions.length,
+                totalScore: attempt.totalScore,
+                maxScore: questions.reduce((s, q) => s + q.question.points, 0),
+                status: attempt.status,
+              }
+            : null
+        }
+        xpAwarded={attempt?.xpAwardedAt ? attempt.xpAwarded : null}
+        nextHref={nextHref}
       />
     </div>
   )

@@ -1,16 +1,13 @@
 'use server'
 
 import { db } from '@/lib/db'
-import { auth } from '@/lib/auth'
-import { headers } from 'next/headers'
+import { getSessionUser } from '@/lib/get-session-user'
 
 export async function createCategory(name: string) {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    })
+    const user = await getSessionUser()
 
-    if (!session) {
+    if (!user?.isTeacher && !user?.isAdmin) {
       return { error: 'Unauthorized' }
     }
 

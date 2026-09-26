@@ -54,6 +54,8 @@ import { CollapsibleContainerNode } from './CollapsiblePluging/CollapsibleContai
 import { useLexicalEditable } from '@lexical/react/useLexicalEditable'
 import { MultipleChoiceNode } from '../nodes/MultipleChoiceNode/MultipleChoiceNode'
 import MultipleChoicePlugin from './MultipleChoicePlugin'
+import ExerciseQuestionPlugin from './ExerciseQuestionPlugin'
+import { ExerciseQuestionNode } from '../nodes/ExerciseQuestionNode'
 
 export const EditorPlugins: React.FC<{
   contentEditable: React.ReactElement
@@ -117,6 +119,7 @@ export const EditorPlugins: React.FC<{
       {editor.hasNode(LayoutContainerNode) && <LayoutPlugin />}
       {editor.hasNode(YouTubeNode) && <YouTubePlugin />}
       {editor.hasNode(MultipleChoiceNode) && <MultipleChoicePlugin />}
+      {editor.hasNode(ExerciseQuestionNode) && <ExerciseQuestionPlugin />}
     </>
   )
 }

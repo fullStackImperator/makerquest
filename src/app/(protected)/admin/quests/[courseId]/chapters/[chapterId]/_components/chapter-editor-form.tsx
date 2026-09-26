@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { Chapter } from '@/generated/client'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Chapter, type ExerciseQuestion, type QuestionKind } from '@/generated/client'
 import { Button } from '@/components/ui/button'
 import {
   CardContent,
@@ -14,6 +14,11 @@ import { FileText, Pencil } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { updateChapter } from '../_actions/udate-chapter'
+import { createInlineQuestion, getInlineQuestionsForEditor } from '../_actions/inline-questions'
+import {
+  ExerciseQuestionProvider,
+  type ExerciseQuestionContextValue,
+} from './editor/context/ExerciseQuestionContext'
 
 import 'mathlive/static.css'
 import './editor/theme.css'
@@ -110,6 +115,46 @@ export const ChapterEditorForm = ({
   const editorData =
     currentContent ?? generateInitialEditorState(initialData.title)
 
+  // Questions behind the "Aufgabe" blocks (full data incl. solutions, teachers only).
+  const [questions, setQuestions] = useState<Map<string, ExerciseQuestion>>(new Map())
+  const [exerciseId, setExerciseId] = useState<string | null>(null)
+  const [autoOpenId, setAutoOpenId] = useState<string | null>(null)
+
+  const loadQuestions = useCallback(async () => {
+    const result = await getInlineQuestionsForEditor(courseId, chapterId)
+    if (!result.success) return
+    setExerciseId(result.exerciseId)
+    setQuestions(new Map(result.questions.map((q) => [q.id, q])))
+  }, [courseId, chapterId])
+
+  useEffect(() => {
+    loadQuestions()
+  }, [loadQuestions])
+
+  const questionContext = useMemo<ExerciseQuestionContextValue>(
+    () => ({
+      mode: 'teacher',
+      courseId,
+      exerciseId,
+      questions,
+      autoOpenId,
+      clearAutoOpen: () => setAutoOpenId(null),
+      refresh: loadQuestions,
+      create: async (kind: QuestionKind) => {
+        const result = await createInlineQuestion(courseId, chapterId, kind)
+        if (!result.success) {
+          toast.error(result.error)
+          return null
+        }
+        setExerciseId(result.question.exerciseId)
+        setQuestions((prev) => new Map(prev).set(result.question.id, result.question))
+        setAutoOpenId(result.question.id)
+        return result.question
+      },
+    }),
+    [courseId, chapterId, exerciseId, questions, autoOpenId, loadQuestions],
+  )
+
   const handleEditorChange = (
     editorState: EditorState,
     _editor: LexicalEditor,
@@ -127,8 +172,12 @@ export const ChapterEditorForm = ({
       })
       if (!result.success) return toast.error(result.error)
       toast.success('Kapitel aktualisiert')
-      setCurrentContent(pendingContent)
+      // Blocks copied from other chapters got their own questions (new ids).
+      setCurrentContent(
+        (result.content as SerializedEditorState | undefined) ?? pendingContent,
+      )
       setIsEditing(false)
+      loadQuestions()
       router.refresh()
     } finally {
       setIsSubmitting(false)
@@ -136,7 +185,7 @@ export const ChapterEditorForm = ({
   }
 
   return (
-    <>
+    <ExerciseQuestionProvider value={questionContext}>
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div className="min-w-0 flex-1 space-y-1">
@@ -213,6 +262,6 @@ export const ChapterEditorForm = ({
           </div>
         )}
       </CardContent>
-    </>
+    </ExerciseQuestionProvider>
   )
 }

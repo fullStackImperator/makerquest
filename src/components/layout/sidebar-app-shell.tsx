@@ -14,6 +14,7 @@ import { redirect } from 'next/navigation'
 import { ThemeToggle } from '@/components/ui/themeToggle'
 import { ClientOnly } from '@/components/ui/client-only'
 import { needsProfileCompletion } from '@/lib/profile'
+import { isApproved } from '@/lib/approval'
 import { getMyNotifications } from '@/actions/notifications'
 import { NotificationsProvider } from '@/components/notifications/notifications-provider'
 import { NotificationBell } from '@/components/notifications/notification-bell'
@@ -41,12 +42,18 @@ export async function SidebarAppShell({
       name: true,
       klasse: true,
       teacherRequestedAt: true,
+      approvedAt: true,
     },
   })
 
   // Name (and Klasse for students) is required before using the app.
   if (!user || needsProfileCompletion(user)) {
     redirect('/willkommen')
+  }
+
+  // Non-school accounts wait for a teacher or admin to approve them.
+  if (!isApproved(user)) {
+    redirect('/freischaltung')
   }
 
   const isAdminOrTeacher = user?.isTeacher === true || user?.isAdmin === true

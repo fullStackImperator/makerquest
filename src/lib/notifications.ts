@@ -3,18 +3,20 @@ import 'server-only'
 import { db } from '@/lib/db'
 import type { NotificationKind } from '@/generated/enums'
 
-/** Journal-related notification kinds a student receives. */
+/** Notification kinds a student receives (journal and Aufgaben). */
 export const STUDENT_NOTIFICATION_KINDS: NotificationKind[] = [
   'JOURNAL_ACCEPTED',
   'JOURNAL_REVISION_REQUESTED',
   'JOURNAL_COMMENT',
   'JOURNAL_FINAL_GRADE',
+  'EXERCISE_REVIEWED',
 ]
 
-/** Kinds that concern teachers (submissions to review). */
+/** Kinds that concern teachers (submissions and answers to review). */
 export const TEACHER_NOTIFICATION_KINDS: NotificationKind[] = [
   'JOURNAL_SUBMITTED',
   'JOURNAL_RESUBMITTED',
+  'EXERCISE_REVIEW_NEEDED',
 ]
 
 function displayName(name: string | null | undefined, fallback: string) {
@@ -150,4 +152,91 @@ export async function markSubmissionNotificationsRead(entryId: string) {
       data: { readAt: new Date() },
     })
     .catch((error) => console.error('[MARK_SUBMISSION_READ]', error))
+}
+
+/** Workspace link to a student's Aufgaben tab. */
+export function exerciseReviewHref(courseId: string, userId: string) {
+  return `/admin/journal?course=${courseId}&student=${userId}&tab=aufgaben`
+}
+
+/**
+ * Tells the quest's teachers that a student has short answers to review.
+ * At most one unread notice per teacher, student and quest, so a class
+ * answering several questions doesn't flood the bell. Never throws.
+ */
+export async function notifyTeachersOfExerciseReview(userId: string, courseId: string) {
+  try {
+    const [course, student, unread] = await Promise.all([
+      db.course.findUnique({
+        where: { id: courseId },
+        select: { title: true, userId: true, sharedWith: { select: { id: true } } },
+      }),
+      db.user.findUnique({ where: { id: userId }, select: { name: true } }),
+      db.notification.findMany({
+        where: { kind: 'EXERCISE_REVIEW_NEEDED', courseId, actorId: userId, readAt: null },
+        select: { userId: true },
+      }),
+    ])
+    if (!course) return
+
+    const recipients = new Set([course.userId, ...course.sharedWith.map((u) => u.id)])
+    recipients.delete(userId)
+    for (const n of unread) recipients.delete(n.userId)
+    if (recipients.size === 0) return
+
+    const name = displayName(student?.name, 'Ein Schüler')
+    await db.notification.createMany({
+      data: [...recipients].map((recipient) => ({
+        userId: recipient,
+        actorId: userId,
+        kind: 'EXERCISE_REVIEW_NEEDED' as const,
+        title: `${name} hat Antworten zur Prüfung abgegeben`,
+        body: course.title,
+        href: exerciseReviewHref(courseId, userId),
+        courseId,
+      })),
+    })
+  } catch (error) {
+    console.error('[NOTIFY_EXERCISE_REVIEW]', error)
+  }
+}
+
+/** Once a student has no answers left to review, their review notices are done for all teachers. */
+export async function markExerciseReviewNotificationsRead(userId: string, courseId: string) {
+  await db.notification
+    .updateMany({
+      where: { kind: 'EXERCISE_REVIEW_NEEDED', courseId, actorId: userId, readAt: null },
+      data: { readAt: new Date() },
+    })
+    .catch((error) => console.error('[MARK_EXERCISE_REVIEW_READ]', error))
+}
+
+/** Tells the student their short answers were graded; one unread notice per quest. */
+export async function notifyStudentOfExerciseReview(
+  userId: string,
+  courseId: string,
+  actorId: string,
+) {
+  try {
+    const [course, unread] = await Promise.all([
+      db.course.findUnique({ where: { id: courseId }, select: { title: true } }),
+      db.notification.findFirst({
+        where: { userId, kind: 'EXERCISE_REVIEWED', courseId, readAt: null },
+        select: { id: true },
+      }),
+    ])
+    if (!course || unread || userId === actorId) return
+    await db.notification.create({
+      data: {
+        userId,
+        actorId,
+        kind: 'EXERCISE_REVIEWED',
+        title: `Deine Antworten in „${course.title}“ wurden bewertet`,
+        href: `/quests/${courseId}`,
+        courseId,
+      },
+    })
+  } catch (error) {
+    console.error('[NOTIFY_EXERCISE_REVIEWED]', error)
+  }
 }

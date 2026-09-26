@@ -130,7 +130,8 @@ export const UserScalarFieldEnum = {
   isAdmin: 'isAdmin',
   jahrgang: 'jahrgang',
   klasse: 'klasse',
-  teacherRequestedAt: 'teacherRequestedAt'
+  teacherRequestedAt: 'teacherRequestedAt',
+  approvedAt: 'approvedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -233,6 +234,8 @@ export const ExerciseScalarFieldEnum = {
   isFree: 'isFree',
   passingScore: 'passingScore',
   awardXp: 'awardXp',
+  xpReward: 'xpReward',
+  chapterId: 'chapterId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -250,6 +253,7 @@ export const ExerciseQuestionScalarFieldEnum = {
   explanation: 'explanation',
   points: 'points',
   position: 'position',
+  archivedAt: 'archivedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -265,7 +269,9 @@ export const ExerciseAttemptScalarFieldEnum = {
   submittedAt: 'submittedAt',
   totalScore: 'totalScore',
   maxScore: 'maxScore',
-  status: 'status'
+  status: 'status',
+  xpAwarded: 'xpAwarded',
+  xpAwardedAt: 'xpAwardedAt'
 } as const
 
 export type ExerciseAttemptScalarFieldEnum = (typeof ExerciseAttemptScalarFieldEnum)[keyof typeof ExerciseAttemptScalarFieldEnum]
@@ -276,6 +282,10 @@ export const ExerciseResponseScalarFieldEnum = {
   attemptId: 'attemptId',
   questionId: 'questionId',
   answer: 'answer',
+  tries: 'tries',
+  firstTryScore: 'firstTryScore',
+  correct: 'correct',
+  checkedAt: 'checkedAt',
   autoScore: 'autoScore',
   finalScore: 'finalScore',
   feedback: 'feedback',

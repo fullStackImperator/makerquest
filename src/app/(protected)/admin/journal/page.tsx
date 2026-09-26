@@ -1,7 +1,9 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Users } from 'lucide-react'
 
 import { getSessionUser } from '@/lib/get-session-user'
+import { getStudentExercises, summarizeExercises } from '@/lib/exercises/teacher-queries'
 import {
   getFinalAssessment,
   getOrCreateRubric,
@@ -9,14 +11,18 @@ import {
   getWorkspaceCourses,
   getWorkspaceStudents,
 } from '@/lib/journal/teacher-queries'
+import { cn } from '@/lib/utils'
 import { FinalGradePanel } from './_components/final-grade-panel'
+import { StudentExercises } from './_components/student-exercises'
 import { StudentList } from './_components/student-list'
 import { TeacherTimeline } from './_components/teacher-timeline'
+
+type Tab = 'journal' | 'aufgaben'
 
 export default async function JournalWorkspacePage({
   searchParams,
 }: {
-  searchParams: Promise<{ course?: string; student?: string }>
+  searchParams: Promise<{ course?: string; student?: string; tab?: string }>
 }) {
   const viewer = await getSessionUser()
   if (!viewer) redirect('/')
@@ -29,14 +35,23 @@ export default async function JournalWorkspacePage({
   const students = courseId ? await getWorkspaceStudents(courseId) : []
   const student = students.find((s) => s.userId === params.student) ?? null
 
-  const [entries, rubric, assessment] =
+  // Without an explicit tab, open where the work is: answers to review and no entries waiting.
+  const tab: Tab =
+    params.tab === 'aufgaben' || params.tab === 'journal'
+      ? params.tab
+      : student && student.reviewCount > 0 && student.readyCount === 0
+        ? 'aufgaben'
+        : 'journal'
+
+  const [entries, rubric, assessment, exercises] =
     courseId && student
       ? await Promise.all([
           getTeacherJournalEntries(courseId, student.userId),
           getOrCreateRubric(courseId),
           getFinalAssessment(courseId, student.userId),
+          getStudentExercises(courseId, student.userId),
         ])
-      : [null, null, null]
+      : [null, null, null, null]
 
   return (
     <div className="grid min-h-0 flex-1 gap-4 lg:h-[calc(100svh-7.5rem)] lg:grid-cols-[minmax(0,25fr)_minmax(0,45fr)_minmax(0,30fr)]">
@@ -46,14 +61,35 @@ export default async function JournalWorkspacePage({
           courseId={courseId}
           students={students}
           selectedUserId={student?.userId ?? null}
+          tab={tab}
         />
       </Pane>
 
-      {courseId && student && entries && rubric && assessment ? (
+      {courseId && student && entries && rubric && assessment && exercises ? (
         <>
           <Pane>
+            <nav className="flex gap-1 border-b p-2" aria-label="Ansicht">
+              <TabLink
+                href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=journal`}
+                active={tab === 'journal'}
+                label="Journal"
+                count={student.readyCount}
+                countClassName="bg-sky-500"
+              />
+              <TabLink
+                href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=aufgaben`}
+                active={tab === 'aufgaben'}
+                label="Aufgaben"
+                count={student.reviewCount}
+                countClassName="bg-amber-500"
+              />
+            </nav>
             <div className="min-h-0 flex-1 overflow-y-auto">
-              <TeacherTimeline key={student.userId} entries={entries} />
+              {tab === 'journal' ? (
+                <TeacherTimeline key={student.userId} entries={entries} />
+              ) : (
+                <StudentExercises key={student.userId} courseId={courseId} exercises={exercises} />
+              )}
             </div>
           </Pane>
           <Pane>
@@ -64,6 +100,7 @@ export default async function JournalWorkspacePage({
                 student={student}
                 rubric={rubric}
                 assessment={assessment}
+                exerciseSummary={summarizeExercises(exercises)}
               />
             </div>
           </Pane>
@@ -79,6 +116,39 @@ export default async function JournalWorkspacePage({
         </Pane>
       )}
     </div>
+  )
+}
+
+function TabLink({
+  href,
+  active,
+  label,
+  count,
+  countClassName,
+}: {
+  href: string
+  active: boolean
+  label: string
+  count: number
+  countClassName: string
+}) {
+  return (
+    <Link
+      href={href}
+      scroll={false}
+      aria-current={active ? 'page' : undefined}
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+        active ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted/60',
+      )}
+    >
+      {label}
+      {count > 0 && (
+        <span className={cn('rounded-full px-1.5 text-[11px] font-semibold text-white tabular-nums', countClassName)}>
+          {count}
+        </span>
+      )}
+    </Link>
   )
 }
 

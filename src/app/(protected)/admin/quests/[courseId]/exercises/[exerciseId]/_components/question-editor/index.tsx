@@ -12,10 +12,13 @@ export function QuestionEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  /** Called after a successful save, e.g. to close a surrounding dialog. */
+  onSaved?: () => void
 }) {
   switch (question.kind) {
     case 'MC_SINGLE':
@@ -24,6 +27,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     case 'FILL_BLANK':
@@ -32,6 +36,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     case 'SHORT_TEXT':
@@ -40,6 +45,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     case 'MATH':
@@ -48,6 +54,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     case 'DRAG_DROP':
@@ -56,6 +63,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     case 'H5P':
@@ -64,6 +72,7 @@ export function QuestionEditor({
           question={question}
           courseId={courseId}
           exerciseId={exerciseId}
+          onSaved={onSaved}
         />
       )
     default:

@@ -1,13 +1,6 @@
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
-import {
-  Attachment,
-  Chapter,
-  Course,
-  Exercise,
-  ExerciseAttempt,
-  UserProgress,
-} from '@/generated/client'
+import type { Course } from '@/generated/client'
 import { redirect } from 'next/navigation'
 import { CourseSidebarItem } from './course-sidebar-item'
 import { CourseProgress } from '@/components/quests/course-progress'
@@ -17,28 +10,22 @@ import { CourseProgressButton } from '../chapters/[chapterId]/_components/course
 import { CourseEnrollButton } from '@/components/quests/course-enroll-button'
 import { Badge } from '@/components/ui/badge'
 import { LayoutDashboard, ListOrdered } from 'lucide-react'
-import { mergeCourseItems } from '@/lib/exercises/merge-course-items'
-import { attemptStatusLabel } from '@/lib/exercises/sidebar-items'
+import { getCourseProgressionForPage } from '@/lib/exercises/progression'
 
 export type CourseChapterPanelProps = {
   chapterId: string
   courseId: string
   chapterTitle: string
   chapterIndex: number
-  nextChapterId?: string
+  /** Next chapter or Aufgabe; undefined on the last item. */
+  nextHref?: string
   isChapterCompleted: boolean
+  /** Questions in this chapter the student hasn't answered yet. */
+  openQuestions: number
 }
 
 type CourseSidebarProps = {
-  course: Course & {
-    chapters: (Chapter & {
-      userProgress: UserProgress[] | null
-    })[]
-    exercises?: (Exercise & {
-      attempts: ExerciseAttempt[]
-    })[]
-    attachments: Attachment[]
-  }
+  course: Pick<Course, 'id' | 'title' | 'schwierigkeit'>
   progressCount: number
   chapterPanel?: CourseChapterPanelProps | null
 }
@@ -68,27 +55,18 @@ export const CourseSidebar = async ({
     },
   })
 
-  const items = mergeCourseItems(
-    course.chapters,
-    course.exercises ?? [],
-  ).map((item) => {
-    if (item.kind === 'chapter') {
-      const ch = course.chapters.find((c) => c.id === item.id)
-      return {
-        ...item,
-        isCompleted: !!ch?.userProgress?.[0]?.isCompleted,
-        statusLabel: null as string | null,
-      }
-    }
-    const ex = course.exercises?.find((e) => e.id === item.id)
-    const attempt = ex?.attempts?.[0]
-    const status = attempt?.status
-    return {
-      ...item,
-      isCompleted: status === 'GRADED',
-      statusLabel: attemptStatusLabel(status),
-    }
-  })
+  // Order, done state and locks (behind an Aufgabe that isn't passed yet).
+  const { items: progression } = await getCourseProgressionForPage(user.id, course.id)
+  const items = progression.map((item) => ({
+    ...item,
+    isCompleted: item.done,
+    statusLabel:
+      item.kind === 'exercise' && item.done
+        ? item.pendingReview
+          ? 'Bestanden · wird geprüft'
+          : 'Bestanden'
+        : null,
+  }))
 
   return (
     <div className="border-border/50 bg-card flex max-h-[calc(100vh-8rem)] flex-col overflow-hidden rounded-xl border shadow-sm">
@@ -146,7 +124,8 @@ export const CourseSidebar = async ({
                 <CourseProgressButton
                   chapterId={chapterPanel.chapterId}
                   courseId={chapterPanel.courseId}
-                  nextChapterId={chapterPanel.nextChapterId}
+                  nextHref={chapterPanel.nextHref}
+                  openQuestions={chapterPanel.openQuestions}
                   isCompleted={chapterPanel.isChapterCompleted}
                 />
               ) : (
@@ -173,7 +152,7 @@ export const CourseSidebar = async ({
               label={chapterTitleForDisplay(item.title)}
               isCompleted={item.isCompleted}
               courseId={course.id}
-              isLocked={!item.isFree && !purchase}
+              isLocked={(!item.isFree && !purchase) || !!item.lockedBy}
               statusLabel={item.statusLabel}
             />
           ))}

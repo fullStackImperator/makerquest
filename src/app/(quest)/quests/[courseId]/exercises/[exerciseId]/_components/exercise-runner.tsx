@@ -1,240 +1,140 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import type {
-  AttemptStatus,
-  Exercise,
-  ExerciseAttempt,
-  ExerciseQuestion,
-  ExerciseResponse,
-} from '@/generated/client'
-import type {
-  DragDropSpec,
-  FillBlankSpec,
-  H5pAnswer,
-  H5pSpec,
-  McSingleSpec,
-  QuestionAnswer,
-  ShortTextSpec,
-} from '@/lib/exercises/types'
-import { LexicalContentEditor, parseLexicalJson } from '@/components/lexical/lexical-content-editor'
-import { saveResponse } from '../_actions/save-response'
-import { submitAttempt } from '../_actions/submit-attempt'
-import { McSingleInput } from './questions/mc-single'
-import { FillBlankInput } from './questions/fill-blank'
-import { ShortTextInput } from './questions/short-text'
-import { MathInput } from './questions/math'
-import { DragDropInput } from './questions/drag-drop'
-import { H5pInput } from './questions/h5p'
-import { ResultSummary } from './result-summary'
+import Link from 'next/link'
+import { ArrowRight, CheckCircle2, Clock, Lock, Sparkles } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { QUESTION_KIND_LABELS } from '@/lib/exercises/types'
-import { toast } from 'sonner'
+
+import { QuestionCard, type ExerciseProgress } from '@/components/exercises/question-card'
+import { LexicalContentEditor, parseLexicalJson } from '@/components/lexical/lexical-content-editor'
+import { Progress } from '@/components/ui/progress'
+import type { PublicQuestion, QuestionState } from '@/lib/exercises/public-question'
 import 'mathlive/static.css'
 import '@/app/(protected)/admin/quests/[courseId]/chapters/[chapterId]/_components/editor/theme.css'
 
-type RunnerProps = {
-  exercise: Exercise & { questions: ExerciseQuestion[] }
-  attempt: ExerciseAttempt & { responses: ExerciseResponse[] }
-  courseId: string
-}
+type ProgressState = NonNullable<ExerciseProgress>
 
-function buildAnswerMap(
-  responses: ExerciseResponse[],
-): Record<string, QuestionAnswer> {
-  const map: Record<string, QuestionAnswer> = {}
-  for (const r of responses) {
-    map[r.questionId] = r.answer as QuestionAnswer
-  }
-  return map
-}
-
+/** A separate Aufgabe: each question is checked on its own; a summary appears when all are answered. */
 export function ExerciseRunner({
-  exercise,
-  attempt: initialAttempt,
-  courseId,
-}: RunnerProps) {
-  const router = useRouter()
-  const [attempt, setAttempt] = useState(initialAttempt)
-  const [answers, setAnswers] = useState<Record<string, QuestionAnswer>>(
-    () => buildAnswerMap(initialAttempt.responses),
+  intro,
+  xpReward,
+  questions,
+  initialProgress,
+  xpAwarded,
+  nextHref,
+}: {
+  intro: unknown
+  xpReward: number
+  questions: { question: PublicQuestion; state: QuestionState }[]
+  initialProgress: ProgressState | null
+  xpAwarded: number | null
+  /** Next chapter or Aufgabe of the quest. */
+  nextHref?: string
+}) {
+  const maxScore = questions.reduce((s, q) => s + q.question.points, 0)
+  const [progress, setProgress] = useState<ProgressState>(
+    initialProgress ?? { checked: 0, total: questions.length, totalScore: 0, maxScore, status: 'IN_PROGRESS' },
   )
-  const [submitting, setSubmitting] = useState(false)
+  const onProgress = useCallback((p: ExerciseProgress) => p && setProgress(p), [])
 
-  const readOnly =
-    attempt.status === 'GRADED' ||
-    attempt.status === 'NEEDS_REVIEW' ||
-    attempt.status === 'SUBMITTED'
-
-  const save = useCallback(
-    async (questionId: string, answer: QuestionAnswer) => {
-      setAnswers((prev) => ({ ...prev, [questionId]: answer }))
-      if (readOnly) return
-      await saveResponse(
-        attempt.id,
-        questionId,
-        JSON.stringify(answer),
-      )
-    },
-    [attempt.id, readOnly],
+  // Passed = every question solved at least once (short answers: submitted).
+  const [states, setStates] = useState(
+    () => new Map(questions.map(({ question, state }) => [question.id, state])),
   )
+  const onStateChange = useCallback(
+    (id: string, state: QuestionState) => setStates((prev) => new Map(prev).set(id, state)),
+    [],
+  )
+  const passed = questions.every(({ question }) => {
+    const s = states.get(question.id)
+    if (!s || s.tries === 0) return false
+    return question.kind === 'SHORT_TEXT' || s.correct === true
+  })
 
-  const handleSubmit = async () => {
-    setSubmitting(true)
-    const result = await submitAttempt(attempt.id)
-    setSubmitting(false)
-    if (!result.success) {
-      toast.error(result.error)
-      return
-    }
-    toast.success('Abgegeben!')
-    router.refresh()
-  }
-
-  if (
-    attempt.status === 'GRADED' ||
-    attempt.status === 'NEEDS_REVIEW'
-  ) {
-    return (
-      <ResultSummary
-        exercise={exercise}
-        attempt={attempt}
-        responses={attempt.responses}
-      />
-    )
-  }
+  const complete = progress.checked === progress.total && progress.total > 0
 
   return (
     <div className="space-y-6">
-      {exercise.intro && (
-        <Card>
-          <CardContent className="pt-6">
-            <LexicalContentEditor
-              initialData={parseLexicalJson(exercise.intro)}
-              editable={false}
-            />
-          </CardContent>
-        </Card>
+      {intro != null && (
+        <div className="bg-card rounded-xl border p-4 shadow-sm sm:p-5">
+          <LexicalContentEditor initialData={parseLexicalJson(intro)} editable={false} />
+        </div>
       )}
 
-      {exercise.questions.map((q, idx) => (
-        <Card key={q.id}>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">
-                Frage {idx + 1}
-              </CardTitle>
-              <Badge variant="secondary">
-                {QUESTION_KIND_LABELS[q.kind]}
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <LexicalContentEditor
-              initialData={parseLexicalJson(q.prompt)}
-              editable={false}
-            />
-            <QuestionInput
-              question={q}
-              answer={answers[q.id]}
-              onAnswer={(a) => save(q.id, a)}
-              disabled={readOnly}
-            />
-          </CardContent>
-        </Card>
+      <div className="bg-card space-y-2 rounded-xl border p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+          <span className="font-medium">
+            {progress.checked} von {progress.total} Fragen beantwortet
+          </span>
+          <span className="text-muted-foreground tabular-nums">
+            {progress.totalScore}/{progress.maxScore} Punkte
+            {xpReward > 0 && ` · bis zu ${xpReward} XP`}
+          </span>
+        </div>
+        <Progress value={progress.total ? (progress.checked / progress.total) * 100 : 0} />
+      </div>
+
+      {questions.map(({ question, state }, i) => (
+        <QuestionCard
+          key={question.id}
+          question={question}
+          initialState={state}
+          label={`Frage ${i + 1}`}
+          onProgress={onProgress}
+          onStateChange={onStateChange}
+        />
       ))}
 
-      <Button
-        onClick={handleSubmit}
-        disabled={submitting || readOnly}
-        size="lg"
-        className="w-full sm:w-auto"
-      >
-        {submitting ? 'Wird abgegeben…' : 'Abgeben'}
-      </Button>
+      {complete && !passed && (
+        <div className="flex items-start gap-3 rounded-xl border border-sky-500/40 bg-sky-500/10 p-4 text-sm">
+          <Lock className="mt-0.5 size-5 shrink-0 text-sky-700" />
+          <p>
+            <strong>Fast geschafft!</strong> Beantworte alle Fragen richtig, um die Aufgabe zu
+            bestehen und das nächste Kapitel freizuschalten. XP zählen trotzdem nur für den ersten
+            Versuch.
+          </p>
+        </div>
+      )}
+
+      {complete && passed && (
+        <div
+          className={
+            progress.status === 'NEEDS_REVIEW'
+              ? 'flex items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4'
+              : 'flex items-start gap-3 rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4'
+          }
+        >
+          {progress.status === 'NEEDS_REVIEW' ? (
+            <Clock className="mt-0.5 size-5 shrink-0 text-amber-600" />
+          ) : (
+            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-600" />
+          )}
+          <div className="space-y-1 text-sm">
+            <p className="font-semibold">
+              {progress.status === 'NEEDS_REVIEW'
+                ? 'Aufgabe bestanden! Deine Lehrkraft prüft noch eine Antwort – das nächste Kapitel ist schon frei.'
+                : `Aufgabe bestanden: ${progress.totalScore}/${progress.maxScore} Punkte – das nächste Kapitel ist frei.`}
+            </p>
+            {progress.status === 'GRADED' && xpReward > 0 && (
+              <p className="text-muted-foreground flex items-center gap-1">
+                <Sparkles className="size-3.5" />
+                {xpAwarded != null
+                  ? `${xpAwarded} XP erhalten`
+                  : 'XP werden gutgeschrieben'}
+              </p>
+            )}
+          </div>
+          {nextHref && (
+            <Button asChild size="sm" className="ml-auto shrink-0 gap-1.5 self-center">
+              <Link href={nextHref}>
+                Weiter
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   )
-}
-
-function QuestionInput({
-  question,
-  answer,
-  onAnswer,
-  disabled,
-}: {
-  question: ExerciseQuestion
-  answer?: QuestionAnswer
-  onAnswer: (a: QuestionAnswer) => void
-  disabled?: boolean
-}) {
-  switch (question.kind) {
-    case 'MC_SINGLE':
-      return (
-        <McSingleInput
-          questionId={question.id}
-          spec={question.spec as McSingleSpec}
-          value={(answer as { optionId?: string })?.optionId}
-          onChange={(optionId) => onAnswer({ optionId })}
-          disabled={disabled}
-        />
-      )
-    case 'FILL_BLANK':
-      return (
-        <FillBlankInput
-          spec={question.spec as FillBlankSpec}
-          values={(answer as { values?: Record<string, string> })?.values ?? {}}
-          onChange={(values) => onAnswer({ values })}
-          disabled={disabled}
-        />
-      )
-    case 'SHORT_TEXT':
-      return (
-        <ShortTextInput
-          spec={question.spec as ShortTextSpec}
-          value={(answer as { text?: string })?.text ?? ''}
-          onChange={(text) => onAnswer({ text })}
-          disabled={disabled}
-        />
-      )
-    case 'MATH':
-      return (
-        <MathInput
-          value={(answer as { latex?: string })?.latex ?? ''}
-          onChange={(latex) => onAnswer({ latex })}
-          disabled={disabled}
-        />
-      )
-    case 'DRAG_DROP':
-      return (
-        <DragDropInput
-          spec={question.spec as DragDropSpec}
-          value={
-            (answer as { order?: string[]; pairs?: Record<string, string> }) ??
-            {}
-          }
-          onChange={(v) =>
-            onAnswer(
-              v.order
-                ? { order: v.order }
-                : { pairs: v.pairs ?? {} },
-            )
-          }
-          disabled={disabled}
-        />
-      )
-    case 'H5P':
-      return (
-        <H5pInput
-          spec={question.spec as H5pSpec}
-          value={answer as H5pAnswer | undefined}
-          onAnswer={(a) => onAnswer(a)}
-          disabled={disabled}
-        />
-      )
-    default:
-      return null
-  }
 }

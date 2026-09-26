@@ -13,10 +13,12 @@ export function FillBlankEditor({
   question,
   courseId,
   exerciseId,
+  onSaved,
 }: {
   question: ExerciseQuestion
   courseId: string
   exerciseId: string
+  onSaved?: () => void
 }) {
   const spec = question.spec as FillBlankSpec
   const solution = question.solution as FillBlankSolution
@@ -48,6 +50,7 @@ export function FillBlankEditor({
       courseId={courseId}
       exerciseId={exerciseId}
       onSaveSpec={onSaveSpec}
+      onSaved={onSaved}
     >
       <p className="text-muted-foreground text-sm">
         Verwende im Aufgabentext Platzhalter wie{' '}

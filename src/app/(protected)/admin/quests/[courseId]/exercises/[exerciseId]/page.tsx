@@ -3,6 +3,7 @@ import { ExerciseIntroForm } from './_components/exercise-intro-form'
 import { ExerciseActions } from './_components/exercise-actions'
 import { AddQuestionMenu } from './_components/add-question-menu'
 import { ExerciseSettingsForm } from './_components/exercise-settings-form'
+import { suggestExerciseXp } from '@/lib/exercises/xp'
 import { QuestionEditor } from './_components/question-editor'
 import { Banner } from '@/components/banner'
 import {
@@ -43,6 +44,7 @@ export default async function ExerciseEditorPage({ params }: ExercisePageProps) 
     where: { id: exerciseId, courseId },
     include: {
       questions: { orderBy: { position: 'asc' } },
+      course: { select: { klassenstufe: true, schwierigkeit: true } },
     },
   })
 
@@ -122,6 +124,7 @@ export default async function ExerciseEditorPage({ params }: ExercisePageProps) 
           </CardHeader>
           <CardContent>
             <ExerciseSettingsForm
+              suggestedXp={suggestExerciseXp(exercise.course)}
               initialData={exercise}
               courseId={courseId}
               exerciseId={exerciseId}

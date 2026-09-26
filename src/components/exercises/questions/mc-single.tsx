@@ -13,7 +13,7 @@ export function McSingleInput({
   disabled,
 }: {
   questionId: string
-  spec: McSingleSpec
+  spec: Pick<McSingleSpec, 'options' | 'shuffle'>
   value: string | undefined
   onChange: (optionId: string) => void
   disabled?: boolean

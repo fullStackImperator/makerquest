@@ -28,6 +28,7 @@ import {
   RUBRIC_LEVELS,
   suggestOverallLevel,
 } from '@/lib/journal/shared'
+import type { ExerciseSummary } from '@/lib/exercises/teacher-queries'
 import type {
   FinalAssessmentView,
   RubricCriterionView,
@@ -46,11 +47,13 @@ export function FinalGradePanel({
   student,
   rubric,
   assessment,
+  exerciseSummary,
 }: {
   courseId: string
   student: WorkspaceStudentRow
   rubric: RubricCriterionView[]
   assessment: FinalAssessmentView
+  exerciseSummary: ExerciseSummary
 }) {
   const router = useRouter()
   const [scores, setScores] = useState<Record<string, RubricLevel>>(assessment.scores)
@@ -105,6 +108,8 @@ export function FinalGradePanel({
           )}
         </dl>
       </section>
+
+      {exerciseSummary.total > 0 && <ExerciseSummarySection summary={exerciseSummary} />}
 
       <section className="space-y-4 border-t pt-4">
         <div className="flex items-center justify-between gap-2">
@@ -208,6 +213,33 @@ export function FinalGradePanel({
         rubric={rubric}
       />
     </div>
+  )
+}
+
+function ExerciseSummarySection({ summary: s }: { summary: ExerciseSummary }) {
+  const percent = s.maxPoints > 0 ? Math.round((s.points / s.maxPoints) * 100) : 0
+  return (
+    <section className="space-y-2 border-t pt-4">
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-sm font-semibold">Aufgaben</h3>
+        {s.pendingReview > 0 && (
+          <span className="text-xs font-medium text-amber-700 dark:text-amber-300">
+            {s.pendingReview} {s.pendingReview === 1 ? 'Antwort offen' : 'Antworten offen'}
+          </span>
+        )}
+      </div>
+      <div className="bg-muted h-1.5 overflow-hidden rounded-full">
+        <div className="h-full rounded-full bg-emerald-500" style={{ width: `${percent}%` }} />
+      </div>
+      <dl className="grid grid-cols-3 gap-2 text-xs">
+        <Stat label="Punkte" value={`${s.points} / ${s.maxPoints} (${percent} %)`} />
+        <Stat label="Bewertet" value={`${s.graded} / ${s.total}`} />
+        <Stat label="XP" value={String(s.xp)} />
+      </dl>
+      <p className="text-muted-foreground text-[11px]">
+        Punkte aus dem ersten Versuch bzw. der Bewertung der Lehrkraft. Offene Antworten zählen noch nicht.
+      </p>
+    </section>
   )
 }
 

@@ -24,6 +24,7 @@ import { LayoutContainerNode, LayoutItemNode } from './nodes/LayoutNode'
 import { YouTubeNode } from './nodes/YouTubeNode'
 import { AlertNode } from './nodes/AlertNode/AlertNode'
 import { MultipleChoiceNode } from './nodes/MultipleChoiceNode/MultipleChoiceNode'
+import { ExerciseQuestionNode } from './nodes/ExerciseQuestionNode'
 
 export const editorConfig = {
   namespace: 'matheditor',
@@ -62,12 +63,14 @@ export const editorConfig = {
     LayoutContainerNode,
     LayoutItemNode,
     YouTubeNode,
+    ExerciseQuestionNode,
   ],
 }
 
 /** Blocks that only make sense in teacher-authored content. */
 const TEACHER_ONLY_NODES: ReadonlySet<unknown> = new Set([
   MultipleChoiceNode,
+  ExerciseQuestionNode,
   StickyNode,
   PageBreakNode,
   IFrameNode,

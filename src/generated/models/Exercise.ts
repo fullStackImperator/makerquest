@@ -29,11 +29,13 @@ export type AggregateExercise = {
 export type ExerciseAvgAggregateOutputType = {
   position: number | null
   passingScore: number | null
+  xpReward: number | null
 }
 
 export type ExerciseSumAggregateOutputType = {
   position: number | null
   passingScore: number | null
+  xpReward: number | null
 }
 
 export type ExerciseMinAggregateOutputType = {
@@ -46,6 +48,8 @@ export type ExerciseMinAggregateOutputType = {
   isFree: boolean | null
   passingScore: number | null
   awardXp: boolean | null
+  xpReward: number | null
+  chapterId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +64,8 @@ export type ExerciseMaxAggregateOutputType = {
   isFree: boolean | null
   passingScore: number | null
   awardXp: boolean | null
+  xpReward: number | null
+  chapterId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -75,6 +81,8 @@ export type ExerciseCountAggregateOutputType = {
   isFree: number
   passingScore: number
   awardXp: number
+  xpReward: number
+  chapterId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -84,11 +92,13 @@ export type ExerciseCountAggregateOutputType = {
 export type ExerciseAvgAggregateInputType = {
   position?: true
   passingScore?: true
+  xpReward?: true
 }
 
 export type ExerciseSumAggregateInputType = {
   position?: true
   passingScore?: true
+  xpReward?: true
 }
 
 export type ExerciseMinAggregateInputType = {
@@ -101,6 +111,8 @@ export type ExerciseMinAggregateInputType = {
   isFree?: true
   passingScore?: true
   awardXp?: true
+  xpReward?: true
+  chapterId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -115,6 +127,8 @@ export type ExerciseMaxAggregateInputType = {
   isFree?: true
   passingScore?: true
   awardXp?: true
+  xpReward?: true
+  chapterId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -130,6 +144,8 @@ export type ExerciseCountAggregateInputType = {
   isFree?: true
   passingScore?: true
   awardXp?: true
+  xpReward?: true
+  chapterId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -232,6 +248,8 @@ export type ExerciseGroupByOutputType = {
   isFree: boolean
   passingScore: number | null
   awardXp: boolean
+  xpReward: number
+  chapterId: string | null
   createdAt: Date
   updatedAt: Date
   _count: ExerciseCountAggregateOutputType | null
@@ -270,9 +288,12 @@ export type ExerciseWhereInput = {
   isFree?: Prisma.BoolFilter<"Exercise"> | boolean
   passingScore?: Prisma.IntNullableFilter<"Exercise"> | number | null
   awardXp?: Prisma.BoolFilter<"Exercise"> | boolean
+  xpReward?: Prisma.IntFilter<"Exercise"> | number
+  chapterId?: Prisma.StringNullableFilter<"Exercise"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  chapter?: Prisma.XOR<Prisma.ChapterNullableScalarRelationFilter, Prisma.ChapterWhereInput> | null
   questions?: Prisma.ExerciseQuestionListRelationFilter
   attempts?: Prisma.ExerciseAttemptListRelationFilter
 }
@@ -288,15 +309,19 @@ export type ExerciseOrderByWithRelationInput = {
   isFree?: Prisma.SortOrder
   passingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   awardXp?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   course?: Prisma.CourseOrderByWithRelationInput
+  chapter?: Prisma.ChapterOrderByWithRelationInput
   questions?: Prisma.ExerciseQuestionOrderByRelationAggregateInput
   attempts?: Prisma.ExerciseAttemptOrderByRelationAggregateInput
 }
 
 export type ExerciseWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  chapterId?: string
   AND?: Prisma.ExerciseWhereInput | Prisma.ExerciseWhereInput[]
   OR?: Prisma.ExerciseWhereInput[]
   NOT?: Prisma.ExerciseWhereInput | Prisma.ExerciseWhereInput[]
@@ -309,12 +334,14 @@ export type ExerciseWhereUniqueInput = Prisma.AtLeast<{
   isFree?: Prisma.BoolFilter<"Exercise"> | boolean
   passingScore?: Prisma.IntNullableFilter<"Exercise"> | number | null
   awardXp?: Prisma.BoolFilter<"Exercise"> | boolean
+  xpReward?: Prisma.IntFilter<"Exercise"> | number
   createdAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
   course?: Prisma.XOR<Prisma.CourseScalarRelationFilter, Prisma.CourseWhereInput>
+  chapter?: Prisma.XOR<Prisma.ChapterNullableScalarRelationFilter, Prisma.ChapterWhereInput> | null
   questions?: Prisma.ExerciseQuestionListRelationFilter
   attempts?: Prisma.ExerciseAttemptListRelationFilter
-}, "id">
+}, "id" | "chapterId">
 
 export type ExerciseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -327,6 +354,8 @@ export type ExerciseOrderByWithAggregationInput = {
   isFree?: Prisma.SortOrder
   passingScore?: Prisma.SortOrderInput | Prisma.SortOrder
   awardXp?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExerciseCountOrderByAggregateInput
@@ -350,6 +379,8 @@ export type ExerciseScalarWhereWithAggregatesInput = {
   isFree?: Prisma.BoolWithAggregatesFilter<"Exercise"> | boolean
   passingScore?: Prisma.IntNullableWithAggregatesFilter<"Exercise"> | number | null
   awardXp?: Prisma.BoolWithAggregatesFilter<"Exercise"> | boolean
+  xpReward?: Prisma.IntWithAggregatesFilter<"Exercise"> | number
+  chapterId?: Prisma.StringNullableWithAggregatesFilter<"Exercise"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Exercise"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Exercise"> | Date | string
 }
@@ -364,9 +395,11 @@ export type ExerciseCreateInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutExercisesInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutExerciseInput
   questions?: Prisma.ExerciseQuestionCreateNestedManyWithoutExerciseInput
   attempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutExerciseInput
 }
@@ -382,6 +415,8 @@ export type ExerciseUncheckedCreateInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.ExerciseQuestionUncheckedCreateNestedManyWithoutExerciseInput
@@ -398,9 +433,11 @@ export type ExerciseUpdateInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutExercisesNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutExerciseNestedInput
   questions?: Prisma.ExerciseQuestionUpdateManyWithoutExerciseNestedInput
   attempts?: Prisma.ExerciseAttemptUpdateManyWithoutExerciseNestedInput
 }
@@ -416,6 +453,8 @@ export type ExerciseUncheckedUpdateInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.ExerciseQuestionUncheckedUpdateManyWithoutExerciseNestedInput
@@ -433,6 +472,8 @@ export type ExerciseCreateManyInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -447,6 +488,7 @@ export type ExerciseUpdateManyMutationInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -462,6 +504,8 @@ export type ExerciseUncheckedUpdateManyInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -476,6 +520,11 @@ export type ExerciseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ExerciseNullableScalarRelationFilter = {
+  is?: Prisma.ExerciseWhereInput | null
+  isNot?: Prisma.ExerciseWhereInput | null
+}
+
 export type ExerciseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   courseId?: Prisma.SortOrder
@@ -487,6 +536,8 @@ export type ExerciseCountOrderByAggregateInput = {
   isFree?: Prisma.SortOrder
   passingScore?: Prisma.SortOrder
   awardXp?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -494,6 +545,7 @@ export type ExerciseCountOrderByAggregateInput = {
 export type ExerciseAvgOrderByAggregateInput = {
   position?: Prisma.SortOrder
   passingScore?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
 }
 
 export type ExerciseMaxOrderByAggregateInput = {
@@ -506,6 +558,8 @@ export type ExerciseMaxOrderByAggregateInput = {
   isFree?: Prisma.SortOrder
   passingScore?: Prisma.SortOrder
   awardXp?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -520,6 +574,8 @@ export type ExerciseMinOrderByAggregateInput = {
   isFree?: Prisma.SortOrder
   passingScore?: Prisma.SortOrder
   awardXp?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
+  chapterId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -527,6 +583,7 @@ export type ExerciseMinOrderByAggregateInput = {
 export type ExerciseSumOrderByAggregateInput = {
   position?: Prisma.SortOrder
   passingScore?: Prisma.SortOrder
+  xpReward?: Prisma.SortOrder
 }
 
 export type ExerciseScalarRelationFilter = {
@@ -576,6 +633,38 @@ export type ExerciseUncheckedUpdateManyWithoutCourseNestedInput = {
   deleteMany?: Prisma.ExerciseScalarWhereInput | Prisma.ExerciseScalarWhereInput[]
 }
 
+export type ExerciseCreateNestedOneWithoutChapterInput = {
+  create?: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+  connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutChapterInput
+  connect?: Prisma.ExerciseWhereUniqueInput
+}
+
+export type ExerciseUncheckedCreateNestedOneWithoutChapterInput = {
+  create?: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+  connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutChapterInput
+  connect?: Prisma.ExerciseWhereUniqueInput
+}
+
+export type ExerciseUpdateOneWithoutChapterNestedInput = {
+  create?: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+  connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutChapterInput
+  upsert?: Prisma.ExerciseUpsertWithoutChapterInput
+  disconnect?: Prisma.ExerciseWhereInput | boolean
+  delete?: Prisma.ExerciseWhereInput | boolean
+  connect?: Prisma.ExerciseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ExerciseUpdateToOneWithWhereWithoutChapterInput, Prisma.ExerciseUpdateWithoutChapterInput>, Prisma.ExerciseUncheckedUpdateWithoutChapterInput>
+}
+
+export type ExerciseUncheckedUpdateOneWithoutChapterNestedInput = {
+  create?: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+  connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutChapterInput
+  upsert?: Prisma.ExerciseUpsertWithoutChapterInput
+  disconnect?: Prisma.ExerciseWhereInput | boolean
+  delete?: Prisma.ExerciseWhereInput | boolean
+  connect?: Prisma.ExerciseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ExerciseUpdateToOneWithWhereWithoutChapterInput, Prisma.ExerciseUpdateWithoutChapterInput>, Prisma.ExerciseUncheckedUpdateWithoutChapterInput>
+}
+
 export type ExerciseCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.ExerciseCreateWithoutQuestionsInput, Prisma.ExerciseUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutQuestionsInput
@@ -614,8 +703,10 @@ export type ExerciseCreateWithoutCourseInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  chapter?: Prisma.ChapterCreateNestedOneWithoutExerciseInput
   questions?: Prisma.ExerciseQuestionCreateNestedManyWithoutExerciseInput
   attempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutExerciseInput
 }
@@ -630,6 +721,8 @@ export type ExerciseUncheckedCreateWithoutCourseInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.ExerciseQuestionUncheckedCreateNestedManyWithoutExerciseInput
@@ -676,8 +769,98 @@ export type ExerciseScalarWhereInput = {
   isFree?: Prisma.BoolFilter<"Exercise"> | boolean
   passingScore?: Prisma.IntNullableFilter<"Exercise"> | number | null
   awardXp?: Prisma.BoolFilter<"Exercise"> | boolean
+  xpReward?: Prisma.IntFilter<"Exercise"> | number
+  chapterId?: Prisma.StringNullableFilter<"Exercise"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exercise"> | Date | string
+}
+
+export type ExerciseCreateWithoutChapterInput = {
+  id?: string
+  title: string
+  description?: string | null
+  intro?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position: number
+  isPublished?: boolean
+  isFree?: boolean
+  passingScore?: number | null
+  awardXp?: boolean
+  xpReward?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  course: Prisma.CourseCreateNestedOneWithoutExercisesInput
+  questions?: Prisma.ExerciseQuestionCreateNestedManyWithoutExerciseInput
+  attempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutExerciseInput
+}
+
+export type ExerciseUncheckedCreateWithoutChapterInput = {
+  id?: string
+  courseId: string
+  title: string
+  description?: string | null
+  intro?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position: number
+  isPublished?: boolean
+  isFree?: boolean
+  passingScore?: number | null
+  awardXp?: boolean
+  xpReward?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  questions?: Prisma.ExerciseQuestionUncheckedCreateNestedManyWithoutExerciseInput
+  attempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutExerciseInput
+}
+
+export type ExerciseCreateOrConnectWithoutChapterInput = {
+  where: Prisma.ExerciseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+}
+
+export type ExerciseUpsertWithoutChapterInput = {
+  update: Prisma.XOR<Prisma.ExerciseUpdateWithoutChapterInput, Prisma.ExerciseUncheckedUpdateWithoutChapterInput>
+  create: Prisma.XOR<Prisma.ExerciseCreateWithoutChapterInput, Prisma.ExerciseUncheckedCreateWithoutChapterInput>
+  where?: Prisma.ExerciseWhereInput
+}
+
+export type ExerciseUpdateToOneWithWhereWithoutChapterInput = {
+  where?: Prisma.ExerciseWhereInput
+  data: Prisma.XOR<Prisma.ExerciseUpdateWithoutChapterInput, Prisma.ExerciseUncheckedUpdateWithoutChapterInput>
+}
+
+export type ExerciseUpdateWithoutChapterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intro?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  course?: Prisma.CourseUpdateOneRequiredWithoutExercisesNestedInput
+  questions?: Prisma.ExerciseQuestionUpdateManyWithoutExerciseNestedInput
+  attempts?: Prisma.ExerciseAttemptUpdateManyWithoutExerciseNestedInput
+}
+
+export type ExerciseUncheckedUpdateWithoutChapterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  courseId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intro?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.ExerciseQuestionUncheckedUpdateManyWithoutExerciseNestedInput
+  attempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutExerciseNestedInput
 }
 
 export type ExerciseCreateWithoutQuestionsInput = {
@@ -690,9 +873,11 @@ export type ExerciseCreateWithoutQuestionsInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutExercisesInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutExerciseInput
   attempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutExerciseInput
 }
 
@@ -707,6 +892,8 @@ export type ExerciseUncheckedCreateWithoutQuestionsInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   attempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutExerciseInput
@@ -738,9 +925,11 @@ export type ExerciseUpdateWithoutQuestionsInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutExercisesNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutExerciseNestedInput
   attempts?: Prisma.ExerciseAttemptUpdateManyWithoutExerciseNestedInput
 }
 
@@ -755,6 +944,8 @@ export type ExerciseUncheckedUpdateWithoutQuestionsInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutExerciseNestedInput
@@ -770,9 +961,11 @@ export type ExerciseCreateWithoutAttemptsInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   course: Prisma.CourseCreateNestedOneWithoutExercisesInput
+  chapter?: Prisma.ChapterCreateNestedOneWithoutExerciseInput
   questions?: Prisma.ExerciseQuestionCreateNestedManyWithoutExerciseInput
 }
 
@@ -787,6 +980,8 @@ export type ExerciseUncheckedCreateWithoutAttemptsInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.ExerciseQuestionUncheckedCreateNestedManyWithoutExerciseInput
@@ -818,9 +1013,11 @@ export type ExerciseUpdateWithoutAttemptsInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   course?: Prisma.CourseUpdateOneRequiredWithoutExercisesNestedInput
+  chapter?: Prisma.ChapterUpdateOneWithoutExerciseNestedInput
   questions?: Prisma.ExerciseQuestionUpdateManyWithoutExerciseNestedInput
 }
 
@@ -835,6 +1032,8 @@ export type ExerciseUncheckedUpdateWithoutAttemptsInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.ExerciseQuestionUncheckedUpdateManyWithoutExerciseNestedInput
@@ -850,6 +1049,8 @@ export type ExerciseCreateManyCourseInput = {
   isFree?: boolean
   passingScore?: number | null
   awardXp?: boolean
+  xpReward?: number
+  chapterId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -864,8 +1065,10 @@ export type ExerciseUpdateWithoutCourseInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chapter?: Prisma.ChapterUpdateOneWithoutExerciseNestedInput
   questions?: Prisma.ExerciseQuestionUpdateManyWithoutExerciseNestedInput
   attempts?: Prisma.ExerciseAttemptUpdateManyWithoutExerciseNestedInput
 }
@@ -880,6 +1083,8 @@ export type ExerciseUncheckedUpdateWithoutCourseInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.ExerciseQuestionUncheckedUpdateManyWithoutExerciseNestedInput
@@ -896,6 +1101,8 @@ export type ExerciseUncheckedUpdateManyWithoutCourseInput = {
   isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean
   passingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   awardXp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  chapterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -951,9 +1158,12 @@ export type ExerciseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   isFree?: boolean
   passingScore?: boolean
   awardXp?: boolean
+  xpReward?: boolean
+  chapterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
   questions?: boolean | Prisma.Exercise$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Exercise$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.ExerciseCountOutputTypeDefaultArgs<ExtArgs>
@@ -970,9 +1180,12 @@ export type ExerciseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isFree?: boolean
   passingScore?: boolean
   awardXp?: boolean
+  xpReward?: boolean
+  chapterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
 }, ExtArgs["result"]["exercise"]>
 
 export type ExerciseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -986,9 +1199,12 @@ export type ExerciseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isFree?: boolean
   passingScore?: boolean
   awardXp?: boolean
+  xpReward?: boolean
+  chapterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
 }, ExtArgs["result"]["exercise"]>
 
 export type ExerciseSelectScalar = {
@@ -1002,28 +1218,34 @@ export type ExerciseSelectScalar = {
   isFree?: boolean
   passingScore?: boolean
   awardXp?: boolean
+  xpReward?: boolean
+  chapterId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "courseId" | "title" | "description" | "intro" | "position" | "isPublished" | "isFree" | "passingScore" | "awardXp" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
+export type ExerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "courseId" | "title" | "description" | "intro" | "position" | "isPublished" | "isFree" | "passingScore" | "awardXp" | "xpReward" | "chapterId" | "createdAt" | "updatedAt", ExtArgs["result"]["exercise"]>
 export type ExerciseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
   questions?: boolean | Prisma.Exercise$questionsArgs<ExtArgs>
   attempts?: boolean | Prisma.Exercise$attemptsArgs<ExtArgs>
   _count?: boolean | Prisma.ExerciseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ExerciseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
 }
 export type ExerciseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   course?: boolean | Prisma.CourseDefaultArgs<ExtArgs>
+  chapter?: boolean | Prisma.Exercise$chapterArgs<ExtArgs>
 }
 
 export type $ExercisePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Exercise"
   objects: {
     course: Prisma.$CoursePayload<ExtArgs>
+    chapter: Prisma.$ChapterPayload<ExtArgs> | null
     questions: Prisma.$ExerciseQuestionPayload<ExtArgs>[]
     attempts: Prisma.$ExerciseAttemptPayload<ExtArgs>[]
   }
@@ -1038,6 +1260,11 @@ export type $ExercisePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     isFree: boolean
     passingScore: number | null
     awardXp: boolean
+    xpReward: number
+    /**
+     * Set for the hidden container that holds a chapter's inline questions.
+     */
+    chapterId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["exercise"]>
@@ -1435,6 +1662,7 @@ readonly fields: ExerciseFieldRefs;
 export interface Prisma__ExerciseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   course<T extends Prisma.CourseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CourseDefaultArgs<ExtArgs>>): Prisma.Prisma__CourseClient<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chapter<T extends Prisma.Exercise$chapterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Exercise$chapterArgs<ExtArgs>>): Prisma.Prisma__ChapterClient<runtime.Types.Result.GetResult<Prisma.$ChapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   questions<T extends Prisma.Exercise$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Exercise$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExerciseQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attempts<T extends Prisma.Exercise$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Exercise$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExerciseAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1476,6 +1704,8 @@ export interface ExerciseFieldRefs {
   readonly isFree: Prisma.FieldRef<"Exercise", 'Boolean'>
   readonly passingScore: Prisma.FieldRef<"Exercise", 'Int'>
   readonly awardXp: Prisma.FieldRef<"Exercise", 'Boolean'>
+  readonly xpReward: Prisma.FieldRef<"Exercise", 'Int'>
+  readonly chapterId: Prisma.FieldRef<"Exercise", 'String'>
   readonly createdAt: Prisma.FieldRef<"Exercise", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Exercise", 'DateTime'>
 }
@@ -1871,6 +2101,25 @@ export type ExerciseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Exercises to delete.
    */
   limit?: number
+}
+
+/**
+ * Exercise.chapter
+ */
+export type Exercise$chapterArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Chapter
+   */
+  select?: Prisma.ChapterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Chapter
+   */
+  omit?: Prisma.ChapterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChapterInclude<ExtArgs> | null
+  where?: Prisma.ChapterWhereInput
 }
 
 /**

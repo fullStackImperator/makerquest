@@ -12,7 +12,7 @@ export async function getNextCourseItemPosition(
       select: { position: true },
     }),
     db.exercise.findFirst({
-      where: { courseId },
+      where: { courseId, chapterId: null },
       orderBy: { position: 'desc' },
       select: { position: true },
     }),

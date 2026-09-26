@@ -3,6 +3,7 @@ import 'server-only'
 import { db } from '@/lib/db'
 import type { User } from '@/generated/client'
 import type { RubricLevel } from '@/generated/enums'
+import { countPendingReviewsByCourse, countPendingReviewsByStudent } from '@/lib/exercises/teacher-queries'
 import { journalEntryInclude, toJournalEntryView } from './queries'
 import type { JournalAttachmentView, JournalEntryView } from './shared'
 
@@ -13,7 +14,13 @@ export const DEFAULT_RUBRIC = [
   { label: 'Reflexion', description: 'Probleme, Lösungen und Gelerntes beschrieben' },
 ]
 
-export type WorkspaceCourse = { id: string; title: string; readyCount: number }
+export type WorkspaceCourse = {
+  id: string
+  title: string
+  readyCount: number
+  /** Short answers waiting for review. */
+  reviewCount: number
+}
 
 export type WorkspaceStudentRow = {
   userId: string
@@ -25,6 +32,8 @@ export type WorkspaceStudentRow = {
   chaptersTotal: number
   entryCount: number
   readyCount: number
+  /** Short answers waiting for review. */
+  reviewCount: number
   lastActivity: string | null
   finalLevel: RubricLevel | null
   isGraded: boolean
@@ -52,19 +61,27 @@ export async function getWorkspaceCourses(
     orderBy: { title: 'asc' },
   })
 
-  const ready = await db.journalEntry.groupBy({
-    by: ['courseId'],
-    where: { status: 'READY', courseId: { in: courses.map((c) => c.id) } },
-    _count: { _all: true },
-  })
+  const courseIds = courses.map((c) => c.id)
+  const [ready, reviews] = await Promise.all([
+    db.journalEntry.groupBy({
+      by: ['courseId'],
+      where: { status: 'READY', courseId: { in: courseIds } },
+      _count: { _all: true },
+    }),
+    countPendingReviewsByCourse(courseIds),
+  ])
   const readyByCourse = new Map(ready.map((r) => [r.courseId, r._count._all]))
 
-  return courses.map((c) => ({ ...c, readyCount: readyByCourse.get(c.id) ?? 0 }))
+  return courses.map((c) => ({
+    ...c,
+    readyCount: readyByCourse.get(c.id) ?? 0,
+    reviewCount: reviews.get(c.id) ?? 0,
+  }))
 }
 
 /** One row per enrolled student, built with a fixed number of queries. */
 export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceStudentRow[]> {
-  const [enrollments, chapters, entryCounts, lastSubmitted, assessments] = await Promise.all([
+  const [enrollments, chapters, entryCounts, lastSubmitted, assessments, reviews] = await Promise.all([
     db.purchase.findMany({
       where: { courseId },
       select: { userId: true, createdAt: true },
@@ -87,6 +104,7 @@ export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceS
       where: { courseId },
       select: { userId: true, overallLevel: true, gradedAt: true },
     }),
+    countPendingReviewsByStudent(courseId),
   ])
 
   const userIds = enrollments.map((e) => e.userId)
@@ -127,6 +145,7 @@ export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceS
       chaptersTotal: chapters.length,
       entryCount: counts.reduce((sum, c) => sum + c._count._all, 0),
       readyCount: counts.find((c) => c.status === 'READY')?._count._all ?? 0,
+      reviewCount: reviews.get(e.userId) ?? 0,
       lastActivity: lastByUser.get(e.userId)?.toISOString() ?? null,
       finalLevel: assessment?.overallLevel ?? null,
       isGraded: !!assessment?.gradedAt,
