@@ -185,3 +185,25 @@ export async function addFachExperience(
     },
   })
 }
+
+/** Adds or removes XP (negative delta) in a Fach; never below 0, level recalculated. */
+export async function adjustFachExperience(
+  userId: string,
+  fachId: string,
+  delta: number,
+  dbx: DbCtx = db,
+): Promise<void> {
+  if (delta === 0) return
+  if (delta > 0) return addFachExperience(userId, fachId, delta, dbx)
+
+  const current = await ctx(dbx).userFachExperience.findUnique({
+    where: { userId_fachId: { userId, fachId } },
+    select: { experience: true },
+  })
+  if (!current) return
+  const experience = Math.max(0, current.experience + delta)
+  await ctx(dbx).userFachExperience.update({
+    where: { userId_fachId: { userId, fachId } },
+    data: { experience, level: Math.floor(Math.sqrt(experience / LEVEL_SCALE)) },
+  })
+}

@@ -97,7 +97,9 @@ export async function getStudentExercises(
   })
 
   return exercises
+    // Drafts and unpublished chapters only matter once the student has answers there.
     .filter((e) => e.questions.length > 0)
+    .filter((e) => (e.chapter ? e.chapter.isPublished : e.isPublished) || e.attempts.length > 0)
     .sort((a, b) => (a.chapter?.position ?? a.position) - (b.chapter?.position ?? b.position))
     .map((e) => {
       const attempt = e.attempts[0]
@@ -118,7 +120,8 @@ export async function getStudentExercises(
           needsReview: !!r?.needsReview,
           reviewed: !!r?.reviewedAt,
           feedback: typeof r?.feedback === 'string' ? r.feedback : null,
-          ai: r && q.kind === 'SHORT_TEXT' ? aiSuggestion(r.feedback, r.autoScore) : null,
+          // Once reviewed, feedback holds the teacher's text, not the AI's.
+          ai: r?.needsReview && q.kind === 'SHORT_TEXT' ? aiSuggestion(r.feedback, r.autoScore) : null,
           ...described,
         }
       })

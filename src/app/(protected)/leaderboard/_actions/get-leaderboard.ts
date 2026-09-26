@@ -42,8 +42,11 @@ export const getLeaderboard = async (
       db.user.findMany({
         where: {
           id: { in: userIds },
-          isTeacher: { not: true },
-          isAdmin: { not: true },
+          // Students have NULL roles, and `{ not: true }` doesn't match NULL in SQL.
+          AND: [
+            { OR: [{ isTeacher: null }, { isTeacher: false }] },
+            { OR: [{ isAdmin: null }, { isAdmin: false }] },
+          ],
         },
         select: {
           id: true,

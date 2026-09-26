@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { Prisma } from '@/generated/client'
 import { getCourseIfTeachable } from '@/lib/can-access-course-for-teaching'
 import { db } from '@/lib/db'
+import { resyncExerciseXp } from '@/lib/award-exercise-xp'
 import { recomputeAttempt } from '@/lib/exercises/attempt'
 import { getSessionUser } from '@/lib/get-session-user'
 import {
@@ -24,8 +25,9 @@ const reviewSchema = z.object({
 })
 
 /**
- * Grades a short answer waiting for review. The teacher's points are the
- * points that count; the attempt is recomputed and may pay its XP.
+ * Grades a short answer waiting for review, or changes an earlier grade. The
+ * teacher's points are the points that count; the attempt is recomputed, pays
+ * its XP once complete, and XP already paid is corrected after a change.
  */
 export async function reviewExerciseResponse(input: z.input<typeof reviewSchema>): Promise<ActionResult> {
   const parsed = reviewSchema.safeParse(input)
@@ -48,21 +50,26 @@ export async function reviewExerciseResponse(input: z.input<typeof reviewSchema>
     select: {
       attemptId: true,
       needsReview: true,
+      reviewedAt: true,
       question: { select: { points: true } },
-      attempt: { select: { userId: true, exercise: { select: { courseId: true } } } },
+      attempt: { select: { userId: true, exerciseId: true, exercise: { select: { courseId: true } } } },
     },
   })
   if (!response || response.attempt.exercise.courseId !== courseId) {
     return { success: false, error: 'Antwort nicht gefunden' }
   }
-  if (!response.needsReview) return { success: false, error: 'Diese Antwort ist schon bewertet' }
+  // Auto-graded answers (never reviewed) keep their first-try points.
+  const regrade = !response.needsReview
+  if (regrade && !response.reviewedAt) {
+    return { success: false, error: 'Diese Antwort wurde automatisch bewertet' }
+  }
   if (score > response.question.points) {
     return { success: false, error: `Höchstens ${response.question.points} Punkte` }
   }
 
-  // Only the first review counts; a concurrent second one finds nothing to update.
+  // A first review only applies while the answer is still open, so two teachers can't both grade it.
   const updated = await db.exerciseResponse.updateMany({
-    where: { id: responseId, needsReview: true },
+    where: regrade ? { id: responseId, reviewedAt: { not: null } } : { id: responseId, needsReview: true },
     data: {
       finalScore: score,
       firstTryScore: score,
@@ -77,6 +84,7 @@ export async function reviewExerciseResponse(input: z.input<typeof reviewSchema>
   if (updated.count === 0) return { success: false, error: 'Diese Antwort ist schon bewertet' }
 
   await recomputeAttempt(response.attemptId)
+  if (regrade) await resyncExerciseXp(response.attempt.userId, response.attempt.exerciseId)
 
   const studentId = response.attempt.userId
   await notifyStudentOfExerciseReview(studentId, courseId, user.id)

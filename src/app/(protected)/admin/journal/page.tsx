@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { Users } from 'lucide-react'
+import { ClipboardList, NotebookPen, Users, type LucideIcon } from 'lucide-react'
 
 import { getSessionUser } from '@/lib/get-session-user'
 import { getStudentExercises, summarizeExercises } from '@/lib/exercises/teacher-queries'
@@ -67,22 +67,26 @@ export default async function JournalWorkspacePage({
 
       {courseId && student && entries && rubric && assessment && exercises ? (
         <>
-          <Pane>
-            <nav className="flex gap-1 border-b p-2" aria-label="Ansicht">
-              <TabLink
-                href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=journal`}
-                active={tab === 'journal'}
-                label="Journal"
-                count={student.readyCount}
-                countClassName="bg-sky-500"
-              />
-              <TabLink
-                href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=aufgaben`}
-                active={tab === 'aufgaben'}
-                label="Aufgaben"
-                count={student.reviewCount}
-                countClassName="bg-amber-500"
-              />
+          <Pane plain>
+            <nav className="flex justify-center px-4 pb-1" aria-label="Ansicht">
+              <div className="bg-muted grid w-full max-w-sm grid-cols-2 gap-1 rounded-xl p-1">
+                <TabLink
+                  href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=journal`}
+                  active={tab === 'journal'}
+                  icon={NotebookPen}
+                  label="Journal"
+                  count={student.readyCount}
+                  countClassName="bg-sky-500"
+                />
+                <TabLink
+                  href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=aufgaben`}
+                  active={tab === 'aufgaben'}
+                  icon={ClipboardList}
+                  label="Aufgaben"
+                  count={student.reviewCount}
+                  countClassName="bg-amber-500"
+                />
+              </div>
             </nav>
             <div className="min-h-0 flex-1 overflow-y-auto">
               {tab === 'journal' ? (
@@ -122,12 +126,14 @@ export default async function JournalWorkspacePage({
 function TabLink({
   href,
   active,
+  icon: Icon,
   label,
   count,
   countClassName,
 }: {
   href: string
   active: boolean
+  icon: LucideIcon
   label: string
   count: number
   countClassName: string
@@ -138,10 +144,13 @@ function TabLink({
       scroll={false}
       aria-current={active ? 'page' : undefined}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-        active ? 'bg-muted text-foreground' : 'text-muted-foreground hover:bg-muted/60',
+        'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-all',
+        active
+          ? 'bg-background text-foreground shadow-sm ring-1 ring-border/60'
+          : 'text-muted-foreground hover:text-foreground hover:bg-background/50',
       )}
     >
+      <Icon className="size-4" aria-hidden />
       {label}
       {count > 0 && (
         <span className={cn('rounded-full px-1.5 text-[11px] font-semibold text-white tabular-nums', countClassName)}>
@@ -152,10 +161,23 @@ function TabLink({
   )
 }
 
-function Pane({ children, className }: { children: React.ReactNode; className?: string }) {
+function Pane({
+  children,
+  className,
+  plain,
+}: {
+  children: React.ReactNode
+  className?: string
+  /** No card surface; the content brings its own cards. */
+  plain?: boolean
+}) {
   return (
     <section
-      className={`bg-card border-border/60 flex min-h-0 flex-col overflow-hidden rounded-xl border shadow-sm ${className ?? ''}`}
+      className={cn(
+        'flex min-h-0 flex-col overflow-hidden',
+        !plain && 'bg-card border-border/60 rounded-xl border shadow-sm',
+        className,
+      )}
     >
       {children}
     </section>

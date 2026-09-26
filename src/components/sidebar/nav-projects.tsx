@@ -7,6 +7,7 @@ import {
   Trash2,
   type LucideIcon,
 } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 import {
   DropdownMenu,
@@ -26,6 +27,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 
+/** The item's own page or any page below it (e.g. /quests/123 marks "Quests"). */
+function isActiveUrl(pathname: string, url: string) {
+  return pathname === url || pathname.startsWith(`${url}/`)
+}
+
 export function NavProjects({
   projects,
 }: {
@@ -38,6 +44,7 @@ export function NavProjects({
   }[]
 }) {
   const { isMobile } = useSidebar()
+  const pathname = usePathname()
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -45,8 +52,12 @@ export function NavProjects({
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild size='default'>
-              <a href={item.url}>
+            <SidebarMenuButton
+              asChild
+              size='default'
+              isActive={isActiveUrl(pathname, item.url)}
+            >
+              <a href={item.url} aria-current={isActiveUrl(pathname, item.url) ? 'page' : undefined}>
                 <item.icon />
                 <span>{item.name}</span>
               </a>

@@ -2,7 +2,16 @@
 
 import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { BookOpen, CheckCircle2, ClipboardList, Hourglass, Loader2, Sparkles, XCircle } from 'lucide-react'
+import {
+  BookOpen,
+  CheckCircle2,
+  ClipboardList,
+  Hourglass,
+  Loader2,
+  Pencil,
+  Sparkles,
+  XCircle,
+} from 'lucide-react'
 import { toast } from 'sonner'
 
 import { reviewExerciseResponse } from '@/actions/exercise-review'
@@ -110,6 +119,9 @@ function QuestionRow({
   index: number
 }) {
   const answered = q.tries > 0
+  const [editing, setEditing] = useState(false)
+  // Only grades a teacher gave can be changed; auto-graded answers keep their first-try points.
+  const canChange = q.reviewed && !q.needsReview && !!q.responseId
 
   return (
     <li id={`question-${q.id}`} className="scroll-mt-4 space-y-2 px-4 py-3">
@@ -132,10 +144,20 @@ function QuestionRow({
           {q.expected.length > 0 && q.correct !== true && (
             <AnswerBlock label="Erwartet" lines={q.expected} className="text-muted-foreground" />
           )}
-          {q.feedback && !q.needsReview && (
+          {q.feedback && !q.needsReview && !editing && (
             <p className="text-muted-foreground text-xs">
               <span className="font-medium">Feedback:</span> {q.feedback}
             </p>
+          )}
+          {canChange && !editing && (
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs underline-offset-2 hover:underline"
+            >
+              <Pencil className="size-3" aria-hidden />
+              Bewertung ändern
+            </button>
           )}
         </div>
       ) : (
@@ -144,6 +166,14 @@ function QuestionRow({
 
       {q.needsReview && q.responseId && (
         <ReviewForm courseId={courseId} responseId={q.responseId} question={q} />
+      )}
+      {editing && q.responseId && (
+        <ReviewForm
+          courseId={courseId}
+          responseId={q.responseId}
+          question={q}
+          onClose={() => setEditing(false)}
+        />
       )}
     </li>
   )
@@ -198,14 +228,18 @@ function ReviewForm({
   courseId,
   responseId,
   question: q,
+  onClose,
 }: {
   courseId: string
   responseId: string
   question: TeacherQuestionView
+  /** Set when changing an earlier grade; closes the form. */
+  onClose?: () => void
 }) {
   const router = useRouter()
-  const [score, setScore] = useState(String(q.ai?.score ?? ''))
-  const [feedback, setFeedback] = useState(q.ai?.feedback ?? '')
+  const regrade = !!onClose
+  const [score, setScore] = useState(String((regrade ? q.score : q.ai?.score) ?? ''))
+  const [feedback, setFeedback] = useState((regrade ? q.feedback : q.ai?.feedback) ?? '')
   const [pending, startTransition] = useTransition()
 
   const points = Number(score)
@@ -215,13 +249,23 @@ function ReviewForm({
     startTransition(async () => {
       const result = await reviewExerciseResponse({ courseId, responseId, score: points, feedback })
       if (!result.success) return void toast.error(result.error)
-      toast.success('Antwort bewertet')
+      toast.success(regrade ? 'Bewertung geändert' : 'Antwort bewertet')
+      onClose?.()
       router.refresh()
     })
 
   return (
-    <div className="space-y-3 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3">
-      {q.ai ? (
+    <div
+      className={cn(
+        'space-y-3 rounded-lg border p-3',
+        regrade ? 'bg-muted/30' : 'border-amber-500/40 bg-amber-500/5',
+      )}
+    >
+      {regrade ? (
+        <p className="text-muted-foreground text-xs">
+          Punkte und XP des Schülers werden neu berechnet, auch bereits ausgezahlte XP.
+        </p>
+      ) : q.ai ? (
         <div className="space-y-1 text-xs">
           <p className="flex items-center gap-1 font-medium text-amber-900 dark:text-amber-100">
             <Sparkles className="size-3.5" aria-hidden />
@@ -278,10 +322,15 @@ function ReviewForm({
         />
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        {regrade && (
+          <Button size="sm" variant="ghost" onClick={onClose} disabled={pending}>
+            Abbrechen
+          </Button>
+        )}
         <Button size="sm" onClick={save} disabled={pending || !valid} className="gap-1.5">
           {pending && <Loader2 className="size-4 animate-spin" />}
-          Bewerten
+          {regrade ? 'Änderung speichern' : 'Bewerten'}
         </Button>
       </div>
     </div>

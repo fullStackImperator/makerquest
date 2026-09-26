@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { formatJournalDate, RUBRIC_LEVEL_CLASS, RUBRIC_LEVEL_LABEL } from '@/lib/journal/shared'
 import type { WorkspaceCourse, WorkspaceStudentRow } from '@/lib/journal/teacher-queries'
@@ -61,7 +62,10 @@ export function StudentList({
         if (sort === 'ready') return open(b) - open(a) || a.name.localeCompare(b.name, 'de')
         if (sort === 'activity') return (b.lastActivity ?? '').localeCompare(a.lastActivity ?? '')
         if (sort === 'progress') {
-          return b.chaptersCompleted - a.chaptersCompleted || a.name.localeCompare(b.name, 'de')
+          return (
+            b.chaptersCompleted + b.exercisesCompleted - (a.chaptersCompleted + a.exercisesCompleted) ||
+            a.name.localeCompare(b.name, 'de')
+          )
         }
         return a.name.localeCompare(b.name, 'de')
       })
@@ -174,7 +178,9 @@ function StudentRow({
   href: string
   selected: boolean
 }) {
-  const percent = s.chaptersTotal > 0 ? Math.round((s.chaptersCompleted / s.chaptersTotal) * 100) : 0
+  const done = s.chaptersCompleted + s.exercisesCompleted
+  const total = s.chaptersTotal + s.exercisesTotal
+  const percent = total > 0 ? Math.round((done / total) * 100) : 0
 
   return (
     <Link
@@ -206,17 +212,29 @@ function StudentRow({
         )}
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className="bg-muted h-1.5 flex-1 overflow-hidden rounded-full">
-          <div
-            className={cn('h-full rounded-full', percent === 100 ? 'bg-emerald-500' : 'bg-primary')}
-            style={{ width: `${percent}%` }}
-          />
-        </div>
-        <span className="text-muted-foreground text-[11px] tabular-nums">
-          {s.chaptersCompleted}/{s.chaptersTotal}
-        </span>
-      </div>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex items-center gap-2">
+            <div className="bg-muted h-1.5 flex-1 overflow-hidden rounded-full">
+              <div
+                className={cn('h-full rounded-full', percent === 100 ? 'bg-emerald-500' : 'bg-primary')}
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <span className="text-muted-foreground text-[11px] tabular-nums">
+              {done}/{total} erledigt
+            </span>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          <p>
+            {s.chaptersCompleted} von {s.chaptersTotal} Kapiteln
+          </p>
+          <p>
+            {s.exercisesCompleted} von {s.exercisesTotal} Aufgaben
+          </p>
+        </TooltipContent>
+      </Tooltip>
 
       <div className="text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
         {s.klasse && <span>{s.klasse}</span>}

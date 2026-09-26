@@ -30,6 +30,9 @@ export type WorkspaceStudentRow = {
   enrolledAt: string
   chaptersCompleted: number
   chaptersTotal: number
+  /** Separate Aufgaben (not chapter questions) with every question answered. */
+  exercisesCompleted: number
+  exercisesTotal: number
   entryCount: number
   readyCount: number
   /** Short answers waiting for review. */
@@ -81,7 +84,7 @@ export async function getWorkspaceCourses(
 
 /** One row per enrolled student, built with a fixed number of queries. */
 export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceStudentRow[]> {
-  const [enrollments, chapters, entryCounts, lastSubmitted, assessments, reviews] = await Promise.all([
+  const [enrollments, chapters, exercises, entryCounts, lastSubmitted, assessments, reviews] = await Promise.all([
     db.purchase.findMany({
       where: { courseId },
       select: { userId: true, createdAt: true },
@@ -89,6 +92,15 @@ export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceS
     db.chapter.findMany({
       where: { courseId, isPublished: true },
       select: { id: true },
+    }),
+    db.exercise.findMany({
+      where: { courseId, isPublished: true, chapterId: null, questions: { some: { archivedAt: null } } },
+      select: {
+        questions: { where: { archivedAt: null }, select: { id: true } },
+        attempts: {
+          select: { userId: true, responses: { where: { tries: { gt: 0 } }, select: { questionId: true } } },
+        },
+      },
     }),
     db.journalEntry.groupBy({
       by: ['userId', 'status'],
@@ -130,6 +142,15 @@ export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceS
   const progressByUser = new Map(progress.map((p) => [p.userId, p._count._all]))
   const lastByUser = new Map(lastSubmitted.map((l) => [l.userId, l._max.submittedAt]))
   const assessmentByUser = new Map(assessments.map((a) => [a.userId, a]))
+  const exercisesDoneByUser = new Map<string, number>()
+  for (const exercise of exercises) {
+    for (const attempt of exercise.attempts) {
+      const answered = new Set(attempt.responses.map((r) => r.questionId))
+      if (exercise.questions.every((q) => answered.has(q.id))) {
+        exercisesDoneByUser.set(attempt.userId, (exercisesDoneByUser.get(attempt.userId) ?? 0) + 1)
+      }
+    }
+  }
 
   return enrollments.map((e) => {
     const user = userById.get(e.userId)
@@ -143,6 +164,8 @@ export async function getWorkspaceStudents(courseId: string): Promise<WorkspaceS
       enrolledAt: e.createdAt.toISOString(),
       chaptersCompleted: progressByUser.get(e.userId) ?? 0,
       chaptersTotal: chapters.length,
+      exercisesCompleted: exercisesDoneByUser.get(e.userId) ?? 0,
+      exercisesTotal: exercises.length,
       entryCount: counts.reduce((sum, c) => sum + c._count._all, 0),
       readyCount: counts.find((c) => c.status === 'READY')?._count._all ?? 0,
       reviewCount: reviews.get(e.userId) ?? 0,

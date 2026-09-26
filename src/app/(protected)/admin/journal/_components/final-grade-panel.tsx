@@ -94,6 +94,9 @@ export function FinalGradePanel({
         <h2 className="text-lg font-semibold leading-tight">{student.name}</h2>
         <dl className="grid grid-cols-2 gap-2 text-xs">
           <Stat label="Kapitel" value={`${student.chaptersCompleted} / ${student.chaptersTotal}`} />
+          {student.exercisesTotal > 0 && (
+            <Stat label="Aufgaben" value={`${student.exercisesCompleted} / ${student.exercisesTotal}`} />
+          )}
           <Stat label="Einträge" value={`${student.entryCount} (${student.readyCount} offen)`} />
           <Stat label="Eingeschrieben" value={formatJournalDate(student.enrolledAt)} />
           <Stat

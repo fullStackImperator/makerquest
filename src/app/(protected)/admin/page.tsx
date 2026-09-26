@@ -108,7 +108,7 @@ async function getAdminStats(viewer: { id: string; isAdmin: boolean | null }) {
   }
 }
 
-/** "3 Einträge · 5 Antworten warten" for the Journale tile. */
+/** "3 Einträge · 5 Antworten warten" for the "Journale & Aufgaben" tile. */
 function journalHighlight(entries: number, answers: number) {
   const parts = [
     entries > 0 && `${entries} ${entries === 1 ? 'Eintrag' : 'Einträge'}`,
@@ -276,7 +276,7 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Verwalte Quests, Lernpfade, Journale, Badges und Nutzer.</p>
+          <p className="text-muted-foreground">Verwalte Quests, Lernpfade, Journale & Aufgaben, Badges und Nutzer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {stats.blockedNameAttempts > 0 && (
@@ -336,7 +336,7 @@ export default async function AdminDashboardPage() {
           meta={`${stats.publishedLearningPaths} veröffentlicht · ${stats.totalLearningPaths} gesamt`}
         />
         <NavTile
-          title="Journale"
+          title="Journale & Aufgaben"
           description="Einträge und Aufgaben ansehen, Feedback geben, abschließend bewerten"
           href="/admin/journal"
           icon={NotebookPen}
