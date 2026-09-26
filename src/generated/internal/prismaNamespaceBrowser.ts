@@ -86,7 +86,10 @@ export const ModelName = {
   FinalAssessment: 'FinalAssessment',
   RubricScore: 'RubricScore',
   Notification: 'Notification',
-  ProfileChange: 'ProfileChange'
+  ProfileChange: 'ProfileChange',
+  Conversation: 'Conversation',
+  Message: 'Message',
+  ConversationRead: 'ConversationRead'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -610,6 +613,38 @@ export const ProfileChangeScalarFieldEnum = {
 } as const
 
 export type ProfileChangeScalarFieldEnum = (typeof ProfileChangeScalarFieldEnum)[keyof typeof ProfileChangeScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  courseId: 'courseId',
+  teacherId: 'teacherId',
+  studentId: 'studentId',
+  lastMessageAt: 'lastMessageAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  authorId: 'authorId',
+  body: 'body',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const ConversationReadScalarFieldEnum = {
+  conversationId: 'conversationId',
+  userId: 'userId',
+  lastReadAt: 'lastReadAt'
+} as const
+
+export type ConversationReadScalarFieldEnum = (typeof ConversationReadScalarFieldEnum)[keyof typeof ConversationReadScalarFieldEnum]
 
 
 export const SortOrder = {

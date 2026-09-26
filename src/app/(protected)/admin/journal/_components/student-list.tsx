@@ -35,7 +35,7 @@ export function StudentList({
   students: WorkspaceStudentRow[]
   selectedUserId: string | null
   /** Kept when switching students. */
-  tab: 'journal' | 'aufgaben'
+  tab: 'journal' | 'aufgaben' | 'nachrichten'
 }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
@@ -157,7 +157,7 @@ export function StudentList({
               <li key={s.userId}>
                 <StudentRow
                   student={s}
-                  href={`/admin/journal?course=${courseId}&student=${s.userId}${tab === 'aufgaben' ? '&tab=aufgaben' : ''}`}
+                  href={`/admin/journal?course=${courseId}&student=${s.userId}${tab === 'journal' ? '' : `&tab=${tab}`}`}
                   selected={s.userId === selectedUserId}
                 />
               </li>

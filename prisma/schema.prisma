@@ -123,6 +123,10 @@ model User {
   gradedAssessments            FinalAssessment[]              @relation("FinalAssessmentGrader")
   notifications                Notification[]                 @relation("NotificationRecipient")
   triggeredNotifications       Notification[]                 @relation("NotificationActor")
+  conversations                Conversation[]                 @relation("ConversationStudent")
+  directConversations          Conversation[]                 @relation("ConversationTeacher")
+  messages                     Message[]                      @relation("MessageAuthor")
+  conversationReads            ConversationRead[]
   profileChanges               ProfileChange[]                @relation("ProfileChangeSubject")
   profileChangesMade           ProfileChange[]                @relation("ProfileChangeActor")
 
@@ -224,6 +228,7 @@ model Course {
   rubricCriteria   RubricCriterion[]
   finalAssessments FinalAssessment[]
   notifications    Notification[]
+  conversations    Conversation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -745,4 +750,51 @@ model ProfileChange {
 
   @@index([createdAt])
   @@index([userId, createdAt])
+}
+
+/// Messages of one student with either the teachers of one quest (courseId) or one
+/// teacher directly (teacherId). Exactly one of the two is set (checked in the database).
+model Conversation {
+  id            String             @id @default(uuid())
+  courseId      String?
+  course        Course?            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacherId     String?
+  teacher       User?              @relation("ConversationTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  studentId     String
+  student       User               @relation("ConversationStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  lastMessageAt DateTime           @default(now())
+  messages      Message[]
+  reads         ConversationRead[]
+  createdAt     DateTime           @default(now())
+
+  @@unique([courseId, studentId])
+  @@unique([teacherId, studentId])
+  @@index([studentId, lastMessageAt])
+  @@index([courseId, lastMessageAt])
+  @@index([teacherId, lastMessageAt])
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  authorId       String?
+  author         User?        @relation("MessageAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  body           String       @db.Text
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+  @@index([authorId, createdAt])
+}
+
+/// How far each participant has read a conversation (for unread counts).
+model ConversationRead {
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lastReadAt     DateTime
+
+  @@id([conversationId, userId])
+  @@index([userId])
 }

@@ -221,3 +221,19 @@ export type Notification = Prisma.NotificationModel
  * Audit log of name/Klasse/avatar changes, including rejected (blocked) name attempts.
  */
 export type ProfileChange = Prisma.ProfileChangeModel
+/**
+ * Model Conversation
+ * Messages of one student with either the teachers of one quest (courseId) or one
+ * teacher directly (teacherId). Exactly one of the two is set (checked in the database).
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model ConversationRead
+ * How far each participant has read a conversation (for unread counts).
+ */
+export type ConversationRead = Prisma.ConversationReadModel

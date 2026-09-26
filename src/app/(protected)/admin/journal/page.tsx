@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { ClipboardList, NotebookPen, Users, type LucideIcon } from 'lucide-react'
+import { ClipboardList, MessagesSquare, NotebookPen, Users, type LucideIcon } from 'lucide-react'
 
+import { LiveChatThread } from '@/components/messages/live-chat-thread'
 import { getSessionUser } from '@/lib/get-session-user'
 import { getStudentExercises, summarizeExercises } from '@/lib/exercises/teacher-queries'
 import {
@@ -11,13 +12,15 @@ import {
   getWorkspaceCourses,
   getWorkspaceStudents,
 } from '@/lib/journal/teacher-queries'
+import { countUnreadInThread, getThreadMessages, markConversationRead } from '@/lib/messages'
 import { cn } from '@/lib/utils'
 import { FinalGradePanel } from './_components/final-grade-panel'
 import { StudentExercises } from './_components/student-exercises'
 import { StudentList } from './_components/student-list'
 import { TeacherTimeline } from './_components/teacher-timeline'
 
-type Tab = 'journal' | 'aufgaben'
+type Tab = 'journal' | 'aufgaben' | 'nachrichten'
+const TABS: Tab[] = ['journal', 'aufgaben', 'nachrichten']
 
 export default async function JournalWorkspacePage({
   searchParams,
@@ -37,21 +40,25 @@ export default async function JournalWorkspacePage({
 
   // Without an explicit tab, open where the work is: answers to review and no entries waiting.
   const tab: Tab =
-    params.tab === 'aufgaben' || params.tab === 'journal'
-      ? params.tab
+    TABS.includes(params.tab as Tab)
+      ? (params.tab as Tab)
       : student && student.reviewCount > 0 && student.readyCount === 0
         ? 'aufgaben'
         : 'journal'
 
-  const [entries, rubric, assessment, exercises] =
+  const [entries, rubric, assessment, exercises, unreadMessages, thread] =
     courseId && student
       ? await Promise.all([
           getTeacherJournalEntries(courseId, student.userId),
           getOrCreateRubric(courseId),
           getFinalAssessment(courseId, student.userId),
           getStudentExercises(courseId, student.userId),
+          // Messages must not break the workspace (e.g. before their migration is applied).
+          countUnreadInThread(viewer.id, { courseId, studentId: student.userId }).catch(() => 0),
+          tab === 'nachrichten' ? getThreadMessages({ courseId, studentId: student.userId }) : null,
         ])
-      : [null, null, null, null]
+      : [null, null, null, null, 0, null]
+  if (thread?.conversationId) await markConversationRead(thread.conversationId, viewer.id)
 
   return (
     <div className="grid min-h-0 flex-1 gap-4 lg:h-[calc(100svh-7.5rem)] lg:grid-cols-[minmax(0,25fr)_minmax(0,45fr)_minmax(0,30fr)]">
@@ -69,7 +76,7 @@ export default async function JournalWorkspacePage({
         <>
           <Pane plain>
             <nav className="flex justify-center px-4 pb-1" aria-label="Ansicht">
-              <div className="bg-muted grid w-full max-w-sm grid-cols-2 gap-1 rounded-xl p-1">
+              <div className="bg-muted grid w-full max-w-md grid-cols-3 gap-1 rounded-xl p-1">
                 <TabLink
                   href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=journal`}
                   active={tab === 'journal'}
@@ -86,15 +93,34 @@ export default async function JournalWorkspacePage({
                   count={student.reviewCount}
                   countClassName="bg-amber-500"
                 />
+                <TabLink
+                  href={`/admin/journal?course=${courseId}&student=${student.userId}&tab=nachrichten`}
+                  active={tab === 'nachrichten'}
+                  icon={MessagesSquare}
+                  label="Nachrichten"
+                  count={tab === 'nachrichten' ? 0 : unreadMessages}
+                  countClassName="bg-primary"
+                />
               </div>
             </nav>
-            <div className="min-h-0 flex-1 overflow-y-auto">
-              {tab === 'journal' ? (
-                <TeacherTimeline key={student.userId} entries={entries} />
-              ) : (
-                <StudentExercises key={student.userId} courseId={courseId} exercises={exercises} />
-              )}
-            </div>
+            {tab === 'nachrichten' && thread ? (
+              <div className="bg-card border-border/60 mx-4 mb-4 flex max-h-[75svh] min-h-0 flex-col overflow-hidden rounded-xl border shadow-sm lg:max-h-none">
+                <LiveChatThread
+                  thread={{ courseId, studentId: student.userId }}
+                  viewerId={viewer.id}
+                  initialMessages={thread.messages}
+                  emptyHint={`Schreib ${student.name} eine Nachricht zu dieser Quest.`}
+                />
+              </div>
+            ) : (
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                {tab === 'journal' ? (
+                  <TeacherTimeline key={student.userId} entries={entries} />
+                ) : (
+                  <StudentExercises key={student.userId} courseId={courseId} exercises={exercises} />
+                )}
+              </div>
+            )}
           </Pane>
           <Pane>
             <div className="min-h-0 flex-1 overflow-y-auto">

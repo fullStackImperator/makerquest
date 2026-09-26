@@ -6,6 +6,7 @@ import { CourseSidebarItem } from './course-sidebar-item'
 import { CourseProgress } from '@/components/quests/course-progress'
 import { CourseUnEnrollButton } from '../../../../../components/quests/course-unenroll-button'
 import { JournalSidebarCard } from './journal-sidebar-card'
+import { MessagesSidebarLink } from './messages-sidebar-link'
 import { CourseProgressButton } from '../chapters/[chapterId]/_components/course-progress-button'
 import { CourseEnrollButton } from '@/components/quests/course-enroll-button'
 import { Badge } from '@/components/ui/badge'
@@ -159,8 +160,9 @@ export const CourseSidebar = async ({
         </div>
 
         {purchase && (
-          <div className="border-border/50 mt-auto border-t bg-muted/10 p-4">
+          <div className="border-border/50 mt-auto space-y-2 border-t bg-muted/10 p-4">
             <JournalSidebarCard courseId={course.id} userId={user.id} />
+            <MessagesSidebarLink courseId={course.id} userId={user.id} />
           </div>
         )}
 

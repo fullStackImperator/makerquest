@@ -20,6 +20,7 @@ import {
   Award,
   Wrench,
   BowArrow,
+  MessagesSquare,
   NotebookPen,
 } from 'lucide-react'
 
@@ -215,6 +216,12 @@ export function AppSidebar({
       url: '/journal',
       icon: NotebookPen,
       badge: notifications?.unreadJournal,
+    },
+    {
+      name: 'Nachrichten',
+      url: '/nachrichten',
+      icon: MessagesSquare,
+      badge: notifications?.unreadMessages,
     },
     {
       name: 'Badges',

@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db'
 import { getSessionUser } from '@/lib/get-session-user'
+import { countUnreadMessages } from '@/lib/messages'
 import { STUDENT_NOTIFICATION_KINDS, TEACHER_NOTIFICATION_KINDS } from '@/lib/notifications'
 import type { NotificationKind } from '@/generated/enums'
 
@@ -22,16 +23,18 @@ export type NotificationSummary = {
   unreadJournal: number
   /** Unread submissions to review (menu badge "Admin"). */
   unreadReview: number
+  /** Unread messages from other people (menu badge "Nachrichten"). */
+  unreadMessages: number
 }
 
-const EMPTY: NotificationSummary = { items: [], unread: 0, unreadJournal: 0, unreadReview: 0 }
+const EMPTY: NotificationSummary = { items: [], unread: 0, unreadJournal: 0, unreadReview: 0, unreadMessages: 0 }
 
 /** Latest notifications and unread counts of the logged-in user. */
 export async function getMyNotifications(): Promise<NotificationSummary> {
   const user = await getSessionUser()
   if (!user) return EMPTY
 
-  const [items, unreadByKind] = await Promise.all([
+  const [items, unreadByKind, unreadMessages] = await Promise.all([
     db.notification.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
@@ -43,6 +46,8 @@ export async function getMyNotifications(): Promise<NotificationSummary> {
       where: { userId: user.id, readAt: null },
       _count: { _all: true },
     }),
+    // Messages must never break the bell (e.g. before their migration is applied).
+    countUnreadMessages(user).catch(() => 0),
   ])
 
   const count = (kinds: NotificationKind[]) =>
@@ -61,6 +66,7 @@ export async function getMyNotifications(): Promise<NotificationSummary> {
     unread: unreadByKind.reduce((sum, u) => sum + u._count._all, 0),
     unreadJournal: count(STUDENT_NOTIFICATION_KINDS),
     unreadReview: count(TEACHER_NOTIFICATION_KINDS),
+    unreadMessages,
   }
 }
 

@@ -330,6 +330,7 @@ export type CourseWhereInput = {
   rubricCriteria?: Prisma.RubricCriterionListRelationFilter
   finalAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
 }
 
 export type CourseOrderByWithRelationInput = {
@@ -364,6 +365,7 @@ export type CourseOrderByWithRelationInput = {
   rubricCriteria?: Prisma.RubricCriterionOrderByRelationAggregateInput
   finalAssessments?: Prisma.FinalAssessmentOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
 }
 
 export type CourseWhereUniqueInput = Prisma.AtLeast<{
@@ -401,6 +403,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
   rubricCriteria?: Prisma.RubricCriterionListRelationFilter
   finalAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
 }, "id" | "slug">
 
 export type CourseOrderByWithAggregationInput = {
@@ -483,6 +486,7 @@ export type CourseCreateInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateInput = {
@@ -517,6 +521,7 @@ export type CourseUncheckedCreateInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUpdateInput = {
@@ -551,6 +556,7 @@ export type CourseUpdateInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateInput = {
@@ -585,6 +591,7 @@ export type CourseUncheckedUpdateInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateManyInput = {
@@ -1027,6 +1034,22 @@ export type CourseUpdateOneWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutNotificationsInput, Prisma.CourseUpdateWithoutNotificationsInput>, Prisma.CourseUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type CourseCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutConversationsInput, Prisma.CourseUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.CourseWhereUniqueInput
+}
+
+export type CourseUpdateOneWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CourseCreateWithoutConversationsInput, Prisma.CourseUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.CourseCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.CourseUpsertWithoutConversationsInput
+  disconnect?: Prisma.CourseWhereInput | boolean
+  delete?: Prisma.CourseWhereInput | boolean
+  connect?: Prisma.CourseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutConversationsInput, Prisma.CourseUpdateWithoutConversationsInput>, Prisma.CourseUncheckedUpdateWithoutConversationsInput>
+}
+
 export type CourseCreateWithoutSharedWithInput = {
   id?: string
   userId: string
@@ -1058,6 +1081,7 @@ export type CourseCreateWithoutSharedWithInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutSharedWithInput = {
@@ -1091,6 +1115,7 @@ export type CourseUncheckedCreateWithoutSharedWithInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutSharedWithInput = {
@@ -1168,6 +1193,7 @@ export type CourseCreateWithoutChaptersInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutChaptersInput = {
@@ -1201,6 +1227,7 @@ export type CourseUncheckedCreateWithoutChaptersInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutChaptersInput = {
@@ -1250,6 +1277,7 @@ export type CourseUpdateWithoutChaptersInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutChaptersInput = {
@@ -1283,6 +1311,7 @@ export type CourseUncheckedUpdateWithoutChaptersInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutExercisesInput = {
@@ -1316,6 +1345,7 @@ export type CourseCreateWithoutExercisesInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutExercisesInput = {
@@ -1349,6 +1379,7 @@ export type CourseUncheckedCreateWithoutExercisesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutExercisesInput = {
@@ -1398,6 +1429,7 @@ export type CourseUpdateWithoutExercisesInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutExercisesInput = {
@@ -1431,6 +1463,7 @@ export type CourseUncheckedUpdateWithoutExercisesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutAttachmentsInput = {
@@ -1464,6 +1497,7 @@ export type CourseCreateWithoutAttachmentsInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutAttachmentsInput = {
@@ -1497,6 +1531,7 @@ export type CourseUncheckedCreateWithoutAttachmentsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutAttachmentsInput = {
@@ -1546,6 +1581,7 @@ export type CourseUpdateWithoutAttachmentsInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutAttachmentsInput = {
@@ -1579,6 +1615,7 @@ export type CourseUncheckedUpdateWithoutAttachmentsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutFaecherInput = {
@@ -1612,6 +1649,7 @@ export type CourseCreateWithoutFaecherInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutFaecherInput = {
@@ -1645,6 +1683,7 @@ export type CourseUncheckedCreateWithoutFaecherInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutFaecherInput = {
@@ -1699,6 +1738,7 @@ export type CourseCreateWithoutCategoriesInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutCategoriesInput = {
@@ -1732,6 +1772,7 @@ export type CourseUncheckedCreateWithoutCategoriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutCategoriesInput = {
@@ -1786,6 +1827,7 @@ export type CourseCreateWithoutAwardedPointsInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutAwardedPointsInput = {
@@ -1819,6 +1861,7 @@ export type CourseUncheckedCreateWithoutAwardedPointsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutAwardedPointsInput = {
@@ -1868,6 +1911,7 @@ export type CourseUpdateWithoutAwardedPointsInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutAwardedPointsInput = {
@@ -1901,6 +1945,7 @@ export type CourseUncheckedUpdateWithoutAwardedPointsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutPurchasesInput = {
@@ -1934,6 +1979,7 @@ export type CourseCreateWithoutPurchasesInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutPurchasesInput = {
@@ -1967,6 +2013,7 @@ export type CourseUncheckedCreateWithoutPurchasesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutPurchasesInput = {
@@ -2016,6 +2063,7 @@ export type CourseUpdateWithoutPurchasesInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutPurchasesInput = {
@@ -2049,6 +2097,7 @@ export type CourseUncheckedUpdateWithoutPurchasesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutGradingsInput = {
@@ -2082,6 +2131,7 @@ export type CourseCreateWithoutGradingsInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutGradingsInput = {
@@ -2115,6 +2165,7 @@ export type CourseUncheckedCreateWithoutGradingsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutGradingsInput = {
@@ -2164,6 +2215,7 @@ export type CourseUpdateWithoutGradingsInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutGradingsInput = {
@@ -2197,6 +2249,7 @@ export type CourseUncheckedUpdateWithoutGradingsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutLearningPathStepsInput = {
@@ -2230,6 +2283,7 @@ export type CourseCreateWithoutLearningPathStepsInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutLearningPathStepsInput = {
@@ -2263,6 +2317,7 @@ export type CourseUncheckedCreateWithoutLearningPathStepsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutLearningPathStepsInput = {
@@ -2312,6 +2367,7 @@ export type CourseUpdateWithoutLearningPathStepsInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutLearningPathStepsInput = {
@@ -2345,6 +2401,7 @@ export type CourseUncheckedUpdateWithoutLearningPathStepsInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutJournalEntriesInput = {
@@ -2378,6 +2435,7 @@ export type CourseCreateWithoutJournalEntriesInput = {
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutJournalEntriesInput = {
@@ -2411,6 +2469,7 @@ export type CourseUncheckedCreateWithoutJournalEntriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutJournalEntriesInput = {
@@ -2460,6 +2519,7 @@ export type CourseUpdateWithoutJournalEntriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutJournalEntriesInput = {
@@ -2493,6 +2553,7 @@ export type CourseUncheckedUpdateWithoutJournalEntriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutRubricCriteriaInput = {
@@ -2526,6 +2587,7 @@ export type CourseCreateWithoutRubricCriteriaInput = {
   journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutRubricCriteriaInput = {
@@ -2559,6 +2621,7 @@ export type CourseUncheckedCreateWithoutRubricCriteriaInput = {
   journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutRubricCriteriaInput = {
@@ -2608,6 +2671,7 @@ export type CourseUpdateWithoutRubricCriteriaInput = {
   journalEntries?: Prisma.JournalEntryUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutRubricCriteriaInput = {
@@ -2641,6 +2705,7 @@ export type CourseUncheckedUpdateWithoutRubricCriteriaInput = {
   journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutFinalAssessmentsInput = {
@@ -2674,6 +2739,7 @@ export type CourseCreateWithoutFinalAssessmentsInput = {
   journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutCourseInput
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutFinalAssessmentsInput = {
@@ -2707,6 +2773,7 @@ export type CourseUncheckedCreateWithoutFinalAssessmentsInput = {
   journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutCourseInput
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutFinalAssessmentsInput = {
@@ -2756,6 +2823,7 @@ export type CourseUpdateWithoutFinalAssessmentsInput = {
   journalEntries?: Prisma.JournalEntryUpdateManyWithoutCourseNestedInput
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutFinalAssessmentsInput = {
@@ -2789,6 +2857,7 @@ export type CourseUncheckedUpdateWithoutFinalAssessmentsInput = {
   journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutCourseNestedInput
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseCreateWithoutNotificationsInput = {
@@ -2822,6 +2891,7 @@ export type CourseCreateWithoutNotificationsInput = {
   journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutCourseInput
   rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutCourseInput
 }
 
 export type CourseUncheckedCreateWithoutNotificationsInput = {
@@ -2855,6 +2925,7 @@ export type CourseUncheckedCreateWithoutNotificationsInput = {
   journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutCourseInput
   rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutCourseInput
 }
 
 export type CourseCreateOrConnectWithoutNotificationsInput = {
@@ -2904,6 +2975,7 @@ export type CourseUpdateWithoutNotificationsInput = {
   journalEntries?: Prisma.JournalEntryUpdateManyWithoutCourseNestedInput
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutNotificationsInput = {
@@ -2937,6 +3009,159 @@ export type CourseUncheckedUpdateWithoutNotificationsInput = {
   journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutCourseNestedInput
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseCreateWithoutConversationsInput = {
+  id?: string
+  userId: string
+  title: string
+  description?: string | null
+  longDescription?: string | null
+  slug?: string | null
+  fileKey?: string | null
+  prerequisites?: string | null
+  vorkenntnisse?: string | null
+  kompetenzen?: string | null
+  imageUrl?: string | null
+  schwierigkeit?: $Enums.DifficultyLevel | null
+  klassenstufe?: number | null
+  isPublished?: boolean
+  journalEntryXp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  faecher?: Prisma.FachCreateNestedManyWithoutCoursesInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutCoursesInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput
+  exercises?: Prisma.ExerciseCreateNestedManyWithoutCourseInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutCourseInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutCourseInput
+  gradings?: Prisma.GradingCreateNestedManyWithoutCourseInput
+  learningPathSteps?: Prisma.LearningPathStepCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserCreateNestedManyWithoutSharedCoursesInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutCourseInput
+  rubricCriteria?: Prisma.RubricCriterionCreateNestedManyWithoutCourseInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutCourseInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutCourseInput
+}
+
+export type CourseUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  userId: string
+  title: string
+  description?: string | null
+  longDescription?: string | null
+  slug?: string | null
+  fileKey?: string | null
+  prerequisites?: string | null
+  vorkenntnisse?: string | null
+  kompetenzen?: string | null
+  imageUrl?: string | null
+  schwierigkeit?: $Enums.DifficultyLevel | null
+  klassenstufe?: number | null
+  isPublished?: boolean
+  journalEntryXp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  faecher?: Prisma.FachUncheckedCreateNestedManyWithoutCoursesInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutCoursesInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutCourseInput
+  chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput
+  exercises?: Prisma.ExerciseUncheckedCreateNestedManyWithoutCourseInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutCourseInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutCourseInput
+  gradings?: Prisma.GradingUncheckedCreateNestedManyWithoutCourseInput
+  learningPathSteps?: Prisma.LearningPathStepUncheckedCreateNestedManyWithoutCourseInput
+  sharedWith?: Prisma.UserUncheckedCreateNestedManyWithoutSharedCoursesInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutCourseInput
+  rubricCriteria?: Prisma.RubricCriterionUncheckedCreateNestedManyWithoutCourseInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutCourseInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutCourseInput
+}
+
+export type CourseCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.CourseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CourseCreateWithoutConversationsInput, Prisma.CourseUncheckedCreateWithoutConversationsInput>
+}
+
+export type CourseUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.CourseUpdateWithoutConversationsInput, Prisma.CourseUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.CourseCreateWithoutConversationsInput, Prisma.CourseUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.CourseWhereInput
+}
+
+export type CourseUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.CourseWhereInput
+  data: Prisma.XOR<Prisma.CourseUpdateWithoutConversationsInput, Prisma.CourseUncheckedUpdateWithoutConversationsInput>
+}
+
+export type CourseUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prerequisites?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vorkenntnisse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kompetenzen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schwierigkeit?: Prisma.NullableEnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  journalEntryXp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  faecher?: Prisma.FachUpdateManyWithoutCoursesNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutCoursesNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutCourseNestedInput
+  chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput
+  exercises?: Prisma.ExerciseUpdateManyWithoutCourseNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutCourseNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutCourseNestedInput
+  gradings?: Prisma.GradingUpdateManyWithoutCourseNestedInput
+  learningPathSteps?: Prisma.LearningPathStepUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUpdateManyWithoutSharedCoursesNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutCourseNestedInput
+  rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+}
+
+export type CourseUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  longDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  prerequisites?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vorkenntnisse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  kompetenzen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  schwierigkeit?: Prisma.NullableEnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel | null
+  klassenstufe?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  journalEntryXp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  faecher?: Prisma.FachUncheckedUpdateManyWithoutCoursesNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutCoursesNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutCourseNestedInput
+  chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput
+  exercises?: Prisma.ExerciseUncheckedUpdateManyWithoutCourseNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutCourseNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutCourseNestedInput
+  gradings?: Prisma.GradingUncheckedUpdateManyWithoutCourseNestedInput
+  learningPathSteps?: Prisma.LearningPathStepUncheckedUpdateManyWithoutCourseNestedInput
+  sharedWith?: Prisma.UserUncheckedUpdateManyWithoutSharedCoursesNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutCourseNestedInput
+  rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUpdateWithoutSharedWithInput = {
@@ -2970,6 +3195,7 @@ export type CourseUpdateWithoutSharedWithInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutSharedWithInput = {
@@ -3003,6 +3229,7 @@ export type CourseUncheckedUpdateWithoutSharedWithInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutSharedWithInput = {
@@ -3056,6 +3283,7 @@ export type CourseUpdateWithoutFaecherInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutFaecherInput = {
@@ -3089,6 +3317,7 @@ export type CourseUncheckedUpdateWithoutFaecherInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutFaecherInput = {
@@ -3142,6 +3371,7 @@ export type CourseUpdateWithoutCategoriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateWithoutCategoriesInput = {
@@ -3175,6 +3405,7 @@ export type CourseUncheckedUpdateWithoutCategoriesInput = {
   rubricCriteria?: Prisma.RubricCriterionUncheckedUpdateManyWithoutCourseNestedInput
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutCourseNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutCourseNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutCourseNestedInput
 }
 
 export type CourseUncheckedUpdateManyWithoutCategoriesInput = {
@@ -3217,6 +3448,7 @@ export type CourseCountOutputType = {
   rubricCriteria: number
   finalAssessments: number
   notifications: number
+  conversations: number
 }
 
 export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3234,6 +3466,7 @@ export type CourseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   rubricCriteria?: boolean | CourseCountOutputTypeCountRubricCriteriaArgs
   finalAssessments?: boolean | CourseCountOutputTypeCountFinalAssessmentsArgs
   notifications?: boolean | CourseCountOutputTypeCountNotificationsArgs
+  conversations?: boolean | CourseCountOutputTypeCountConversationsArgs
 }
 
 /**
@@ -3344,6 +3577,13 @@ export type CourseCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * CourseCountOutputType without action
+ */
+export type CourseCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
 
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3377,6 +3617,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   rubricCriteria?: boolean | Prisma.Course$rubricCriteriaArgs<ExtArgs>
   finalAssessments?: boolean | Prisma.Course$finalAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.Course$notificationsArgs<ExtArgs>
+  conversations?: boolean | Prisma.Course$conversationsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["course"]>
 
@@ -3456,6 +3697,7 @@ export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rubricCriteria?: boolean | Prisma.Course$rubricCriteriaArgs<ExtArgs>
   finalAssessments?: boolean | Prisma.Course$finalAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.Course$notificationsArgs<ExtArgs>
+  conversations?: boolean | Prisma.Course$conversationsArgs<ExtArgs>
   _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CourseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3478,6 +3720,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     rubricCriteria: Prisma.$RubricCriterionPayload<ExtArgs>[]
     finalAssessments: Prisma.$FinalAssessmentPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3905,6 +4148,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
   rubricCriteria<T extends Prisma.Course$rubricCriteriaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$rubricCriteriaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RubricCriterionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   finalAssessments<T extends Prisma.Course$finalAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$finalAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinalAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Course$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.Course$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Course$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4672,6 +4916,30 @@ export type Course$notificationsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * Course.conversations
+ */
+export type Course$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
 }
 
 /**

@@ -271,6 +271,10 @@ export type UserWhereInput = {
   gradedAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   triggeredNotifications?: Prisma.NotificationListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  directConversations?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  conversationReads?: Prisma.ConversationReadListRelationFilter
   profileChanges?: Prisma.ProfileChangeListRelationFilter
   profileChangesMade?: Prisma.ProfileChangeListRelationFilter
 }
@@ -307,6 +311,10 @@ export type UserOrderByWithRelationInput = {
   gradedAssessments?: Prisma.FinalAssessmentOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   triggeredNotifications?: Prisma.NotificationOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
+  directConversations?: Prisma.ConversationOrderByRelationAggregateInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
+  conversationReads?: Prisma.ConversationReadOrderByRelationAggregateInput
   profileChanges?: Prisma.ProfileChangeOrderByRelationAggregateInput
   profileChangesMade?: Prisma.ProfileChangeOrderByRelationAggregateInput
 }
@@ -346,6 +354,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   gradedAssessments?: Prisma.FinalAssessmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   triggeredNotifications?: Prisma.NotificationListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  directConversations?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  conversationReads?: Prisma.ConversationReadListRelationFilter
   profileChanges?: Prisma.ProfileChangeListRelationFilter
   profileChangesMade?: Prisma.ProfileChangeListRelationFilter
 }, "id" | "slug" | "email">
@@ -422,6 +434,10 @@ export type UserCreateInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -458,6 +474,10 @@ export type UserUncheckedCreateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -494,6 +514,10 @@ export type UserUpdateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -530,6 +554,10 @@ export type UserUncheckedUpdateInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -966,6 +994,66 @@ export type UserUpdateOneWithoutProfileChangesMadeNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileChangesMadeInput, Prisma.UserUpdateWithoutProfileChangesMadeInput>, Prisma.UserUncheckedUpdateWithoutProfileChangesMadeInput>
 }
 
+export type UserCreateNestedOneWithoutDirectConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDirectConversationsInput, Prisma.UserUncheckedCreateWithoutDirectConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDirectConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDirectConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDirectConversationsInput, Prisma.UserUncheckedCreateWithoutDirectConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDirectConversationsInput
+  upsert?: Prisma.UserUpsertWithoutDirectConversationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDirectConversationsInput, Prisma.UserUpdateWithoutDirectConversationsInput>, Prisma.UserUncheckedUpdateWithoutDirectConversationsInput>
+}
+
+export type UserUpdateOneRequiredWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.UserUpsertWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsInput, Prisma.UserUpdateWithoutConversationsInput>, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
+  upsert?: Prisma.UserUpsertWithoutMessagesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutConversationReadsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationReadsInput, Prisma.UserUncheckedCreateWithoutConversationReadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationReadsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationReadsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationReadsInput, Prisma.UserUncheckedCreateWithoutConversationReadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationReadsInput
+  upsert?: Prisma.UserUpsertWithoutConversationReadsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationReadsInput, Prisma.UserUpdateWithoutConversationReadsInput>, Prisma.UserUncheckedUpdateWithoutConversationReadsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
@@ -997,6 +1085,10 @@ export type UserCreateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1032,6 +1124,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1083,6 +1179,10 @@ export type UserUpdateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -1118,6 +1218,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1153,6 +1257,10 @@ export type UserCreateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1188,6 +1296,10 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1239,6 +1351,10 @@ export type UserUpdateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -1274,6 +1390,10 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1309,6 +1429,10 @@ export type UserCreateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1344,6 +1468,10 @@ export type UserUncheckedCreateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1420,6 +1548,10 @@ export type UserCreateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1455,6 +1587,10 @@ export type UserUncheckedCreateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1506,6 +1642,10 @@ export type UserUpdateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -1541,6 +1681,10 @@ export type UserUncheckedUpdateWithoutExerciseAttemptsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1576,6 +1720,10 @@ export type UserCreateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1611,6 +1759,10 @@ export type UserUncheckedCreateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1662,6 +1814,10 @@ export type UserUpdateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -1697,6 +1853,10 @@ export type UserUncheckedUpdateWithoutAttachmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1732,6 +1892,10 @@ export type UserCreateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1767,6 +1931,10 @@ export type UserUncheckedCreateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1818,6 +1986,10 @@ export type UserUpdateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -1853,6 +2025,10 @@ export type UserUncheckedUpdateWithoutUserFachExperiencesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1888,6 +2064,10 @@ export type UserCreateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -1923,6 +2103,10 @@ export type UserUncheckedCreateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1974,6 +2158,10 @@ export type UserUpdateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2009,6 +2197,10 @@ export type UserUncheckedUpdateWithoutAwardedPointsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2044,6 +2236,10 @@ export type UserCreateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2079,6 +2275,10 @@ export type UserUncheckedCreateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2130,6 +2330,10 @@ export type UserUpdateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2165,6 +2369,10 @@ export type UserUncheckedUpdateWithoutOwnedLearningPathsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2200,6 +2408,10 @@ export type UserCreateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2235,6 +2447,10 @@ export type UserUncheckedCreateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2286,6 +2502,10 @@ export type UserUpdateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2321,6 +2541,10 @@ export type UserUncheckedUpdateWithoutLearningPathEnrollmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2356,6 +2580,10 @@ export type UserCreateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2391,6 +2619,10 @@ export type UserUncheckedCreateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2442,6 +2674,10 @@ export type UserUpdateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2477,6 +2713,10 @@ export type UserUncheckedUpdateWithoutLearningPathStepCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2512,6 +2752,10 @@ export type UserCreateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2547,6 +2791,10 @@ export type UserUncheckedCreateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2598,6 +2846,10 @@ export type UserUpdateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2633,6 +2885,10 @@ export type UserUncheckedUpdateWithoutLearningPathCompletionsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2668,6 +2924,10 @@ export type UserCreateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2703,6 +2963,10 @@ export type UserUncheckedCreateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2754,6 +3018,10 @@ export type UserUpdateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2789,6 +3057,10 @@ export type UserUncheckedUpdateWithoutJournalEntriesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2824,6 +3096,10 @@ export type UserCreateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -2859,6 +3135,10 @@ export type UserUncheckedCreateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -2910,6 +3190,10 @@ export type UserUpdateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -2945,6 +3229,10 @@ export type UserUncheckedUpdateWithoutJournalEventsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -2980,6 +3268,10 @@ export type UserCreateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -3015,6 +3307,10 @@ export type UserUncheckedCreateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -3055,6 +3351,10 @@ export type UserCreateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -3090,6 +3390,10 @@ export type UserUncheckedCreateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -3141,6 +3445,10 @@ export type UserUpdateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -3176,6 +3484,10 @@ export type UserUncheckedUpdateWithoutFinalAssessmentsInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -3222,6 +3534,10 @@ export type UserUpdateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -3257,6 +3573,10 @@ export type UserUncheckedUpdateWithoutGradedAssessmentsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -3292,6 +3612,10 @@ export type UserCreateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -3327,6 +3651,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -3367,6 +3695,10 @@ export type UserCreateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
@@ -3402,6 +3734,10 @@ export type UserUncheckedCreateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
@@ -3453,6 +3789,10 @@ export type UserUpdateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -3488,6 +3828,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -3534,6 +3878,10 @@ export type UserUpdateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -3569,6 +3917,10 @@ export type UserUncheckedUpdateWithoutTriggeredNotificationsInput = {
   finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -3605,6 +3957,10 @@ export type UserCreateWithoutProfileChangesInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
 }
 
@@ -3640,6 +3996,10 @@ export type UserUncheckedCreateWithoutProfileChangesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
 }
 
@@ -3680,6 +4040,10 @@ export type UserCreateWithoutProfileChangesMadeInput = {
   gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
 }
 
@@ -3715,6 +4079,10 @@ export type UserUncheckedCreateWithoutProfileChangesMadeInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
   profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -3766,6 +4134,10 @@ export type UserUpdateWithoutProfileChangesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
 
@@ -3801,6 +4173,10 @@ export type UserUncheckedUpdateWithoutProfileChangesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
@@ -3847,6 +4223,10 @@ export type UserUpdateWithoutProfileChangesMadeInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
 }
 
@@ -3882,7 +4262,699 @@ export type UserUncheckedUpdateWithoutProfileChangesMadeInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDirectConversationsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutDirectConversationsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutDirectConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDirectConversationsInput, Prisma.UserUncheckedCreateWithoutDirectConversationsInput>
+}
+
+export type UserCreateWithoutConversationsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+}
+
+export type UserUpsertWithoutDirectConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDirectConversationsInput, Prisma.UserUncheckedUpdateWithoutDirectConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDirectConversationsInput, Prisma.UserUncheckedCreateWithoutDirectConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDirectConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDirectConversationsInput, Prisma.UserUncheckedUpdateWithoutDirectConversationsInput>
+}
+
+export type UserUpdateWithoutDirectConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDirectConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutMessagesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  conversationReads?: Prisma.ConversationReadCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutMessagesInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  conversationReads?: Prisma.ConversationReadUncheckedCreateNestedManyWithoutUserInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+}
+
+export type UserUpsertWithoutMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutConversationReadsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageCreateNestedManyWithoutAuthorInput
+  profileChanges?: Prisma.ProfileChangeCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutConversationReadsInput = {
+  id?: string
+  name: string
+  slug?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isTeacher?: boolean | null
+  isAdmin?: boolean | null
+  jahrgang?: string | null
+  klasse?: string | null
+  teacherRequestedAt?: Date | string | null
+  approvedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedCreateNestedManyWithoutUserInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedCreateNestedManyWithoutUserInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUserInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedCreateNestedManyWithoutOwnerInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedCreateNestedManyWithoutUserInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedCreateNestedManyWithoutUserInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedCreateNestedManyWithoutUserInput
+  sharedCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutSharedWithInput
+  journalEntries?: Prisma.JournalEntryUncheckedCreateNestedManyWithoutUserInput
+  journalEvents?: Prisma.JournalEventUncheckedCreateNestedManyWithoutAuthorInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutUserInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedCreateNestedManyWithoutGradedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  triggeredNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  directConversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutTeacherInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutAuthorInput
+  profileChanges?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutUserInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutConversationReadsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationReadsInput, Prisma.UserUncheckedCreateWithoutConversationReadsInput>
+}
+
+export type UserUpsertWithoutConversationReadsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationReadsInput, Prisma.UserUncheckedUpdateWithoutConversationReadsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationReadsInput, Prisma.UserUncheckedCreateWithoutConversationReadsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationReadsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationReadsInput, Prisma.UserUncheckedUpdateWithoutConversationReadsInput>
+}
+
+export type UserUpdateWithoutConversationReadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationReadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isTeacher?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  isAdmin?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  jahrgang?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  klasse?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  teacherRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  userFachExperiences?: Prisma.UserFachExperienceUncheckedUpdateManyWithoutUserNestedInput
+  awardedPoints?: Prisma.AwardedPointsUncheckedUpdateManyWithoutUserNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUserNestedInput
+  ownedLearningPaths?: Prisma.LearningPathUncheckedUpdateManyWithoutOwnerNestedInput
+  learningPathEnrollments?: Prisma.LearningPathEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  learningPathStepCompletions?: Prisma.LearningPathStepCompletionUncheckedUpdateManyWithoutUserNestedInput
+  learningPathCompletions?: Prisma.LearningPathCompletionUncheckedUpdateManyWithoutUserNestedInput
+  exerciseAttempts?: Prisma.ExerciseAttemptUncheckedUpdateManyWithoutUserNestedInput
+  sharedCourses?: Prisma.CourseUncheckedUpdateManyWithoutSharedWithNestedInput
+  journalEntries?: Prisma.JournalEntryUncheckedUpdateManyWithoutUserNestedInput
+  journalEvents?: Prisma.JournalEventUncheckedUpdateManyWithoutAuthorNestedInput
+  finalAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutUserNestedInput
+  gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
+  profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpdateWithoutSharedCoursesInput = {
@@ -3916,6 +4988,10 @@ export type UserUpdateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUpdateManyWithoutActorNestedInput
 }
@@ -3951,6 +5027,10 @@ export type UserUncheckedUpdateWithoutSharedCoursesInput = {
   gradedAssessments?: Prisma.FinalAssessmentUncheckedUpdateManyWithoutGradedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   triggeredNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  directConversations?: Prisma.ConversationUncheckedUpdateManyWithoutTeacherNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutAuthorNestedInput
+  conversationReads?: Prisma.ConversationReadUncheckedUpdateManyWithoutUserNestedInput
   profileChanges?: Prisma.ProfileChangeUncheckedUpdateManyWithoutUserNestedInput
   profileChangesMade?: Prisma.ProfileChangeUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -3995,6 +5075,10 @@ export type UserCountOutputType = {
   gradedAssessments: number
   notifications: number
   triggeredNotifications: number
+  conversations: number
+  directConversations: number
+  messages: number
+  conversationReads: number
   profileChanges: number
   profileChangesMade: number
 }
@@ -4017,6 +5101,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   gradedAssessments?: boolean | UserCountOutputTypeCountGradedAssessmentsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   triggeredNotifications?: boolean | UserCountOutputTypeCountTriggeredNotificationsArgs
+  conversations?: boolean | UserCountOutputTypeCountConversationsArgs
+  directConversations?: boolean | UserCountOutputTypeCountDirectConversationsArgs
+  messages?: boolean | UserCountOutputTypeCountMessagesArgs
+  conversationReads?: boolean | UserCountOutputTypeCountConversationReadsArgs
   profileChanges?: boolean | UserCountOutputTypeCountProfileChangesArgs
   profileChangesMade?: boolean | UserCountOutputTypeCountProfileChangesMadeArgs
 }
@@ -4153,6 +5241,34 @@ export type UserCountOutputTypeCountTriggeredNotificationsArgs<ExtArgs extends r
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDirectConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationReadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationReadWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountProfileChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProfileChangeWhereInput
 }
@@ -4197,6 +5313,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   gradedAssessments?: boolean | Prisma.User$gradedAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   triggeredNotifications?: boolean | Prisma.User$triggeredNotificationsArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  directConversations?: boolean | Prisma.User$directConversationsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  conversationReads?: boolean | Prisma.User$conversationReadsArgs<ExtArgs>
   profileChanges?: boolean | Prisma.User$profileChangesArgs<ExtArgs>
   profileChangesMade?: boolean | Prisma.User$profileChangesMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4272,6 +5392,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   gradedAssessments?: boolean | Prisma.User$gradedAssessmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   triggeredNotifications?: boolean | Prisma.User$triggeredNotificationsArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  directConversations?: boolean | Prisma.User$directConversationsArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  conversationReads?: boolean | Prisma.User$conversationReadsArgs<ExtArgs>
   profileChanges?: boolean | Prisma.User$profileChangesArgs<ExtArgs>
   profileChangesMade?: boolean | Prisma.User$profileChangesMadeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4299,6 +5423,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     gradedAssessments: Prisma.$FinalAssessmentPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     triggeredNotifications: Prisma.$NotificationPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
+    directConversations: Prisma.$ConversationPayload<ExtArgs>[]
+    messages: Prisma.$MessagePayload<ExtArgs>[]
+    conversationReads: Prisma.$ConversationReadPayload<ExtArgs>[]
     profileChanges: Prisma.$ProfileChangePayload<ExtArgs>[]
     profileChangesMade: Prisma.$ProfileChangePayload<ExtArgs>[]
   }
@@ -4728,6 +5856,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   gradedAssessments<T extends Prisma.User$gradedAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gradedAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FinalAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   triggeredNotifications<T extends Prisma.User$triggeredNotificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$triggeredNotificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.User$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  directConversations<T extends Prisma.User$directConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$directConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationReads<T extends Prisma.User$conversationReadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationReadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileChanges<T extends Prisma.User$profileChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   profileChangesMade<T extends Prisma.User$profileChangesMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileChangesMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProfileChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -5566,6 +6698,102 @@ export type User$triggeredNotificationsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.conversations
+ */
+export type User$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.directConversations
+ */
+export type User$directConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.messages
+ */
+export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.conversationReads
+ */
+export type User$conversationReadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversationRead
+   */
+  select?: Prisma.ConversationReadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversationRead
+   */
+  omit?: Prisma.ConversationReadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationReadInclude<ExtArgs> | null
+  where?: Prisma.ConversationReadWhereInput
+  orderBy?: Prisma.ConversationReadOrderByWithRelationInput | Prisma.ConversationReadOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationReadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationReadScalarFieldEnum | Prisma.ConversationReadScalarFieldEnum[]
 }
 
 /**
